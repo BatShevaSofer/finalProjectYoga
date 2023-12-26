@@ -28,31 +28,20 @@ export const Header = () => {
             <div>
               <ul className='nav'>
                 <li>
-                  <Link to="/home">Home</Link>
+
+              
+
+                  <Link to="/signIn">signIn</Link>
+
+
                 </li>
                 <li>
-                  <Link to="/about">About</Link>
+                  <Link to="/login">login</Link>
+
                 </li>
-                <li>
-                  <Link to="/training_programs">training programs</Link>
-                </li>
-                <li>
-                  <Link to="/teachers">Our teachers</Link>
-                </li>
+
               </ul>
-              <div>
-                <ul className='nav'>
-                  <li>
-                    <Link to="/signUp">signUp</Link>
-
-                  </li>
-                  <li>
-                    <Link to="/login">login</Link>
-
-                  </li>
-
-                </ul>
-              </div>
+            </div>
           </nav>
         </div>
       </div>
