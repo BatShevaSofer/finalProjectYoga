@@ -1,15 +1,15 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-
+const mongoose = require("mongoose");
 const router = express.Router();
 const { validLogin, UserModel, validUser } = require('../models/user.model');
-const {createToken} =require('../middlewares/auth')
+const { createToken } = require('../middlewares/auth')
 
 
-router.get("/" , (req,res)=> {
-    res.json({msg:"courses api work !"})
-  })
-  
+router.get("/", (req, res) => {
+  res.json({ msg: "courses api work !" })
+})
+
 router.post("/signup", async (req, res) => {
   let validBody = validUser(req.body);
   if (validBody.error) {
@@ -36,7 +36,7 @@ router.post("/signup", async (req, res) => {
     else {
       user.ageGroup = "adult"
     }
-
+    user.course_id = null;
     await user.save();
     user.password = "***";
     res.status(201).json(user);
@@ -52,25 +52,25 @@ router.post("/signup", async (req, res) => {
 })
 
 router.post("/login", async (req, res) => {
-    let validBody = validLogin(req.body);
-    if (validBody.error) {
-      return res.status(400).json(validBody.error.details);
+  let validBody = validLogin(req.body);
+  if (validBody.error) {
+    return res.status(400).json(validBody.error.details);
+  }
+  try {
+    let user = await UserModel.findOne({ email: req.body.email })
+    if (!user) {
+      return res.status(401).json({ msg: "email is worng" })
     }
-    try {
-      let user = await UserModel.findOne({ email: req.body.email })
-      if (!user) {
-        return res.status(401).json({ msg:"email is worng" })
-      }
-      let authPassword = await bcrypt.compare(req.body.password, user.password);
-      if (!authPassword) {
-        return res.status(401).json({ msg: "Password is worng" });
-      }
-      let token = createToken(user._id, user.role);
-      res.json({ token });
+    let authPassword = await bcrypt.compare(req.body.password, user.password);
+    if (!authPassword) {
+      return res.status(401).json({ msg: "Password is worng" });
     }
-    catch (err) {
-      console.log(err)
-      res.status(500).json({ msg: "err", err })
-    }
-  })
+    let token = createToken(user._id, user.role);
+    res.json({ token });
+  }
+  catch (err) {
+    console.log(err)
+    res.status(500).json({ msg: "err", err })
+  }
+})
 module.exports = router;

@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const { config } = require("../config/secret")
 
 exports.createToken = (_id, role) => {
-    let token = jwt.sign({ _id, role }, config.tokenSecret, { expiresIn: "1440mins" });
+    let token = jwt.sign({ _id, role }, config.tokenSecret, { expiresIn: "140000mins" });
     return token;
 }
 
@@ -14,7 +14,7 @@ exports.createToken = (_id, role) => {
 //     }
 //     try {
 //         let decodeToken = jwt.verify(token, config.tokenSecret);
-//         // add to req , so the next function will recognize
+//         // add to req , so the next function will recognize0
 //         // the tokenData/decodeToken
 //         req.tokenData = decodeToken;
 
@@ -80,7 +80,7 @@ exports.authStudent = (req, res, next) => {
     try {
         let decodeToken = jwt.verify(token, config.tokenSecret);
         // check if the role in the token of admin
-        if (decodeToken.role != "student") {
+        if (decodeToken.role != "user") {
             return res.status(401).json({ msg: "Token invalid or expired, code: 3" })
         }
 

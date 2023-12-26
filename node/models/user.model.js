@@ -81,7 +81,8 @@ exports.validUser = (_reqBody) => {
             city: Joi.string().min(2).max(99).required(),
             street: Joi.string().min(2).max(99).required(),
             home: Joi.number().required()
-        })
+        }),
+        course_id: Joi.string().allow(null, '')
     })
 
     return joiSchema.validate(_reqBody);

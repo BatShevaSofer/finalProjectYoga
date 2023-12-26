@@ -37,7 +37,7 @@ router.get("/courses", authTeacher, async (req, res) => {
     // const teacherInfo   n=await TeacherModel.findOne({ idUser:userId  });
     // const teacherCourses = await CourseModel.find({ _id: { $in: teacherInfo.courses } }) || [];
 
-    res.json(teacherCourses);
+    res.json(teacherInfo);
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: "Internal server error", error: err.message });

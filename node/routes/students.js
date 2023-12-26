@@ -2,10 +2,11 @@ const express= require("express");
 const router = express.Router();
 const {authStudent} =require('../middlewares/auth');
 const { CourseModel } = require("../models/course.model");
+const { UserModel } = require("../models/user.model");
 
 
 
-router.get("/:id", authStudent, async (req, res) => {
+router.get("/", authStudent, async (req, res) => {
     try {
       let userInfo = await UserModel.findOne({ _id: req.tokenData._id }, { password: 0 });
       res.json(userInfo);
@@ -18,9 +19,9 @@ router.get("/:id", authStudent, async (req, res) => {
 
   router.get("/course", authStudent, async (req, res) => {
     try {
-      let courseId = await UserModel.findOne({ _id: req.tokenData._id }, {course_id: 1});
-      let courseInfo = await CourseModel.find({_id: { }})
-      res.json(courseInfo);
+      let courseId = await UserModel.findOne({ _id: req.tokenData._id }).populate('courses');
+      // let courseInfo = await CourseModel.find({_id: { }})
+      res.json(courseId);
     }
     catch (err) {
       console.log(err)

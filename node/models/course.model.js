@@ -8,7 +8,7 @@ const courseSchema = new mongoose.Schema({
     ageGroup: String,
     students: [mongoose.ObjectId], // Define students as an array of strings
     dateTime: {
-        date: Date,
+        day: String,
         hour: Number
         // hour: String
     },
@@ -27,7 +27,7 @@ exports.validateCourse = (_reqBody) => {
         ageGroup: Joi.string().min(2).max(99).required(),
         // students: Joi.array().items(Joi.string().min(2).max(200)).allow(null, ""), // Use Joi.array() for an array of strings
         dateTime: Joi.object({
-            date: Joi.date().required(),
+            day: Joi.string().required(),
             hour: Joi.number().min(2).max(20).required()
             // hour: Joi.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).required()
 

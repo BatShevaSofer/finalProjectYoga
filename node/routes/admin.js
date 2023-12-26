@@ -9,7 +9,9 @@ router.get("/", (req, res) => {
   res.json({ msg: "admin api work !" })
 })
 
-router.get("/course", authAdmin, async (req, res) => {
+
+
+router.get("/courses", authAdmin, async (req, res) => {
   try {
     let data = await CourseModel.find({}).limit(10);
     res.json(data)
@@ -19,6 +21,9 @@ router.get("/course", authAdmin, async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
+
+
+
 router.get("/course/:id", authAdmin, async (req, res) => {
   let userID = req.params.id;
   try {
@@ -30,6 +35,9 @@ router.get("/course/:id", authAdmin, async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
+
+
+
 router.get("/teachers", authAdmin, async (req, res) => {
   try {
     let data = await TeacherModel.find({}).limit(10);
@@ -91,6 +99,20 @@ router.post("/course", authAdmin, async (req, res) => {
 
 });
 
+router.patch("/course/:idCourse/teacher/:idteacher", authAdmin, async (req, res) => {
+  try {
+    let idCourse = req.params.idCourse;
+    let idTeacher = req.params.idteacher;
+    let data = await CourseModel.updateOne({ _id: idCourse }, { teacherId: idTeacher });
+    res.json({ "data": data});
+  } 
+  catch (err) {
+    console.log(err)
+    res.status(500).json({ msg: "err", err })
+  }
+});
+
+
 router.patch("/teacher/:id", authAdmin, async (req, res) => {
   try {
     let userID = req.params.id;
@@ -99,8 +121,10 @@ router.patch("/teacher/:id", authAdmin, async (req, res) => {
       user_id: userID,
       courses: []
     };
-    
-    res.json(data);
+    let newTeach = new TeacherModel(teacher);
+    await newTeach.save();
+
+    res.json({ "data": data, "teacher": teacher });
   }
   catch (err) {
     console.log(err)
