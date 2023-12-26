@@ -13,7 +13,15 @@ router.get("/", (req, res) => {
 
 router.get("/courses", authAdmin, async (req, res) => {
   try {
-    let data = await CourseModel.find({}).limit(10);
+    let data = await CourseModel.find({})
+      .limit(10)
+      .populate({
+        path: 'teacherId',
+        populate: {
+          path: 'user_id',
+          select: 'name image_url'
+        }
+      });
     res.json(data)
   }
   catch (err) {
@@ -27,7 +35,14 @@ router.get("/courses", authAdmin, async (req, res) => {
 router.get("/course/:id", authAdmin, async (req, res) => {
   let userID = req.params.id;
   try {
-    let data = await CourseModel.findOne({ _id: userID });
+    let data = await CourseModel.findOne({ _id: userID })
+      .populate({
+        path: 'teacherId',
+        populate: {
+          path: 'user_id',
+          select: 'name image_url'
+        }
+      });
     res.json(data)
   }
   catch (err) {
@@ -40,7 +55,12 @@ router.get("/course/:id", authAdmin, async (req, res) => {
 
 router.get("/teachers", authAdmin, async (req, res) => {
   try {
-    let data = await TeacherModel.find({}).limit(10);
+    let data = await TeacherModel.find({})
+      .limit(10)
+      .populate({
+        path: 'user_id',
+        select: 'name image_url'
+      })
     res.json(data)
   }
   catch (err) {
@@ -48,10 +68,13 @@ router.get("/teachers", authAdmin, async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
+
+
+
 router.get("/teachers/:id", authAdmin, async (req, res) => {
   let userID = req.params.id;
   try {
-    let data = await TeacherModel.findOne({ _id: userID });
+    let data = await TeacherModel.findOne({ _id: userID }).populate('user_id').populate('courses');
     res.json(data)
   }
   catch (err) {
@@ -59,6 +82,9 @@ router.get("/teachers/:id", authAdmin, async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
+
+
+
 router.get("/students", authAdmin, async (req, res) => {
   try {
     let data = await UserModel.find({}).limit(10);
@@ -69,6 +95,9 @@ router.get("/students", authAdmin, async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
+
+
+
 router.get("/students/:id", authAdmin, async (req, res) => {
   let userID = req.params.id;
   try {
@@ -99,13 +128,24 @@ router.post("/course", authAdmin, async (req, res) => {
 
 });
 
+
 router.patch("/course/:idCourse/teacher/:idteacher", authAdmin, async (req, res) => {
   try {
     let idCourse = req.params.idCourse;
     let idTeacher = req.params.idteacher;
+
+    // עדכון הקורס עצמו
     let data = await CourseModel.updateOne({ _id: idCourse }, { teacherId: idTeacher });
-    res.json({ "data": data});
-  } 
+
+    // משיג את המורה שאליו יש לעדכן את מערך הקורסים
+    let teacher = await TeacherModel.findById(idTeacher);
+
+    // עדכון מערך הקורסים בתוך המורה
+    teacher.courses.push(idCourse);
+    await teacher.save();
+
+    res.json({ "data": data });
+  }
   catch (err) {
     console.log(err)
     res.status(500).json({ msg: "err", err })
@@ -113,6 +153,8 @@ router.patch("/course/:idCourse/teacher/:idteacher", authAdmin, async (req, res)
 });
 
 
+
+//הופך מתלמיד למורה ומוסיף לטבלת teachers
 router.patch("/teacher/:id", authAdmin, async (req, res) => {
   try {
     let userID = req.params.id;
@@ -131,9 +173,6 @@ router.patch("/teacher/:id", authAdmin, async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 });
-
-
-
 
 
 

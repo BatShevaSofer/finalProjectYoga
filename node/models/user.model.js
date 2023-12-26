@@ -18,6 +18,7 @@ let userSchema = new mongoose.Schema({
         unique: true
     },
     phone: String,
+    
     role: {
         type: String,
         enum: {
@@ -54,7 +55,7 @@ let userSchema = new mongoose.Schema({
         },
         required: true
     },
-    course_id: mongoose.ObjectId,
+    course_id: { type: mongoose.ObjectId, ref: 'courses' },
 
 })
 

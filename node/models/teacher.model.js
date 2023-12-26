@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 
 let teacherSchema = new mongoose.Schema({
-    user_id: String,
-    courses: [mongoose.ObjectId],
+    user_id: { type: mongoose.ObjectId, ref: 'users' },
+    courses: [{ type: mongoose.ObjectId, ref: 'courses' }],
     date_created: {
         type: Date, default: Date.now()
     }

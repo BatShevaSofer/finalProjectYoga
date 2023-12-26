@@ -10,6 +10,7 @@ router.get("/", (req, res) => {
   res.json({ msg: "courses api work !" })
 })
 
+
 router.post("/signup", async (req, res) => {
   let validBody = validUser(req.body);
   if (validBody.error) {
@@ -36,7 +37,8 @@ router.post("/signup", async (req, res) => {
     else {
       user.ageGroup = "adult"
     }
-    user.course_id = null;
+    user.course_id = user.course_id || null;
+    user.image_url = user.image_url || "";
     await user.save();
     user.password = "***";
     res.status(201).json(user);
@@ -66,7 +68,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ msg: "Password is worng" });
     }
     let token = createToken(user._id, user.role);
-    res.json({ token });
+    res.json({ token, "role": user.role });
   }
   catch (err) {
     console.log(err)

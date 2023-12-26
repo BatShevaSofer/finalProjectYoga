@@ -19,7 +19,7 @@ router.get("/", authStudent, async (req, res) => {
 
   router.get("/course", authStudent, async (req, res) => {
     try {
-      let courseId = await UserModel.findOne({ _id: req.tokenData._id }).populate('courses');
+      let courseId = await UserModel.findOne({ _id: req.tokenData._id }, {course_id: 1}).populate('course_id');
       // let courseInfo = await CourseModel.find({_id: { }})
       res.json(courseId);
     }

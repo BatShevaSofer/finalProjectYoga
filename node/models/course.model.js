@@ -12,7 +12,7 @@ const courseSchema = new mongoose.Schema({
         hour: Number
         // hour: String
     },
-    teacherId: String,
+    teacherId: { type: mongoose.ObjectId, ref: 'teachers' },
     date_created: {
         type: Date, default: Date.now()
     },
