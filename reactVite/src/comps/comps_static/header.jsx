@@ -28,7 +28,7 @@ export const Header = () => {
              <div>
                 <ul className='nav'>
                     <li>
-                    <Link to="/signIn">signIn</Link>
+                    <Link to="/signUp">signUp</Link>
 
                     </li>
                     <li>
