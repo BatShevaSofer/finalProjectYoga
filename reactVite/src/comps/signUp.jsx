@@ -25,10 +25,20 @@ const Signup = () => {
     const [image, setImage] = useState(null);
     const [hmo, setHmo] = useState('');
     const [birthdate, setBirthdate] = useState('');
-    const [city, setCity] = useState('');
-    const [cities, setCities] = useState([]);
+    // const [city, setCity] = useState('');
+    // const [cities, setCities] = useState([]);
     const [dataS, setDataS] = useState('');
     const { signUp } = useMain();
+    const api_url = 'https://data.gov.il/api/3/action/datastore_search';
+    const cities_resource_id = '5c78e9fa-c2e2-4771-93ff-7f400a12f7ba';
+    const streets_resource_id = 'a7296d1a-f8c9-4b70-96c2-6ebb4352f8e3';
+    const city_name_key = 'שם_ישוב';
+    const street_name_key = 'שם_רחוב';
+  
+    // State
+    const [cities, setCities] = useState([]);
+    const [streets, setStreets] = useState([]);
+    const [selectedCity, setSelectedCity] = useState('');
 
     const handleIdNumberChange = (event) => {
         setIdNumber(event.target.value);
@@ -68,28 +78,69 @@ const Signup = () => {
     };
 
 
-    const handleCityChange = (event) => {
-        setCity(event.target.value);
-    };
+    // const handleCityChange = (event) => {
+    //     setCity(event.target.value);
+    // };
 
     useEffect(() => {
         console.log(dataS);
 
     }, [dataS])
-    useEffect(() => {
-        // Fetch cities from the API
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(' https://data.gov.il/api/3/action/datastore_search?resource_id=d4901968-dad3-4845-a9b0-a57d027f11ab&limit=300');
+    // useEffect(() => {
+    //     // Fetch cities from the API
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get(' https://data.gov.il/api/3/action/datastore_search?resource_id=d4901968-dad3-4845-a9b0-a57d027f11ab');
 
-                setCities(response.data.result.records);
-            } catch (error) {
-                console.error('Error fetching cities:', error);
-            }
-        };
+    //             setCities(response.data.result.records);
+    //         } catch (error) {
+    //             console.error('Error fetching cities:', error);
+    //         }
+    //     };
 
-        fetchData();
-    }, []);
+    //     fetchData();
+    // }, []);
+
+    // Fetch cities
+  useEffect(() => {
+    axios
+      .get(api_url, {
+        params: {
+          resource_id: cities_resource_id,
+          limit: 32000,
+        },
+        responseType: 'json',
+      })
+      .then((response) => {
+        const cityRecords = response?.data?.result?.records || [];
+        setCities(cityRecords);
+      })
+      .catch((error) => {
+        console.error('Error fetching cities:', error);
+      });
+  }, []);
+
+  // Fetch streets when the selected city changes
+  useEffect(() => {
+    if (selectedCity) {
+      axios
+        .get(api_url, {
+          params: {
+            resource_id: streets_resource_id,
+            q: selectedCity,
+            limit: 32000,
+          },
+          responseType: 'json',
+        })
+        .then((response) => {
+          const streetRecords = response?.data?.result?.records || [];
+          setStreets(streetRecords);
+        })
+        .catch((error) => {
+          console.error('Error fetching streets:', error);
+        });
+    }
+  }, [selectedCity]);
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Image File:', image);
@@ -222,7 +273,7 @@ const Signup = () => {
 
                     <FormControl variant="outlined" fullWidth margin="normal" required>
                         <InputLabel id="city-label">City</InputLabel>
-                        <Select
+                        {/* <Select
                             labelId="city-label"
                             id="city"
                             label="City"
@@ -233,7 +284,34 @@ const Signup = () => {
                             {cities.map((cityData) => (
                                 <MenuItem key={cityData._id} value={cityData.שם_ישוב_לועזי}>{cityData.שם_ישוב_לועזי}</MenuItem>
                             ))}
-                        </Select>
+                        </Select> */}
+
+<div>
+      {/* <label htmlFor="city-choice">Select a city:</label> */}
+      <select
+        id="city-choice"
+        onChange={(e) => setSelectedCity(e.target.value)}
+      >
+        <option value=""></option>
+        {cities.map((city) => (
+          <option key={city[city_name_key]} value={city[city_name_key]}>
+            {city[city_name_key]}
+          </option>
+        ))}
+      </select>
+
+      <br />
+
+      <label htmlFor="street-choice">Select a street:</label>
+      <select id="street-choice">
+        <option value="">-- Select a street --</option>
+        {streets.map((street) => (
+          <option key={street[street_name_key]} value={street[street_name_key]}>
+            {street[street_name_key]}
+          </option>
+        ))}
+      </select>
+    </div>
                     </FormControl>
                     <FormControl variant="outlined" fullWidth margin="normal" required>
                         <InputLabel id="hmo-label">HMO</InputLabel>
