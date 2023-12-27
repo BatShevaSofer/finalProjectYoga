@@ -22,10 +22,10 @@ let userSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: {
-            values: ["admin", "user", "teacher"],
+            values: ["admin", "student", "teacher"],
             message: "the value must be either 'admin','user','teacher'",
         },
-        default: "user",
+        default: "student",
     },
     gender: Boolean,
     location: {

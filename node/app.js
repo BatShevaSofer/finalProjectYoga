@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const http = require("http");
 const cors = require("cors");
+const bodyParser = require('body-parser');
 // חובה כדי שנוכל לעבוד עם קבצים
 const fileUpload = require("express-fileupload");
 
@@ -12,6 +13,8 @@ const app = express();
 
 app.use(cors());
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 // מפעיל את האפשרות באקספרס לעבוד עם קבצים
 app.use(fileUpload({ limits: { fileSize: 1024 * 1024 * 5 } }))
 

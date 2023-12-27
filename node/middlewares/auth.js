@@ -80,7 +80,7 @@ exports.authStudent = (req, res, next) => {
     try {
         let decodeToken = jwt.verify(token, config.tokenSecret);
         // check if the role in the token of admin
-        if (decodeToken.role != "user") {
+        if (decodeToken.role != "student") {
             return res.status(401).json({ msg: "Token invalid or expired, code: 3" })
         }
 

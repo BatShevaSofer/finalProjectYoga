@@ -4,10 +4,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 // import viteLogo from '/vite.svg'
 import './App.css'
 import Home from './comps/comps_user/home'
-import { Header } from './comps/comps_static/header'
-import { HeaderAdmin } from "./comps/comps_static/header_admin"
-import ResponsiveAppBar from "./comps/navbar_mui"
+
+import HeaderAdmin from "./comps/comps_static/header_admin"
+import HeaderTeacher from "./comps/comps_static/header_teacher"
+import HeaderStudent from "./comps/comps_static/header_student"
+import ForgotPassword from './comps/forgot-password'
 import Footer from "./comps/comps_static/footer"
+import Login from "./comps/login"
+import Header from "./comps/comps_static/header"
+import Signup from "./comps/signUp"
+
 
 function App() {
 
@@ -15,16 +21,19 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        <Route path='/' element={<Header />} />
-        <Route path='/admin' element={<HeaderAdmin />} />
-        
+        <Route path='/*' element={<Header />} />
+        <Route path='/admin/*' element={<HeaderAdmin />} />
+        <Route path='/teacher/*' element={<HeaderTeacher />} />
+        <Route path='/student/*' element={<HeaderStudent />} />
+
       </Routes>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/nav' element={<ResponsiveAppBar />} />
-        <Route path='/training_programs' element={<HeaderAdmin />} />
-        <Route path='/th' element={<Footer />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }

@@ -1,9 +1,18 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const nodemailer = require('nodemailer');
 const mongoose = require("mongoose");
 const router = express.Router();
 const { validLogin, UserModel, validUser } = require('../models/user.model');
 const { createToken } = require('../middlewares/auth')
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  secure: true, 
+  auth: {
+    user: 'aviyat123@gmail.com', // יש להכניס את הכתובת המייל שלך
+    pass: '039337243', // יש להכניס את הסיסמה שלך
+  },
+});
 
 
 router.get("/", (req, res) => {
@@ -68,11 +77,34 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ msg: "Password is worng" });
     }
     let token = createToken(user._id, user.role);
-    res.json({ token, "role": user.role });
+    res.json({ token, user });
   }
   catch (err) {
     console.log(err)
     res.status(500).json({ msg: "err", err })
   }
 })
+
+router.post('/sendMail', (req, res) => {
+  const { to, subject, password } = req.body;
+
+  // תוכן המייל
+  const mailOptions = {
+    from: 'aviyat123@gmail.com', // יש להכניס את הכתובת המייל שלך
+    to,
+    subject,
+    text: `Your new password is: ${password}`,
+  };
+
+  // שלח את המייל
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      res.status(500).send('Internal Server Error');
+    } else {
+      console.log('Email sent:', info.response);
+      res.status(200).send('Email sent successfully');
+    }
+  });
+});
 module.exports = router;
