@@ -1,4 +1,4 @@
-import {useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 // import Cookies from 'js-cookie';
 // const token= (JSON.parse(Cookies.get('user'))) ;
 import { useTeacher } from '../../services/teacherService'
@@ -7,19 +7,19 @@ const TeacherProfile = () => {
   const [teacherInfo, setTeacherInfo] = useState(null);
   const { getTeacherProfile } = useTeacher();
 
- useEffect(() => {
-  const fetchData = async () => {
-    try {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const data = await getTeacherProfile();
         setTeacherInfo(data.data);
-    } catch (error) {
+      } catch (error) {
         console.error("Error fetching courses:", error);
-    }
-};
+      }
+    };
 
-fetchData();
- },[])
- 
+    fetchData();
+  }, [])
+
 
 
   return (

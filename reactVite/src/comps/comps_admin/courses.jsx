@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAdmin } from "../../services/adminService";
 import DisplayData from "./displayData";
-import { LinearProgress } from "@mui/material";
+import { LinearProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow , Paper} from "@mui/material";
+
 
 const Courses = () => {
     const { getCorses, getCourseById } = useAdmin();
@@ -21,6 +22,12 @@ const Courses = () => {
     }, []);
 
     return (
+        
+        // <div>
+        //     {courses ? (()=>{return (<DisplayCoursesAsTable item={courses}/>)}) :(
+        //         <LinearProgress />
+        //     )}
+        // </div>
         <div>
             {courses ? (courses.map((course) => (
                 <DisplayData key={course._id} data={course} />
