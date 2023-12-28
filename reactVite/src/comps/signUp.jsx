@@ -161,11 +161,11 @@ const Signup = () => {
     return (
         <Container component="main" maxWidth="" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', background: 'linear-gradient(to right, #ff9a9e, #fecfef)' }}>
             <CssBaseline />
-            <Paper elevation={3} style={{ width:"50%", margin: '8px', padding: '8px', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '80%', borderRadius: '16px', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)', background: 'white' }}>
+            <Paper elevation={3} style={{ width:"50%", margin: '30px', padding: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '80%', borderRadius: '16px', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)', background: 'white' }}>
                 <Typography component="h1" variant="h5" style={{ color: '#ff4081' }}>
                     Sign Up
                 </Typography>
-                <form style={{ width: '50%', marginTop: '16px' }} onSubmit={handleSubmit}>
+                <form className='m-4' style={{ width: '50%', marginTop: '16px' }} onSubmit={handleSubmit}>
                     {/* Add the new fields here */}
                     <TextField
                         variant="outlined"

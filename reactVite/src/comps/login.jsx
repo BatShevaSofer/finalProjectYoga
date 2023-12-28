@@ -7,7 +7,8 @@ import {
     Typography,
     TextField,
     Button,
-    CssBaseline
+    CssBaseline,
+    Stack
 } from '@mui/material';
 import { useMain } from '../services/mainService';
 
@@ -27,7 +28,7 @@ const Login = () => {
     useEffect(() => {
         console.log(data);
     }, [data])
-    
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setData(await login(email, password));
@@ -84,9 +85,15 @@ const Login = () => {
                         Login
                     </Button>
                     {/* component={RouterLink} */}
-                    <Link  to="/forgot-password" variant="body2">
-                        Forgot your password?
-                    </Link>
+                    <Stack direction="row" spacing={1}>
+                        <Link style={{ textDecoration: 'none', color: 'black' }} to="/forgot-password" variant="body2">
+                            Forgot your password?
+                        </Link>
+                        <Link style={{ textDecoration: 'none', color: 'black' }} to="/signup" variant="body2">
+                            you have no already account?
+                        </Link>
+                    </Stack>
+
                 </form>
             </Paper>
         </Container>

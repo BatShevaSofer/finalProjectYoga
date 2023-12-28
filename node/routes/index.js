@@ -9,8 +9,8 @@ const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   secure: true, 
   auth: {
-    user: 'aviyat123@gmail.com', // יש להכניס את הכתובת המייל שלך
-    pass: '039337243', // יש להכניס את הסיסמה שלך
+    user: 'b0583247452@gmail.com', // יש להכניס את הכתובת המייל שלך
+    pass: 'grraezalarqjwrry', // יש להכניס את הסיסמה שלך
   },
 });
 
@@ -88,15 +88,15 @@ router.post("/login", async (req, res) => {
 router.post('/sendMail', (req, res) => {
   const { to, subject, password } = req.body;
 
-  // תוכן המייל
+  
   const mailOptions = {
-    from: 'aviyat123@gmail.com', // יש להכניס את הכתובת המייל שלך
+    from: 'aviyat123@gmail.com', 
     to,
     subject,
     text: `Your new password is: ${password}`,
   };
 
-  // שלח את המייל
+
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error('Error sending email:', error);

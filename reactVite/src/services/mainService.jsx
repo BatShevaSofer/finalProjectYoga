@@ -25,6 +25,7 @@ export const useMain = () => {
     }
     catch (error) {
       console.log(error);
+      alert(error.message);
     }
   }
   const signUp = async (_idNumber, _firstName, _lastName, _email, _password, _phone, _hmo, _birthdate) => {

@@ -134,7 +134,7 @@ function Header() {
                 <Button onClick={() => { nav('/login') }} variant="outlined" color="inherit">
                   Login
                 </Button>
-                <Button o variant="outlined" color="inherit">
+                <Button onClick={() => { nav('/signup') }} variant="outlined" color="inherit">
                   Sign Up
                 </Button>
               </Stack>
