@@ -43,7 +43,7 @@ const Home = () => {
           </button>
         </div>
       </div>
-      <div className="container">
+      {/* <div className="container">
         <h1>welcome!!!</h1>
         <div>
           <div className="header">
@@ -73,9 +73,9 @@ const Home = () => {
               <a href="#" className="cta-button">Get Started</a>
             </div>
           </div>
-        </div>
+        </div> */}
 
-      </div>
+      {/* </div> */}
     </div>
   )
 }

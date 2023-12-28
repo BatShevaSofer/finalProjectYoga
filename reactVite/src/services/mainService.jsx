@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-export const API_URL = "http://localhost:3003"
+export const API_URL = "http://localhost:3001"
 
 
 
@@ -51,7 +51,7 @@ export const useMain = () => {
         "HMO": _hmo,
 
       });
-      console.log('jjj');
+   
       console.log('resp', resp);
       Cookies.set('token', resp.data.token);
       Cookies.set('user', JSON.stringify(resp.data.user));

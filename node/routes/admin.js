@@ -87,7 +87,7 @@ router.get("/teachers/:id", authAdmin, async (req, res) => {
 
 router.get("/students", authAdmin, async (req, res) => {
   try {
-    let data = await UserModel.find({}).limit(10);
+    let data = await UserModel.find({role: "student"}).limit(10);
     res.json(data)
   }
   catch (err) {

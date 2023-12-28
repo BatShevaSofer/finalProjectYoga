@@ -1,35 +1,26 @@
-import  { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-const token= (JSON.parse(Cookies.get('user'))) ;
-
+import {useEffect, useState } from 'react';
+// import Cookies from 'js-cookie';
+// const token= (JSON.parse(Cookies.get('user'))) ;
+import { useTeacher } from '../../services/teacherService'
 
 const TeacherProfile = () => {
   const [teacherInfo, setTeacherInfo] = useState(null);
+  const { getTeacherProfile } = useTeacher();
 
-  useEffect(() => {
-    const fetchTeacherInfo = async () => {
-      try {
-        const response = await fetch('/api/teacher', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, // Replace with your actual access token
-          },
-        });
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+        const data = await getTeacherProfile();
+        setTeacherInfo(data.data);
+    } catch (error) {
+        console.error("Error fetching courses:", error);
+    }
+};
 
-        if (response.ok) {
-          const data = await response.json();
-          setTeacherInfo(data);
-        } else {
-          console.error('Failed to fetch teacher info');
-        }
-      } catch (error) {
-        console.error('Error fetching teacher info:', error);
-      }
-    };
+fetchData();
+ },[])
+ 
 
-    fetchTeacherInfo();
-  }, []);
 
   return (
     <div>
