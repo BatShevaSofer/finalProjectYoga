@@ -5,16 +5,9 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const { validLogin, UserModel, validUser } = require('../models/user.model');
 const { createToken } = require('../middlewares/auth')
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  secure: true, 
-  auth: {
-    user: 'b0583247452@gmail.com', // יש להכניס את הכתובת המייל שלך
-    pass: 'grraezalarqjwrry', // יש להכניס את הסיסמה שלך
-  },
-});
+const { transporter, generatePassword } = require('../helpers/mail');
 
-
+let mailPassword = [];
 router.get("/", (req, res) => {
   res.json({ msg: "courses api work !" })
 })
@@ -27,7 +20,7 @@ router.post("/signup", async (req, res) => {
   }
   try {
     let user = new UserModel(req.body);
-
+    user.email = user.email.toLowerCase();
     user.password = await bcrypt.hash(user.password, 10);
     // מתרגם ליוניקס
     user.birthDate = Date.parse(user.birthDate);
@@ -46,6 +39,7 @@ router.post("/signup", async (req, res) => {
     else {
       user.ageGroup = "adult"
     }
+    console.log("cvbn");
     user.course_id = user.course_id || null;
     user.image_url = user.image_url || "";
     await user.save();
@@ -68,7 +62,8 @@ router.post("/login", async (req, res) => {
     return res.status(400).json(validBody.error.details);
   }
   try {
-    let user = await UserModel.findOne({ email: req.body.email })
+    let email1 = req.body.email.toLowerCase();
+    let user = await UserModel.findOne({ email: email1 })
     if (!user) {
       return res.status(401).json({ msg: "email is worng" })
     }
@@ -86,15 +81,17 @@ router.post("/login", async (req, res) => {
 })
 
 router.post('/sendMail', (req, res) => {
-  const { to, subject, password } = req.body;
-
-  
+  let { to } = req.body;
+  let password = generatePassword();
+  to = to.toLowerCase();
   const mailOptions = {
-    from: 'aviyat123@gmail.com', 
+    from: 'yoganoreply70@gmail.com',
     to,
-    subject,
+    subject: "verified email",
     text: `Your new password is: ${password}`,
   };
+  mailPassword.push({ to, password })
+  console.log(mailPassword)
 
 
   transporter.sendMail(mailOptions, (error, info) => {
@@ -106,5 +103,26 @@ router.post('/sendMail', (req, res) => {
       res.status(200).send('Email sent successfully');
     }
   });
+});
+function updateArray(updatedArray) {
+  // הצהרה חוזרת על המערך המעודכן
+  mailPassword = [...updatedArray];
+}
+router.patch('/resetpassword', async (req, res) => {
+  let { passwordV, password, email } = req.body;
+  email = email.toLowerCase();
+  console.log("mailPassword", mailPassword);
+  let obj = mailPassword.find(item => item.to == email);
+  console.log("obj", obj);
+  const filteredArr = mailPassword.filter(item => item.to !== email);
+  updateArray(filteredArr);
+  console.log("mailPassword reset", mailPassword);
+  if (obj.password == passwordV) {
+    let passwordB = await bcrypt.hash(password, 10);
+    let data = await UserModel.updateOne({ email: email }, { password: passwordB });
+    res.json(data);
+  } else {
+    res.json({ msg: "the password not match" })
+  }
 });
 module.exports = router;

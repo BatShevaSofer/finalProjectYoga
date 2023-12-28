@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { Container, Paper, Typography, TextField, Button, CssBaseline, Link } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Container, Paper, Typography, TextField, Button, CssBaseline } from '@mui/material';
+import { Link  } from 'react-router-dom';
+import { useMain } from '../services/mainService'
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [step, setStep] = useState(1);
-
+  const { sendMail, resetP } = useMain();
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
@@ -23,52 +24,16 @@ const ForgotPassword = () => {
   const handleSendCode = async (event) => {
     event.preventDefault();
 
-    try {
-      const response = await fetch('/sendMail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: email,
-          subject: 'Verification Code',
-        }),
-      });
+    await sendMail(email);
+    setStep(2);
 
-      if (response.ok) {
-        setStep(2);
-      } else {
-        console.error('Failed to send email');
-      }
-    } catch (error) {
-      console.error('Error sending request:', error);
-    }
   };
 
   const handleResetPassword = async (event) => {
     event.preventDefault();
+    await resetP(email, newPassword, verificationCode);
+    setStep(3);
 
-    try {
-      const response = await fetch('/sendMail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: email,
-          subject: 'Password Reset',
-          password: newPassword,
-        }),
-      });
-
-      if (response.ok) {
-        setStep(3);
-      } else {
-        console.error('Failed to send email');
-      }
-    } catch (error) {
-      console.error('Error sending request:', error);
-    }
   };
 
   return (
@@ -78,7 +43,7 @@ const ForgotPassword = () => {
         <Typography component="h1" variant="h5" style={{ color: '#ff4081' }}>
           Forgot Password
         </Typography>
-        {step === 1 && (
+        {step == 1 && (
           <form style={{ width: '100%', marginTop: '16px' }} onSubmit={handleSendCode}>
             <TextField
               variant="outlined"
@@ -106,7 +71,7 @@ const ForgotPassword = () => {
             </Button>
           </form>
         )}
-        {step === 2 && (
+        {step == 2 && (
           <form style={{ width: '100%', marginTop: '16px' }} onSubmit={handleResetPassword}>
             <TextField
               variant="outlined"
@@ -149,7 +114,7 @@ const ForgotPassword = () => {
         )}
         {step === 3 && (
           <Typography variant="body1">
-            Password reset successfully! <Link component={RouterLink} to="/login">Login</Link>
+            Password reset successfully! <Link to="/login">Login</Link>
           </Typography>
         )}
       </Paper>

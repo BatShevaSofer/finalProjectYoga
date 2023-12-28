@@ -13,6 +13,7 @@ import Footer from "./comps/comps_static/footer"
 import Login from "./comps/login"
 import Header from "./comps/comps_static/header"
 import Signup from "./comps/signUp"
+import TeacherProfile from "./comps/comps_teacher/teacher"
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='teacher/my_detailes' element={<TeacherProfile />} />
       </Routes>
       <Footer />
     </BrowserRouter>

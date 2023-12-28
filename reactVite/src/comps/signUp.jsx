@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
-import { useMain } from '../services/mainService';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useMain } from '../services/mainService';
 import {
     Container,
     Paper,
@@ -13,6 +13,7 @@ import {
     FormControl,
     InputLabel,
     Select,
+    InputAdornment,
 } from '@mui/material';
 
 const Signup = () => {
@@ -25,21 +26,16 @@ const Signup = () => {
     const [image, setImage] = useState(null);
     const [hmo, setHmo] = useState('');
     const [birthdate, setBirthdate] = useState('');
-    // const [city, setCity] = useState('');
-    // const [cities, setCities] = useState([]);
+    const [city, setCity] = useState('');
+    const [street, setStreet] = useState('');
     const [dataS, setDataS] = useState('');
-    const { signUp } = useMain();
-    const api_url = 'https://data.gov.il/api/3/action/datastore_search';
-    const cities_resource_id = '5c78e9fa-c2e2-4771-93ff-7f400a12f7ba';
-    const streets_resource_id = 'a7296d1a-f8c9-4b70-96c2-6ebb4352f8e3';
-    const city_name_key = 'שם_ישוב';
-    const street_name_key = 'שם_רחוב';
-  
-    // State
+    const [gender, setGender] = useState('');
+    const [home, setHome] = useState('');
+
     const [cities, setCities] = useState([]);
     const [streets, setStreets] = useState([]);
     const [selectedCity, setSelectedCity] = useState('');
-
+    const { signUp } = useMain();
     const handleIdNumberChange = (event) => {
         setIdNumber(event.target.value);
     };
@@ -66,7 +62,7 @@ const Signup = () => {
 
     const handleImageChange = (event) => {
         const selectedImage = event.target.files[0];
-        setImage(URL.createObjectURL(selectedImage)); // Create a URL for the selected image
+        setImage(URL.createObjectURL(selectedImage));
     };
 
     const handleHmoChange = (event) => {
@@ -75,77 +71,88 @@ const Signup = () => {
 
     const handleBirthdateChange = (event) => {
         setBirthdate(event.target.value);
+
+        const birthdateObj = new Date(event.target.value);
+        const currentDate = new Date();
+        const age = currentDate.getFullYear() - birthdateObj.getFullYear();
+
+
+        if (age < 3) {
+            alert("Age is too young! Please enter a valid birthdate.");
+
+            console.error("Age is too young!");
+        }
     };
 
+    const handleStreetChange = (event) => {
+        setStreet(event.target.value);
+    };
+    const handleCityChange = (event) => {
+        setCity(event.target.value);
+    };
+    const handleGenderChange = (event) => {
+        setGender(event.target.value);
+    };
 
-    // const handleCityChange = (event) => {
-    //     setCity(event.target.value);
-    // };
+    const handleHomeChange = (event) => {
+        setHome(event.target.value);
+    };
 
     useEffect(() => {
         console.log(dataS);
 
     }, [dataS])
-    // useEffect(() => {
-    //     // Fetch cities from the API
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get(' https://data.gov.il/api/3/action/datastore_search?resource_id=d4901968-dad3-4845-a9b0-a57d027f11ab');
-
-    //             setCities(response.data.result.records);
-    //         } catch (error) {
-    //             console.error('Error fetching cities:', error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        console.log(selectedCity);
+    }, [selectedCity]);
 
     // Fetch cities
-  useEffect(() => {
-    axios
-      .get(api_url, {
-        params: {
-          resource_id: cities_resource_id,
-          limit: 32000,
-        },
-        responseType: 'json',
-      })
-      .then((response) => {
-        const cityRecords = response?.data?.result?.records || [];
-        setCities(cityRecords);
-      })
-      .catch((error) => {
-        console.error('Error fetching cities:', error);
-      });
-  }, []);
+    useEffect(() => {
+        axios
+            .get('https://data.gov.il/api/3/action/datastore_search', {
+                params: {
+                    resource_id: '5c78e9fa-c2e2-4771-93ff-7f400a12f7ba',
+                    limit: 32000,
+                },
+                responseType: 'json',
+            })
+            .then((response) => {
+                const cityRecords = response?.data?.result?.records || [];
+                const uniqueCities = Array.from(new Set(cityRecords.map((city) => city['שם_ישוב'])));
+                setCities(uniqueCities);
+            })
+            .catch((error) => {
+                console.error('Error fetching cities:', error);
+            });
+    }, []);
 
-  // Fetch streets when the selected city changes
-  useEffect(() => {
-    if (selectedCity) {
-      axios
-        .get(api_url, {
-          params: {
-            resource_id: streets_resource_id,
-            q: selectedCity,
-            limit: 32000,
-          },
-          responseType: 'json',
-        })
-        .then((response) => {
-          const streetRecords = response?.data?.result?.records || [];
-          setStreets(streetRecords);
-        })
-        .catch((error) => {
-          console.error('Error fetching streets:', error);
-        });
-    }
-  }, [selectedCity]);
+    // Fetch streets when the selected city changes
+    useEffect(() => {
+        if (selectedCity) {
+            axios
+                .get('https://data.gov.il/api/3/action/datastore_search', {
+                    params: {
+                        resource_id: 'a7296d1a-f8c9-4b70-96c2-6ebb4352f8e3',
+                        q: selectedCity,
+                        limit: 3200,
+                    },
+                    responseType: 'json',
+                })
+                .then((response) => {
+                    const streetRecords = response?.data?.result?.records || [];
+                    const uniqueStreets = Array.from(new Set(streetRecords.map((street) => street['שם_רחוב'])));
+                    setStreets(uniqueStreets);
+                })
+                .catch((error) => {
+                    console.error('Error fetching streets:', error);
+                });
+        }
+    }, [selectedCity]);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Image File:', image);
-        setDataS(await signUp(idNumber, firstName, lastName, email, password, phone, hmo, birthdate));
-        // Add your Signup logic here using state values
+        setDataS(await signUp(idNumber, firstName, lastName, email, password, phone, hmo, birthdate, city, street, home, gender));
+
         console.log('ID Number:', idNumber);
         console.log('First Name:', firstName);
         console.log('Last Name:', lastName);
@@ -154,19 +161,48 @@ const Signup = () => {
         console.log('Password:', password);
         console.log('Image File:', image);
         console.log('HMO:', hmo);
+        console.log('city:', city);
+        console.log('street:', street);
         console.log('Birthdate:', birthdate);
-        // You can send a request to your backend for user registration
+        console.log('Home:', home);
+        console.log('Gender:', gender);
     };
 
     return (
-        <Container component="main" maxWidth="" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', background: 'linear-gradient(to right, #ff9a9e, #fecfef)' }}>
+        <Container
+            component="main"
+            maxWidth=""
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%',
+                background: 'linear-gradient(to right, #ff9a9e, #fecfef)',
+            }}
+        >
             <CssBaseline />
-            <Paper elevation={3} style={{ width:"50%", margin: '30px', padding: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '80%', borderRadius: '16px', boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)', background: 'white' }}>
+            <Paper
+                elevation={3}
+                style={{
+                    width: '50%',
+                    margin: '8px',
+                    padding: '8px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    height: '80%',
+                    borderRadius: '16px',
+                    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+                    background: 'white',
+                }}
+            >
                 <Typography component="h1" variant="h5" style={{ color: '#ff4081' }}>
                     Sign Up
                 </Typography>
-                <form className='m-4' style={{ width: '50%', marginTop: '16px' }} onSubmit={handleSubmit}>
-                    {/* Add the new fields here */}
+                <form
+                    style={{ width: '70%', marginTop: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+                    onSubmit={handleSubmit}
+                >
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -243,24 +279,21 @@ const Signup = () => {
                         type="file"
                         onChange={handleImageChange}
                     />
-
                     <label htmlFor="image-upload">
                         <Button
                             variant="outlined"
                             component="span"
                             fullWidth
-                            // style={{ margin: '16px 0', borderColor: '#ff4081', color: '#ff4081' }}
                             style={{ borderColor: '#ff4081', color: '#ff4081', marginBottom: '16px' }}
                         >
                             Upload Image
                         </Button>
                     </label>
-
                     {image && (
                         <div
                             style={{
-                                width: '50px', // Set a fixed width for the circular image
-                                height: '50px', // Set a fixed height for the circular image
+                                width: '50px',
+                                height: '50px',
                                 backgroundImage: `url(${image})`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center center',
@@ -271,64 +304,101 @@ const Signup = () => {
                     )}
 
 
+
+
+
                     <FormControl variant="outlined" fullWidth margin="normal" required>
-                        <InputLabel id="city-label">City</InputLabel>
-                        {/* <Select
-                            labelId="city-label"
-                            id="city"
-                            label="City"
-                            name="city"
-                            value={city}
-                            onChange={handleCityChange}
-                        >
-                            {cities.map((cityData) => (
-                                <MenuItem key={cityData._id} value={cityData.שם_ישוב_לועזי}>{cityData.שם_ישוב_לועזי}</MenuItem>
+                        <InputLabel id="city_label">City</InputLabel>
+                        <Select labelId="city_label" id="city" label="City" name="city" value={city} onChange={(e) => { setSelectedCity(e.target.value); handleCityChange(e); }}>
+                            {cities && cities.map((city) => (
+                                <MenuItem key={city} value={city}>{city}</MenuItem>
                             ))}
-                        </Select> */}
-
-<div>
-      {/* <label htmlFor="city-choice">Select a city:</label> */}
-      <select
-        id="city-choice"
-        onChange={(e) => setSelectedCity(e.target.value)}
-      >
-        <option value=""></option>
-        {cities.map((city) => (
-          <option key={city[city_name_key]} value={city[city_name_key]}>
-            {city[city_name_key]}
-          </option>
-        ))}
-      </select>
-
-      <br />
-
-      <label htmlFor="street-choice">Select a street:</label>
-      <select id="street-choice">
-        <option value="">-- Select a street --</option>
-        {streets.map((street) => (
-          <option key={street[street_name_key]} value={street[street_name_key]}>
-            {street[street_name_key]}
-          </option>
-        ))}
-      </select>
-    </div>
+                        </Select>
                     </FormControl>
+
+                    <FormControl variant="outlined" fullWidth margin="normal" required>
+                        <InputLabel id="street_label">Street</InputLabel>
+                        <Select labelId="street_label" id="street" label="Street" name="street" value={street} onChange={handleStreetChange }>
+                            {streets && streets.map((street) => (
+                                <MenuItem key={street} value={street}>{street}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+
+
+                    {/* <FormControl variant="outlined" fullWidth margin="normal" required>
+                        <div className="form-field" id="city-selection" style={{ marginBottom: '16px' }}>
+                            <label htmlFor="city-choice">בחר עיר:</label>
+                            <input
+                                list="cities-data"
+                                id="city-choice"
+                                name="city-choice"
+                                value={selectedCity}
+                                onChange={(e) => {
+                                    setSelectedCity(e.target.value);
+                                    handleCityChange(e);
+                                }}
+                                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                            />
+                            <datalist id="cities-data">
+                                <option value="">טוען רשימת ערים...</option>
+                                {cities.map((city, index) => (
+                                    <option key={index} value={city}>
+                                        {city}
+                                    </option>
+                                ))}
+                            </datalist>
+                        </div>
+
+                        <div className="form-field" id="street-selection" style={{ marginBottom: '16px' }}>
+                            <label htmlFor="street-choice">בחר רחוב:</label>
+                            <input
+                                list="streets-data"
+                                id="street-choice"
+                                name="street-choice"
+                                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                                onChange={handleStreetChange}
+                            />
+                            <datalist id="streets-data">
+                                {streets.map((street, index) => (
+                                    <option key={index} value={street}>
+                                        {street}
+                                    </option>
+                                ))}
+                            </datalist>
+                        </div>
+                    </FormControl> */}
+
+
                     <FormControl variant="outlined" fullWidth margin="normal" required>
                         <InputLabel id="hmo-label">HMO</InputLabel>
-                        <Select
-                            labelId="hmo-label"
-                            id="hmo"
-                            label="HMO"
-                            name="hmo"
-                            value={hmo}
-                            onChange={handleHmoChange}
-                        >
+                        <Select labelId="hmo-label" id="hmo" label="HMO" name="hmo" value={hmo} onChange={handleHmoChange}>
                             <MenuItem value="meuhedet">Meuhedet</MenuItem>
                             <MenuItem value="maccabi">Maccabi</MenuItem>
                             <MenuItem value="clalit">Clalit</MenuItem>
                             <MenuItem value="leumit">Leumit</MenuItem>
                         </Select>
                     </FormControl>
+                    <FormControl variant="outlined" fullWidth margin="normal" required>
+                        <InputLabel id="gender-label">Gender</InputLabel>
+                        <Select labelId="gender-label" id="gender" label="Gender" name="gender" value={gender} onChange={handleGenderChange}>
+                            <MenuItem value="false">Male</MenuItem>
+                            <MenuItem value="true">Female</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="home"
+                        label="Home Number"
+                        name="home"
+                        value={home}
+                        onChange={handleHomeChange}
+                    />
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -341,17 +411,25 @@ const Signup = () => {
                         value={birthdate}
                         onChange={handleBirthdateChange}
                         InputLabelProps={{
-                            style: { marginLeft: '25px' }, // Adjust the top margin as needed
+                            style: { marginLeft: '25px' },
+                        }}
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start"> birthdate:</InputAdornment>,
                         }}
                     />
+
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
-                        style={{ margin: '16px 0 8px', background: '#ff4081', transition: 'background 0.3s' }}
-                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#ff6e98'}
-                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#ff4081'}
+                        style={{
+                            margin: '16px 0 8px',
+                            background: '#ff4081',
+                            transition: 'background 0.3s',
+                        }}
+                        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#ff6e98')}
+                        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#ff4081')}
                     >
                         Sign Up
                     </Button>
@@ -362,3 +440,4 @@ const Signup = () => {
 };
 
 export default Signup;
+
