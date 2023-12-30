@@ -15,6 +15,7 @@ import Header from "./comps/comps_static/header"
 import Signup from "./comps/signUp"
 import TeacherProfile from "./comps/comps_teacher/teacher"
 import Courses from './comps/comps_admin/courses'
+import Chat from "./comps/chat"
 
 
 function App() {
@@ -34,8 +35,8 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='teacher/my_detailes' element={<TeacherProfile />} />
-        <Route path='admin/courses' element={<Courses />} />
+        <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
+        <Route path='/admin/courses' element={<Courses />} />
       </Routes>
       <Footer />
     </BrowserRouter>

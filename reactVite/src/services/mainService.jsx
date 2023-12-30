@@ -5,7 +5,6 @@ import Cookies from 'js-cookie';
 export const API_URL = "http://localhost:3001"
 
 
-
 export const useMain = () => {
   const nav = useNavigate();
 
@@ -51,7 +50,7 @@ export const useMain = () => {
         "HMO": _hmo,
 
       });
-   
+
       console.log('resp', resp);
       Cookies.set('token', resp.data.token);
       Cookies.set('user', JSON.stringify(resp.data.user));
@@ -100,6 +99,8 @@ export const useMain = () => {
       throw error;
     }
   }
+
+
   return { login, signUp, sendMail, resetP }
 
 }
