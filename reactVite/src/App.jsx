@@ -16,7 +16,7 @@ import Signup from "./comps/signUp"
 import TeacherProfile from "./comps/comps_teacher/teacher"
 import Courses from './comps/comps_admin/courses'
 import About from "./comps/comps_user/about"
-import Chat from "./comps/chat"
+// import Chat from "./comps/chat"
 
 function App() {
 
