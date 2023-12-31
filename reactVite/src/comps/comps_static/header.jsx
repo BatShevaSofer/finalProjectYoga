@@ -15,14 +15,14 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
 
-const pages = ['Home', 'training programs', 'our teacher'];
-const links = ['home', 'training_programs', 'our_teacher'];
+const pages = ['Home','About', 'training programs', 'our teacher'];
+const links = ['home','about', 'training_programs', 'our_teacher'];
 const settings = ['Profile', 'Account', 'Logout'];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(0);
   const [anchorElUser, setAnchorElUser] = React.useState(0);
-  const image = "happy-1836445_1280 (1).jpg"
+  // const image = "happy-1836445_1280 (1).jpg"
   const nav = useNavigate();
   // const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
   //     setAnchorElNav(event.currentTarget);

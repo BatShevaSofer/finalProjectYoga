@@ -15,17 +15,16 @@ import Header from "./comps/comps_static/header"
 import Signup from "./comps/signUp"
 import TeacherProfile from "./comps/comps_teacher/teacher"
 import Courses from './comps/comps_admin/courses'
+import About from "./comps/comps_user/about"
 import Chat from "./comps/chat"
 
 
 
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
-
         <Route path='/*' element={<Header />} />
         <Route path='/admin/*' element={<HeaderAdmin />} />
         <Route path='/teacher/*' element={<HeaderTeacher />} />
@@ -36,10 +35,12 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/about' element={<About />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
         <Route path='/admin/courses' element={<Courses />} />
-        <Route path='/chat' element={<Chat />} />
+      
 
       </Routes>
       <Footer />
