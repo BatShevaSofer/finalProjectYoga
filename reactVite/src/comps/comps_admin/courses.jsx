@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAdmin } from "../../services/adminService";
 import DisplayData from "./displayData";
 import { LinearProgress } from "@mui/material";
+
 
 const Courses = () => {
     const { getCorses, getCourseById } = useAdmin();
@@ -24,7 +25,7 @@ const Courses = () => {
         <div>
             {courses ? (courses.map((course) => (
                 <DisplayData key={course._id} data={course} />
-            ))) :(
+            ))) : (
                 <LinearProgress />
             )}
         </div>
