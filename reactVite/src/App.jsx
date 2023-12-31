@@ -18,6 +18,8 @@ import Courses from './comps/comps_admin/courses'
 import Chat from "./comps/chat"
 
 
+
+
 function App() {
 
   return (
@@ -37,6 +39,8 @@ function App() {
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
         <Route path='/admin/courses' element={<Courses />} />
+        <Route path='/chat' element={<Chat />} />
+
       </Routes>
       <Footer />
     </BrowserRouter>

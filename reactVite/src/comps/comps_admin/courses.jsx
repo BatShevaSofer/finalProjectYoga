@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAdmin } from "../../services/adminService";
 import DisplayData from "./displayData";
 import { LinearProgress } from "@mui/material";
-
+import { Row } from 'antd';
 
 const Courses = () => {
     const { getCorses, getCourseById } = useAdmin();
@@ -23,11 +23,15 @@ const Courses = () => {
 
     return (
         <div>
-            {courses ? (courses.map((course) => (
-                <DisplayData key={course._id} data={course} />
-            ))) : (
-                <LinearProgress />
-            )}
+            <Row gutter={16} className=''>
+                {courses ? (courses.map((course) => (
+                    (
+                        <DisplayData key={course._id} data={course} />
+                    )
+                ))) : (
+                    <LinearProgress />
+                )}
+            </Row>
         </div>
     );
 };
