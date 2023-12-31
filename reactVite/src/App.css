@@ -1,0 +1,95 @@
+.card {
+    margin-bottom: 20px;
+  }
+  
+  .card-body {
+    padding: 1.25rem;
+  }
+
+ 
+  .what_yoga{
+    /* background-color: rgb(251, 251, 245); */
+    color: rgb(176, 36, 94);
+    font-size: 1.9em;
+    font-weight: bold;
+    font-family: 'Noto Serif Hebrew', serif;
+  }
+  .what_yoga .box{
+    min-height: 700px;
+    width: 900px;
+    background-image: url(2.png);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .team .row .box img{
+    max-width: 180px;
+    height: 180px;
+    border:4px solid white;
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+    margin-bottom: 8px;
+    filter: grayscale(100%) ;
+
+  }
+  .team .row .box img:hover{
+    filter: 
+    grayscale(0) ;
+    /* transform: translate(-30px , 0); */
+
+  }
+
+  .team{
+    background-color: rgb(214, 160, 169);
+  }
+ 
+  .welcome_text{
+    font-family: 'Noto Serif Hebrew', serif;
+ }
+ .lead{
+    font-size: 1.8em;
+ }
+ .larger-circle {
+    min-width: 450px; /* Adjust the width as needed */
+    min-height: 450px; /* Adjust the height as needed */
+  }
+  .larger-circle:hover{
+    transform: scale(1.4);
+    transition: transform 0.4s ease;
+  }
+ .age_group{
+    background-color: rgb(247, 212, 217);
+    min-height: 700px;
+    transition: 1000ms;
+
+ }
+ .testimonial {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2em;
+  }
+  .txt_customers{
+    background-color: rgb(245, 240, 234);
+    min-height: 320px;
+  }
+  .card-title-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(77, 3, 77);
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 1;
+  }
+  .about_title{
+    font-family: 'Noto Serif Hebrew', serif;
+
+  }
+  .about_txt{
+    font-size: 1.5em;
+  }
+ .pic_about{
+    max-height: 500px;
+ }
