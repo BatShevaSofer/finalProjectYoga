@@ -12,26 +12,73 @@ export const useTeacher = () => {
 
 
 
+  // const getTeacherProfile = async () => {
+  //   try {
+  //     let resp = await axios.get(`${API_URL}/teachers/`, {
+  //       headers: {
+  //         "x-api-key": JSON.parse(Cookies.get('token'))
+  //       }
+  //     })
+  //     console.log(resp);
+  //     return resp;
+  //   }
+  //   catch (err) {
+  //     console.log(err);
+  //   }
+
+  // }
+
   const getTeacherProfile = async () => {
     try {
-      let resp = await axios.get(`${API_URL}/teachers/`, {
+      const token = Cookies.get('token');
+      
+      
+      if (!token) {
+        console.error("Authentication token is missing.");
+        return null;
+      }
+  
+      const resp = await axios.get(`${API_URL}/teacher/`, {
         headers: {
-          "x-api-key": JSON.parse(Cookies.get('token'))
+          "x-api-key": token
         }
-      })
+      });
+  
       console.log(resp);
       return resp;
+    } catch (err) {
+      console.error("Error fetching teacher profile:", err);
+      if (err.response) {
+        console.error("Server responded with:", err.response.data);
+      }
+      return null;
     }
-    catch (err) {
-      console.log(err);
-    }
-
-  }
+  };
+  
   const getCoursesTeacher = async () => {
     try {
-      let resp = await axios.get(`${API_URL}/teachers/courses`, {
+      const token = Cookies.get('token');
+      let resp = await axios.get(`${API_URL}/teacher/courses`, {
         headers: {
-          "x-api-key": JSON.parse(Cookies.get('token'))
+          "x-api-key": token
+        }
+      })
+      console.log(resp);
+      return resp;
+    }
+    catch (err) {
+      console.log(err);
+    }
+
+
+  }
+  const updateEmail = async (email) => {
+    try {
+      const token = Cookies.get('token');
+      const user_id =token.user_id
+      let resp = await axios.get(`${API_URL}/teacher/${user_id}/${email}`, {
+        headers: {
+          "x-api-key": token
         }
       })
       console.log(resp);
@@ -44,8 +91,7 @@ export const useTeacher = () => {
 
   }
 
-
-  const getCourTeachereById = async (id) => {
+  const getCourseTeachereById = async (id) => {
     try {
         let resp = await axios.get(`${API_URL}/teachers/courses/${id}`, {
             headers: {
@@ -60,7 +106,7 @@ export const useTeacher = () => {
     }
 }
 
-    return { getTeacherProfile, getCoursesTeacher ,getCourTeachereById}
+    return { getTeacherProfile, getCoursesTeacher ,getCourseTeachereById,updateEmail}
 
   
 }

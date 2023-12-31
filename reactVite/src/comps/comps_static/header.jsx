@@ -16,7 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
 
 const pages = ['Home','About', 'training programs', 'our teacher'];
-const links = ['home','about', 'training_programs', 'our_teacher'];
+const links = ['home','about', 'programs', 'our_teachers'];
 const settings = ['Profile', 'Account', 'Logout'];
 
 function Header() {

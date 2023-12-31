@@ -27,7 +27,7 @@ export const useMain = () => {
     }
   }
 
-  const signUp = async (_idNumber, _firstName, _lastName, _email, _password, _phone, _hmo, _birthdate, _city, _street, _home, _gender) => {
+  const signUp = async (_idNumber, _firstName, _lastName, _email, _password, _phone, _hmo, _birthdate, _city, _street, _home, _gender, _imageUrl) => {
     try {
       // console.log(_idNumber, _firstName, _lastName, _email, _password, _phone, _hmo, _birthdate, _city, _street, _home,_gender);
 
@@ -48,11 +48,11 @@ export const useMain = () => {
           "home": Number(_home)
         },
         "HMO": _hmo,
+        "image_url": _imageUrl
 
       });
-
-      console.log('resp', resp);
-      Cookies.set('token', resp.data.token);
+      // console.log('resp', resp);
+      // Cookies.set('token', resp.data.token);
       Cookies.set('user', JSON.stringify(resp.data.user));
       // console.log(JSON.parse(Cookies.get('user')));
       nav(`/login`)
@@ -99,8 +99,18 @@ export const useMain = () => {
       throw error;
     }
   }
+  const getTeacherD = async () => {
+    try {
+      const resp = await axios.get(`${API_URL}/teacherDetails/`);
+      const data = resp.data;
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error('Error fetching teachers:', error);
+    }
+  };
+  
 
-
-  return { login, signUp, sendMail, resetP }
+  return { login, signUp, sendMail, resetP ,getTeacherD}
 
 }

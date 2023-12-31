@@ -76,7 +76,7 @@ exports.validUser = (_reqBody) => {
         password: Joi.string().min(3).max(99).required(),
         phone: Joi.string().min(8).max(99).required(),
         birthDate: Joi.string().required(),
-        image_url: Joi.string().min(2).max(99).allow(null,'' ),
+        image_url: Joi.string().min(2).allow(null,'' ),
         gender: Joi.boolean().required(),
         location: Joi.object({
             city: Joi.string().min(2).max(99).required(),

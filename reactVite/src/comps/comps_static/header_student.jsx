@@ -107,7 +107,7 @@ function HeaderStudent() {
                         >
                             {pages.map((page, index) => (
                                 <MenuItem key={links[index]} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center"><Link to={`/teacher/${links[index]}`}>{page}</Link></Typography>
+                                    <Typography textAlign="center"><Link to={`/students/${links[index]}`}>{page}</Link></Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -138,7 +138,7 @@ function HeaderStudent() {
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                <Link style={{ color: 'white', textDecoration: 'none' }} to={`/teacher/${links[index]}`}>{page}</Link>
+                                <Link style={{ color: 'white', textDecoration: 'none' }} to={`/students/${links[index]}`}>{page}</Link>
                             </Button>
                         ))}
                     </Box>

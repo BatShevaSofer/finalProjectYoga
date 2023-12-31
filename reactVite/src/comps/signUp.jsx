@@ -1,7 +1,12 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useMain } from '../services/mainService';
+// import { doc, updateDoc } from 'firebase/firestore'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../firebase/config';
+import { v4 } from 'uuid'
+
 import {
     Container,
     Paper,
@@ -17,6 +22,7 @@ import {
 } from '@mui/material';
 
 const Signup = () => {
+    const imageRef = useRef(null);
     const [idNumber, setIdNumber] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -31,7 +37,7 @@ const Signup = () => {
     const [dataS, setDataS] = useState('');
     const [gender, setGender] = useState('');
     const [home, setHome] = useState('');
-
+    const [imageUpload, setImageUpload] = useState(null);
     const [cities, setCities] = useState([]);
     const [streets, setStreets] = useState([]);
     const [selectedCity, setSelectedCity] = useState('');
@@ -59,11 +65,41 @@ const Signup = () => {
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
+    // const onEditDoc = async (imageUrl) => {
+    //     const ref = doc(analytics, "users", idUser)
+    //     await updateDoc(ref, {
+    //         image_url: imageUrl
+    //     });
+    // }
+    // useEffect(() => { console.log(image); }, [image])
+    const uploadImage = async () => {
+        try {
+            if (imageUpload == null) return;
+            const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+            await uploadBytes(imageRef, imageUpload);
+            const imageUrl = await getDownloadURL(imageRef);
 
-    const handleImageChange = (event) => {
-        const selectedImage = event.target.files[0];
-        setImage(URL.createObjectURL(selectedImage));
+            return imageUrl;
+
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
     };
+
+
+
+    const handleImageChange = async (e,) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setImage(imageUrl);
+        }
+    };
+
+    // if (imageRef.current) {
+    //     ref.current.style.backgroundImage = `url(${url})`;
+    // }
 
     const handleHmoChange = (event) => {
         setHmo(event.target.value);
@@ -87,24 +123,36 @@ const Signup = () => {
     const handleStreetChange = (event) => {
         setStreet(event.target.value);
     };
+
+
     const handleCityChange = (event) => {
         setCity(event.target.value);
     };
+
+
     const handleGenderChange = (event) => {
         setGender(event.target.value);
     };
+
 
     const handleHomeChange = (event) => {
         setHome(event.target.value);
     };
 
+
     useEffect(() => {
         console.log(dataS);
 
     }, [dataS])
+
+
     useEffect(() => {
         console.log(selectedCity);
     }, [selectedCity]);
+
+    useEffect(() => {
+        console.log(image);
+    }, [image]);
 
     // Fetch cities
     useEffect(() => {
@@ -151,7 +199,10 @@ const Signup = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setDataS(await signUp(idNumber, firstName, lastName, email, password, phone, hmo, birthdate, city, street, home, gender));
+        uploadImage().then(async (response) => {
+            setDataS(await signUp(idNumber, firstName, lastName, email, password, phone, hmo, birthdate, city, street, home, gender, response));
+
+        }).catch((error) => { console.log(error) });
 
         console.log('ID Number:', idNumber);
         console.log('First Name:', firstName);
@@ -277,20 +328,21 @@ const Signup = () => {
                         style={{ display: 'none' }}
                         id="image-upload"
                         type="file"
-                        onChange={handleImageChange}
+                        onChange={(e) => handleImageChange(e)}
                     />
                     <label htmlFor="image-upload">
                         <Button
                             variant="outlined"
                             component="span"
                             fullWidth
+
                             style={{ borderColor: '#ff4081', color: '#ff4081', marginBottom: '16px' }}
                         >
                             Upload Image
                         </Button>
                     </label>
                     {image && (
-                        <div
+                        <div ref={imageRef}
                             style={{
                                 width: '50px',
                                 height: '50px',
@@ -318,7 +370,7 @@ const Signup = () => {
 
                     <FormControl variant="outlined" fullWidth margin="normal" required>
                         <InputLabel id="street_label">Street</InputLabel>
-                        <Select labelId="street_label" id="street" label="Street" name="street" value={street} onChange={handleStreetChange }>
+                        <Select labelId="street_label" id="street" label="Street" name="street" value={street} onChange={handleStreetChange}>
                             {streets && streets.map((street) => (
                                 <MenuItem key={street} value={street}>{street}</MenuItem>
                             ))}
