@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useAdmin } from "../../services/adminService";
+import { useAdmin } from "../../../services/adminService";
 import DisplayData from "./displayData";
 import { LinearProgress } from "@mui/material";
 import { Row } from 'antd';
 
 const Courses = () => {
-    const { getCorses, getCourseById } = useAdmin();
+    const { getCorses } = useAdmin();
     const [courses, setCourses] = useState();
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const Courses = () => {
 
     return (
         <div>
-            <Row gutter={16} className=''>
+            <Row gutter={16} className='d-flex justify-content-center mt-4'>
                 {courses ? (courses.map((course) => (
                     (
                         <DisplayData key={course._id} data={course} />

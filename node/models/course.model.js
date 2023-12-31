@@ -6,7 +6,7 @@ const courseSchema = new mongoose.Schema({
     level: String,
     gender: Boolean,
     ageGroup: String,
-    students: [mongoose.ObjectId], // Define students as an array of strings
+    students: { type: [mongoose.ObjectId], ref: 'users' }, // Define students as an array of strings
     dateTime: {
         day: String,
         hour: Number

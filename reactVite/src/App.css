@@ -93,3 +93,7 @@
  .pic_about{
     max-height: 500px;
  }
+ .joinus_href{
+  text-decoration: none;
+  color: rgb(176, 36, 94) ;
+ }

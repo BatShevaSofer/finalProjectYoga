@@ -15,8 +15,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-const pages = ['My Details', 'Courses', 'Students', 'Teachers'];
-const links = ['my_details', 'courses', 'students', 'teachers'];
+const pages = ['Courses', 'Students', 'Teachers'];
+const links = ['courses', 'students', 'teachers'];
 const settings = ['Profile', 'Logout'];
 
 function HeaderAdmin() {

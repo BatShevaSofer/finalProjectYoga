@@ -1,15 +1,33 @@
 // import React from 'react'
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMain } from "../../services/mainService";
+
 import { Carousel } from 'react-bootstrap';
 
-
 const Home = () => {
+  const { getTeacherD } = useMain();
+  const [teachers, setTeachers] = useState([]);
 
+  const nav = useNavigate();
+
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      try {
+        const data = await getTeacherD();
+        setTeachers(data);
+      } catch (error) {
+        console.error('Error fetching teachers:', error);
+      }
+    };
+
+    fetchTeachers();
+  }, []);
 
   return (
     <div>
       <div className="article">
-        <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel" style={{ height: '85vh' }}>
+        <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel" style={{ height: '90vh' }}>
           <div className="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -17,21 +35,21 @@ const Home = () => {
           </div>
           <div className="carousel-inner">
             <div className="carousel-item active" >
-              <img src="main3.jpg" className="d-block w-100" alt="..." style={{ height: '85vh' }} />
+              <img src="main.jpg" className="d-block w-100" alt="..." style={{ height: '90vh' }} />
               <div className="carousel-caption d-none d-md-block">
                 <h5>First slide label</h5>
                 <p>Some representative placeholder content for the first slide.</p>
               </div>
             </div>
             <div className="carousel-item">
-              <img src="main.jpg" className="d-block w-100" alt="..." style={{ height: '85vh' }} />
+              <img src="main3.jpg" className="d-block w-100" alt="..." style={{ height: '90vh' }} />
               <div className="carousel-caption d-none d-md-block">
                 <h5>Second slide label</h5>
                 <p>Some representative placeholder content for the second slide.</p>
               </div>
             </div>
             <div className="carousel-item">
-              <img src="yoga (3).jpg" className="d-block w-100" alt="..." style={{ height: '85vh' }} />
+              <img src="yoga (3).jpg" className="d-block w-100" alt="..." style={{ height: '90vh' }} />
               <div className="carousel-caption d-none d-md-block">
                 <h5>Third slide label</h5>
                 <p>Some representative placeholder content for the third slide.</p>
@@ -48,9 +66,9 @@ const Home = () => {
           </button>
         </div>
       </div>
-      <div class="container-fluid my-4">
-        <div class="container py-4">
-          <div class="col-md-9 text-center mx-auto welcome_text" >
+      <div className="container-fluid my-4">
+        <div className="container py-4">
+          <div className="col-md-9 text-center mx-auto welcome_text" >
             <h1 className="display-4">Welcome to Yoga Courses Hub</h1>
             <p className="lead">
               Discover personalized yoga courses for all ages and skill levels. Our expert instructors blend traditional wisdom with modern approaches, fostering growth in a supportive community.
@@ -63,50 +81,59 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div class="age_group container-fluid mt-5">
+      <div className="age_group container-fluid mt-5">
         <h2 className=' p-4 display-3'>for evreyone......</h2>
         <div className="row mt-4">
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              <img
-                src="kids.jpg"
-                className="card-img-top rounded-circle larger-circle "
-                alt="Kids"
-              />
+              <Link to="/programs">
+                <img
+                  src="kids.jpg"
+                  className="card-img-top rounded-circle larger-circle "
+                  alt="Kids"
+                />
+              </Link>
+
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>KIDS</strong></h2>
                 <div className="card-body">
-                  <button className='btn btn-secondary'>for details..</button>
+                  <button className='btn btn-secondary' onClick={() => { nav('/programs') }}>for details..</button>
                 </div>
               </div>
             </div>
           </div>
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              <img
-                src="teens (2).jpg"
-                className="card-img-top rounded-circle larger-circle"
-                alt="Teen"
-              />
+              <Link to="/programs">
+                <img
+                  src="teens (2).jpg"
+                  className="card-img-top rounded-circle larger-circle"
+                  alt="Teen"
+                />
+              </Link>
+
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>TEENS</strong></h2>
                 <div className="card-body">
-                  <button className='btn btn-secondary'>for details..</button>
+                  <button className='btn btn-secondary' onClick={() => { nav('/programs') }}>for details..</button>
                 </div>
               </div>
             </div>
           </div>
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              <img
-                src="adult.jpg"
-                className="card-img-top rounded-circle larger-circle"
-                alt="Adult"
-              />
+              <Link to="/programs">
+                <img
+                  src="adult.jpg"
+                  className="card-img-top rounded-circle larger-circle"
+                  alt="Adult"
+                />
+              </Link>
+
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>ADULT</strong></h2>
                 <div className="card-body">
-                  <button className='btn btn-secondary'>for details..</button>
+                  <button className='btn btn-secondary' onClick={() => { nav('/programs') }}>for details..</button>
                 </div>
               </div>
             </div>
@@ -114,9 +141,9 @@ const Home = () => {
         </div>
 
       </div>
-      <div class=" what_yoga container-fluid my-4 ">
-        <div class="container center my-4">
-          <div class="box  mx-auto">
+      <div className=" what_yoga container-fluid my-4 ">
+        <div className="container center my-4">
+          <div className="box  mx-auto">
             <h2 className='my-4'>
               <strong> What is yoga?</strong>
             </h2>
@@ -124,47 +151,27 @@ const Home = () => {
               Yoga is a physical and spiritual practice that integrates body, mind, and spirit. Through the practice of movement, postures, and breath control, yoga promotes flexibility, strength, stability, and internal focus. Beyond the physical benefits, it serves as a tool for calming the mind, reducing stress, and enhancing self-awareness. With its versatility, yoga is suitable for all ages and fitness levels, providing care for both the body and the spirit. It creates unique experiences of mindfulness and connection.</p>
             {/* <button class="btn btn-warning  px-5 text-white center">Join us</button> */}
           </div>
+          <a href='/signUp' className='joinus_href text-center'>to enjoy, please join ⟩⟩⟩ </a>
         </div>
       </div>
-      <div class="team container-fluid ">
-        <div class=" py-4 text-center ">
-          <h2 class="display-5 my-4">Meet our teachers</h2>
-          <div class="row">
-            <div class="col-md-2 col-sm-3  box">
-              <img src="wteacher1.jpg" />
-              <h3>Yael Sofer</h3>
-            </div>
-            <div class="col-md-2 col-sm-3  box">
-              <img src="teache3.jpg" />
-              <h3>Gadi Dan</h3>
-            </div>
-
-            <div class="col-md-2 col-sm-3  box">
-              <img src="teacher4.jpg" />
-              <h3>Moshe </h3>
-            </div>
-
-            <div class="col-md-2 col-sm-3  box">
-              <img src="wteacher2.jpg" />
-              <h3 >Yoram</h3>
-            </div>
-            <div class="col-md-2 col-sm-3  box">
-              <img src="teacher1.jpg" />
-              <h3 >Sheli</h3>
-            </div>
-
-            <div class="col-md-2 col-sm-3  box">
-              <img src="wteacer3.jpg" />
-              <h3 >Shai Or</h3>
-            </div>
+      <div className="team container-fluid m-0">
+        <div className=" py-4 text-center ">
+          <h2 className="display-5 my-4">Meet our teachers</h2>
+          <div className="row">
+        {teachers?.map((teacher) => (
+          <div key={teacher._id} className="col-md-2 col-sm-3 box">
+            <img src={teacher.user_id.image_url} alt={teacher.user_id.name} />
+            <h3> {teacher.user_id.name.firstName} {teacher.user_id.name.lastName}</h3>
           </div>
+        ))}
+      </div>
 
         </div>
 
       </div>
-      <div className='my-4 container-fluid txt_customers'>
+      <div className=' container-fluid txt_customers m-0 p-0'>
         <div className="container">
-          <h2 className='m-4'>What our customers say about us:</h2>
+          <h2 className='p-3'>What our customers say about us:</h2>
           <div className="row justify-content-center">
             <div className="col-md-8">
               <Carousel>
@@ -194,8 +201,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <footer class="container-fluid">
-        <div class=" text-center">
+      <footer className="container-fluid">
+        <div className=" text-center">
           <p>© Bat-Sheva Sofer & Efrat Gavriel & Aviya Ben-Tzur | developer | 2023 </p>
 
         </div>

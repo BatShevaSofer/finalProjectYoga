@@ -17,7 +17,7 @@ import Cookies from 'js-cookie';
 // import  {TeacherProfile} from '../comps_teacher/teacher'
 
 const pages = ['My Details', 'Courses', 'Report', 'MailBox'];
-const links = ['my_detailes', 'courses', 'report', 'mailBox'];
+const links = ['my_detailes', 'Courses', 'report', 'mailBox'];
 const settings = ['Profile', 'Logout'];
 
 function HeaderTeacher() {
