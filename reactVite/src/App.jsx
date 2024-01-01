@@ -15,6 +15,8 @@ import Signup from "./comps/signUp"
 import TeacherProfile from "./comps/comps_teacher/teacher"
 import TeacherCourses from "./comps/comps_teacher/teacherCourses"
 import About from "./comps/comps_user/about"
+import Programs from './comps/comps_user/programs'
+import OurTeachers from './comps/comps_user/our_teachers'
 function App() {
   return (
     <BrowserRouter>
