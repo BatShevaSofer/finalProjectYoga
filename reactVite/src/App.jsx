@@ -17,11 +17,10 @@ import TeacherCourses from "./comps/comps_teacher/teacherCourses"
 import About from "./comps/comps_user/about"
 import Courses from "./comps/comps_admin/courses/courses"
 import Students from "./comps/comps_admin/students/students"
+
 import Programs from "./comps/comps_user/programs"
 import OurTeachers from "./comps/comps_user/our_teachers"
 import Teachers from "./comps/comps_admin/teachers/teachers"
-
-
 
 
 
