@@ -15,7 +15,8 @@ const Home = () => {
     const fetchTeachers = async () => {
       try {
         const data = await getTeacherD();
-        setTeachers(data);
+        const slicedData = data.slice(0, 6);
+        setTeachers(slicedData);
       } catch (error) {
         console.error('Error fetching teachers:', error);
       }

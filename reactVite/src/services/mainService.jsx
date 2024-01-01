@@ -109,8 +109,21 @@ export const useMain = () => {
       console.error('Error fetching teachers:', error);
     }
   };
-  
+  const getCoursesDetails = async () => {
+    try {
+      let resp = await axios.get(`${API_URL}/coursesDetails`)
+      const data = resp.data;
+      console.log(data);
+      return data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
-  return { login, signUp, sendMail, resetP ,getTeacherD}
+
+
+
+  return { login, signUp, sendMail, resetP, getTeacherD, getCoursesDetails }
 
 }

@@ -105,7 +105,7 @@ export const useAdmin = () => {
 
     const addCourse = async () => {
         try {
-            let resp = await axios.post(`${API_URL}/course`, {
+            let resp = await axios.post(`${API_URL}/admin/course`, {
                 headers: {
                     "x-api-key": Cookies.get('token')
                 }
@@ -120,7 +120,7 @@ export const useAdmin = () => {
 
     const addTeacherToCourse = async (idCourse, idTeacher) => {
         try {
-            let resp = await axios.patch(`${API_URL}/course/${idCourse}/teacher/${idTeacher}`, {
+            let resp = await axios.patch(`${API_URL}/admin/course/${idCourse}/teacher/${idTeacher}`, {
                 headers: {
                     "x-api-key": Cookies.get('token')
                 }
@@ -135,12 +135,13 @@ export const useAdmin = () => {
 
     const addTeacher = async (id) => {
         try {
-            let resp = await axios.patch(`${API_URL}/teacher/${id}`, {
+            let resp = await axios.patch(`${API_URL}/admin/teacher/${id}`, null, {
                 headers: {
                     "x-api-key": Cookies.get('token')
                 }
-            })
+            });
             console.log(resp);
+            window.location.reload()
             return resp;
         }
         catch (err) {
