@@ -4,6 +4,7 @@ const nodemailer = require('nodemailer');
 const mongoose = require("mongoose");
 const router = express.Router();
 const { TeacherModel } = require("../models/teacher.model");
+const { CourseModel } = require("../models/course.model");
 const { validLogin, UserModel, validUser } = require('../models/user.model');
 const { createToken } = require('../middlewares/auth')
 const { transporter, generatePassword } = require('../helpers/mail');
@@ -131,10 +132,9 @@ router.patch('/resetpassword', async (req, res) => {
 router.get("/teacherDetails", async (req, res) => {
   try {
     let data = await TeacherModel.find()
-      .limit(6)
       .populate({
         path: 'user_id',
-        select: 'name image_url birthDate'
+        select: 'name image_url birthDate '
       })
     res.json(data)
   }
@@ -143,26 +143,20 @@ router.get("/teacherDetails", async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
-//מעדכן פרטי משתמש
-router.patch("/teacher/:id/:newMail",authTeacher,   async (req, res) => {
-  try {
-    let userID = req.params.id;
-    newMail=req.newMail;
-    // newUser
-    let data = await UserModel.updateOne({ _id: userID }, { mail: newMail })
-    // let teacher = {
-    //   user_id: userID,
-    //   courses: []
-    // };
-    // let newTeach = new TeacherModel(teacher);
-    // await newTeach.save();
 
-    res.json({ "data": data});
+router.get("/coursesDetails", async (req, res) => {
+  try {
+    let data = await CourseModel.find()
+    res.json(data)
   }
   catch (err) {
     console.log(err)
     res.status(500).json({ msg: "err", err })
   }
-});
+})
+
+
+
+
 
 module.exports = router;

@@ -31,9 +31,8 @@ exports.validateCourse = (_reqBody) => {
             hour: Joi.number().min(2).max(20).required()
             // hour: Joi.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).required()
 
-        }),
-        teacherId: Joi.string().min(2).max(99).required(),
-    });
+        })
+        });
 
     return joiSchema.validate(_reqBody);
 };

@@ -67,6 +67,14 @@ router.get("/teachers", authAdmin, async (req, res) => {
         path: 'user_id',
         select: 'name image_url'
       })
+      .populate({
+        path: 'courses',
+        select: 'level gender ageGroup students',
+        populate: {
+          path: 'students',
+          select: 'name'
+        }
+      })
     res.json(data)
   }
   catch (err) {
@@ -93,7 +101,20 @@ router.get("/teachers/:id", authAdmin, async (req, res) => {
 
 router.get("/students", authAdmin, async (req, res) => {
   try {
-    let data = await UserModel.find({ role: "student" }).limit(10);
+    let data = await UserModel.find({ role: "student" })
+      .limit(10)
+      .populate({
+        path: 'course_id',
+        select: 'level teacherId',
+        populate: {
+          path: 'teacherId',
+          select: 'user_id',
+          populate:{
+            path: 'user_id',
+            select: 'name'
+          }
+        }
+      });
     res.json(data)
   }
   catch (err) {

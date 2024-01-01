@@ -72,24 +72,30 @@ export const useTeacher = () => {
 
 
   }
-  const updateEmail = async (email) => {
+  const updateDetiles = async (_update, _to) => {
     try {
       const token = Cookies.get('token');
-      const user_id =token.user_id
-      let resp = await axios.get(`${API_URL}/teacher/${user_id}/${email}`, {
-        headers: {
-          "x-api-key": token
+  
+      let resp = await axios.patch(
+        `${API_URL}/teacher/updateDetiles`,
+        {
+          "update": _update,
+          "to": _to
+        },
+        {
+          headers: {
+            "x-api-key": token
+          }
         }
-      })
+      );
+  
       console.log(resp);
       return resp;
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
-
-
-  }
+  };
+  
 
   const getCourseTeachereById = async (id) => {
     try {
@@ -106,7 +112,7 @@ export const useTeacher = () => {
     }
 }
 
-    return { getTeacherProfile, getCoursesTeacher ,getCourseTeachereById,updateEmail}
+    return { getTeacherProfile, getCoursesTeacher ,getCourseTeachereById,updateDetiles}
 
   
 }

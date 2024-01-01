@@ -30,4 +30,23 @@ router.get("/", authStudent, async (req, res) => {
   })
 
 
+  router.patch("/updateDetiles", authStudent, async (req, res) => {
+    let validBody = validUser(req.body);
+    
+    try {
+      const userID = req.tokenData._id;
+      const update=req.body.update;
+      const to=req.body.to;
+  
+      // מעדכן משתמש
+     
+      const data = await UserModel.updateOne({ _id: userID }, { [update]: to });
+  
+  
+      res.json({ data });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ msg: "err", err });
+    }
+  });
 module.exports = router;
