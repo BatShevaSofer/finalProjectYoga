@@ -144,9 +144,9 @@ router.post("/course", authAdmin, async (req, res) => {
   }
   try {
     let course = new CourseModel(req.body);
+    course.teacherId = null;
     await course.save();
     res.status(201).json(course);
-
   }
   catch (err) {
     console.log(err)

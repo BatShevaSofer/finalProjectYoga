@@ -21,8 +21,11 @@ const TeacherProfile = () => {
   const [editedHome, setEditedHome] = useState('');
   const [cities, setCities] = useState([]);
   const [streets, setStreets] = useState([]);
-
-
+  const [isUpdating, setIsUpdating] = useState(false);
+// משתנים נוספים לכל פרמטר
+const [cityEditing, setCityEditing] = useState(false);
+const [streetEditing, setStreetEditing] = useState(false);
+const [homeEditing, setHomeEditing] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,12 +93,21 @@ useEffect(() => {
 }, [selectedCity]);
 
 
+const handleEditClick = (param) => {
+  setIsEditing(true);
+  setIsUpdating(false); // אם יש פעולת עדכון פעילה, נסיים לבטל אותה
+  setCityEditing(param === "city");
+  setStreetEditing(param === "street");
+  setHomeEditing(param === "home");
+};
 
 
-
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
+  // const handleEditClick = () => {
+  //   setIsEditing(true);
+  // };
+  // const handleEditClick = () => {
+  //   setIsEditing(!isEditing);
+  // };
 
   const handleUpdateEmail = async () => {
     try {
@@ -121,29 +133,58 @@ useEffect(() => {
       console.error("Error updating teacher first name:", error);
     }
   };
-  const handleUpdateLocation  = async () => {
-    try {
-      const response = await updateDetiles("location", {
-        "city": selectedCity,
-        "street": selectedStreet,
-        "home": editedHome
+  // const handleUpdateLocation  = async () => {
+  //   try {
+  //     const response = await updateDetiles("location", {
+  //       "city": selectedCity,
+  //       "street": selectedStreet,
+  //       "home": editedHome
 
-      });
+  //     });
+  //     if (response) {
+  //       alert(" location updated");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating teacher first name:", error);
+  //   }
+  // };
+
+  const handleUpdateLocation = async () => {
+    try {
+      setIsUpdating(true);
+      // בהתאם לעריכה שהתבצעה, נבצע פעולת עדכון מתאימה
+      const response = await updateDetiles(
+        cityEditing ? "location" : 
+        streetEditing ? "street" : 
+        homeEditing ? "home" : "",
+        {
+          "city": cityEditing ? selectedCity : "",
+          "street": streetEditing ? selectedStreet : "",
+          "home": homeEditing ? editedHome : ""
+        }
+      );
       if (response) {
-        alert(" location updated");
+        alert("Location updated");
+        setIsUpdating(false);
+        setIsEditing(false); // סיום עריכה
       }
     } catch (error) {
-      console.error("Error updating teacher first name:", error);
+      console.error("Error updating teacher location:", error);
+      setIsUpdating(false);
     }
   };
+
   const handleUpdateLastName = async () => {
     try {
+      setIsUpdating(true);
       const response = await updateDetiles("name", {
         "firstName": editedFirstName,
         "lastName": editedLastName
       });
       if (response) {
         alert("Last Name updated");
+        setIsUpdating(false);
+        setIsEditing(false); // סיום עריכה
       }
     } catch (error) {
       console.error("Error updating teacher last name:", error);
@@ -298,6 +339,28 @@ useEffect(() => {
     selectedCity
   )}
 </Typography>
+<Typography variant="h6" color="textSecondary" onClick={() => handleEditClick("city")} style={{ cursor: 'pointer' }}>
+                City: {isEditing && cityEditing ? (
+                  <div>
+                    <TextField
+                      label="City"
+                      variant="outlined"
+                      fullWidth
+                      value={selectedCity}
+                      onChange={(e) => {
+                        setSelectedCity(e.target.value);
+                        setSelectedStreet('');
+                      }}
+                    />
+                    <Button variant="contained" color="primary" onClick={handleUpdateLocation} disabled={isUpdating}>
+                      Update City
+                    </Button>
+                  </div>
+                ) : (
+                  selectedCity
+                )}
+              </Typography>
+
 <Typography variant="h6" color="textSecondary" onClick={handleEditClick} style={{ cursor: 'pointer' }}>
   Street: {isEditing ? (
     <div>

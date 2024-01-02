@@ -50,7 +50,7 @@ export const useAdmin = () => {
                 }
             })
             console.log(resp);
-            return resp;
+            return resp.data;
         }
         catch (err) {
             console.log(err);
@@ -120,16 +120,18 @@ export const useAdmin = () => {
 
     const addTeacherToCourse = async (idCourse, idTeacher) => {
         try {
-            let resp = await axios.patch(`${API_URL}/admin/course/${idCourse}/teacher/${idTeacher}`, {
+            let resp = await axios.patch(`${API_URL}/admin/course/${idCourse}/teacher/${idTeacher}`, null, {
                 headers: {
                     "x-api-key": Cookies.get('token')
                 }
             })
             console.log(resp);
+            window.location.reload()
             return resp;
         }
         catch (err) {
             console.log(err);
+            return err.message;
         }
     }
 
@@ -141,7 +143,7 @@ export const useAdmin = () => {
                 }
             });
             console.log(resp);
-            window.location.reload()
+            window.location.reload();
             return resp;
         }
         catch (err) {

@@ -3,7 +3,7 @@ const router = express.Router();
 const {authStudent} =require('../middlewares/auth');
 const { CourseModel } = require("../models/course.model");
 const { UserModel } = require("../models/user.model");
-
+const { validUser } = require("../models/user.model");
 
 
 router.get("/", authStudent, async (req, res) => {

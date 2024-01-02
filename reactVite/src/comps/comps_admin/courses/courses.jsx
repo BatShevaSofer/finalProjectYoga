@@ -27,6 +27,7 @@ const Courses = () => {
                 {courses ? (courses.map((course) => (
                     (
                         <DisplayData key={course._id} data={course} />
+                        
                     )
                 ))) : (
                     <LinearProgress />

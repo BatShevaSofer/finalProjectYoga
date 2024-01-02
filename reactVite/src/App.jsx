@@ -17,12 +17,14 @@ import TeacherCourses from "./comps/comps_teacher/teacherCourses"
 import About from "./comps/comps_user/about"
 import Courses from "./comps/comps_admin/courses/courses"
 import Students from "./comps/comps_admin/students/students"
-
+import StudentProfile from "./comps/comps_student/students"
 import Programs from "./comps/comps_user/programs"
 import OurTeachers from "./comps/comps_user/our_teachers"
 import Teachers from "./comps/comps_admin/teachers/teachers"
-
-
+import WeeklySchedule from './comps/comps_student/schedule'
+import TeacherSchedule from './comps/comps_teacher/report'
+import Schedule from './comps/comps_admin/schedule'
+import PaypalPaymentButton from './comps/paypal'
 
 function App() {
 
@@ -47,9 +49,14 @@ function App() {
         <Route path='/admin/courses' element={<Courses />} />
         <Route path='/admin/students' element={<Students />} />
         <Route path='/admin/teachers' element={<Teachers />} />
+        <Route path='/admin/schedule' element={<Schedule/>} />
+        <Route path='/student/pay' element={<PaypalPaymentButton/>} />
 
         <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
+        <Route path='/teacher/report' element={<TeacherSchedule />} />
         <Route path='/teacher/Courses' element={<TeacherCourses />} />
+        <Route path='/student/my_details' element={<StudentProfile />} />
+        <Route path='/student/schedule' element={<WeeklySchedule />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -16,7 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 const pages = ['My Details', 'My Program', 'Chat' ];
-const links = ['my_details', 'my_program', 'chat'];
+const links = ['my_details', 'schedule', 'chat'];
 const settings = ['Profile', 'Logout'];
 
 function HeaderStudent() {
@@ -107,7 +107,7 @@ function HeaderStudent() {
                         >
                             {pages.map((page, index) => (
                                 <MenuItem key={links[index]} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center"><Link to={`/students/${links[index]}`}>{page}</Link></Typography>
+                                    <Typography textAlign="center"><Link to={`/student/${links[index]}`}>{page}</Link></Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -138,7 +138,7 @@ function HeaderStudent() {
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                <Link style={{ color: 'white', textDecoration: 'none' }} to={`/students/${links[index]}`}>{page}</Link>
+                                <Link style={{ color: 'white', textDecoration: 'none' }} to={`/student/${links[index]}`}>{page}</Link>
                             </Button>
                         ))}
                     </Box>

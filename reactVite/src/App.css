@@ -97,3 +97,18 @@
   text-decoration: none;
   color: rgb(176, 36, 94) ;
  }
+ 
+ .weekly-schedule-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.available-hour {
+  background-color: #5cb85c; /* כלול כאן צבע שלום לעין או אחר */
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  margin: 0 auto;
+}

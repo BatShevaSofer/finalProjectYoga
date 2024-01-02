@@ -12,7 +12,7 @@ const Teachers = () => {
         const fetchData = async () => {
             try {
                 const data = await getTeachers();
-                setTeachers(data.data);
+                setTeachers(data);
             } catch (error) {
                 console.error("Error fetching teachers:", error);
             }
