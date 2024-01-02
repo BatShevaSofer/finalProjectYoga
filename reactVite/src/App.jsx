@@ -24,9 +24,8 @@ import Teachers from "./comps/comps_admin/teachers/teachers"
 
 
 
-import Programs from './comps/comps_user/programs'
-import OurTeachers from './comps/comps_user/our_teachers'
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>
