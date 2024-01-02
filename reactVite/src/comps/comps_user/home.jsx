@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMain } from "../../services/mainService";
-
+import TeachersList from './teachersList';
 import { Carousel } from 'react-bootstrap';
 
 const Home = () => {
@@ -159,12 +159,14 @@ const Home = () => {
         <div className=" py-4 text-center ">
           <h2 className="display-5 my-4">Meet our teachers</h2>
           <div className="row">
-        {teachers?.map((teacher) => (
+          <TeachersList teachers={teachers} />
+
+        {/* {teachers?.map((teacher) => (
           <div key={teacher._id} className="col-md-2 col-sm-3 box">
             <img src={teacher.user_id.image_url} alt={teacher.user_id.name} />
             <h3> {teacher.user_id.name.firstName} {teacher.user_id.name.lastName}</h3>
           </div>
-        ))}
+        ))} */}
       </div>
 
         </div>

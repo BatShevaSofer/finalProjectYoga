@@ -25,6 +25,7 @@ import Teachers from "./comps/comps_admin/teachers/teachers"
 
 
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>
