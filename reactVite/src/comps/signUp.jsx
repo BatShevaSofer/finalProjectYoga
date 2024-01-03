@@ -2,6 +2,8 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useMain } from '../services/mainService';
+// import { useParams } from 'react-router-dom';
+
 // import { doc, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../firebase/config';
@@ -22,6 +24,8 @@ import {
 } from '@mui/material';
 
 const Signup = () => {
+    // const { level } = useParams();
+
     const imageRef = useRef(null);
     const [idNumber, setIdNumber] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -42,6 +46,8 @@ const Signup = () => {
     const [streets, setStreets] = useState([]);
     const [selectedCity, setSelectedCity] = useState('');
     const { signUp } = useMain();
+    //   console.log('Level:', level);
+
     const handleIdNumberChange = (event) => {
         setIdNumber(event.target.value);
     };

@@ -40,9 +40,6 @@ export const useStudent = () => {
       return null;
     }
   };
-  
-  
-
 
   
   const updateDetiles = async (_update, _to) => {
@@ -68,11 +65,29 @@ export const useStudent = () => {
       console.log(err);
     }
   };
-  
+
+
+    const getCourse = async () => {
+    try {
+      const token = Cookies.get('token');
+      let resp = await axios.get(`${API_URL}/student/course`, {
+        headers: {
+          "x-api-key": token
+        }
+      })
+      console.log(resp);
+      return resp;
+    }
+    catch (err) {
+      console.log(err);
+    }
+
+
+  }
 
   
 
-    return { getStudentProfile,updateDetiles}
+    return { getStudentProfile,updateDetiles,getCourse}
 
   
 }

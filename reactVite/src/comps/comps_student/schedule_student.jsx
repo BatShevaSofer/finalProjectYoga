@@ -1,21 +1,21 @@
 // TeacherSchedule.js
 import { useState, useEffect } from 'react';
-import { useTeacher } from "../../services/teacherService";
-import DisplayTeacherSchedule from './display-teacher-schedule'; 
+import { useStudent } from "../../services/studentService";
+import DisplayStudentSchedule from './display-student-schedule'; 
 
-const TeacherSchedule = () => {
-    const { getCoursesTeacher } = useTeacher();
-    const [courses, setCourses] = useState([]);
+const ScheduleStudent = () => {
+    const { getCourse } = useStudent();
+    const [course, setCourse] = useState([]);
 
 
     useEffect(() => {
         const fetchSchedule = async () => {
             try {
-                const response = await getCoursesTeacher();
+                const response = await getCourse();
                 console.log('Response from getCoursesTeacher:', response); 
         
                 const data = response.data;
-                setCourses(data.courses);
+                setCourse(data.courses);
             } catch (error) {
                 console.error('Error fetching teacher schedule:', error.message);
             }
@@ -27,9 +27,9 @@ const TeacherSchedule = () => {
     return (
         <div className='container mt-4'>
           <h2>Teacher Weekly Schedule</h2>
-          <DisplayTeacherSchedule courses={courses} />
+          <DisplayStudentSchedule courses={course} />
         </div>
       );
     };
 
-export default TeacherSchedule;
+export default ScheduleStudent;

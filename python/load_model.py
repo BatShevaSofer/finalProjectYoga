@@ -31,7 +31,7 @@ loaded_model.load_weights("cnn12_weights.h5")
 # print(loaded_model)
 
 # קריאת תמונה
-img_path = rf"C:\Users\Bat_Sheva\OneDrive\שולחן העבודה\yoga\izabel-OMwCDj99PPU-unsplash.jpg" # יש להחליף כתובת התמונה שלך
+img_path = rf"C:\Users\Bat_Sheva\OneDrive\שולחן העבודה\yoga\emad-yogi-NE_IAdanS0A-unsplash.jpg" # יש להחליף כתובת התמונה שלך
 img = image.load_img(img_path, target_size=(100, 100))
 img_array = image.img_to_array(img)
 img_array = np.expand_dims(img_array, axis=0)
@@ -53,4 +53,3 @@ predicted_class = np.argmax(prediction)
 # print("Predicted class:", predicted_class)
 confidence_percentage = np.max(prediction) * 100
 print(f"Predicted class: {poses[predicted_class]}\nConfidence percentage:  {confidence_percentage:.2f}%")
-

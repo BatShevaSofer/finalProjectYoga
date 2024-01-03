@@ -21,10 +21,14 @@ import StudentProfile from "./comps/comps_student/students"
 import Programs from "./comps/comps_user/programs"
 import OurTeachers from "./comps/comps_user/our_teachers"
 import Teachers from "./comps/comps_admin/teachers/teachers"
-import WeeklySchedule from './comps/comps_student/schedule'
+import ScheduleStudent from './comps/comps_student/schedule_student'
 import TeacherSchedule from './comps/comps_teacher/schedule_teacher'
 import Schedule from './comps/comps_admin/schedule'
 import PaypalPaymentButton from './comps/paypal'
+import KidsProgram from './comps/comps_user/program/kids_program'
+import TeensProgram from './comps/comps_user/program/teens_program'
+import AdultProgram from './comps/comps_user/program/adult_program'
+import AppChat from './AppChat'
 
 function App() {
 
@@ -46,17 +50,22 @@ function App() {
         <Route path="/programs" element={<Programs />} />
         <Route path="/our_teachers" element={<OurTeachers />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/program/kids_program' element={<KidsProgram />} />
+        <Route path='/program/teens_program' element={<TeensProgram />} />
+        <Route path='/program/adult_program' element={<AdultProgram />} />
         <Route path='/admin/courses' element={<Courses />} />
         <Route path='/admin/students' element={<Students />} />
         <Route path='/admin/teachers' element={<Teachers />} />
         <Route path='/admin/schedule' element={<Schedule/>} />
-        <Route path='/student/pay' element={<PaypalPaymentButton/>} />
+        <Route path='/pay' element={<PaypalPaymentButton/>} />
 
         <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
         <Route path='/teacher/schedule_teacher' element={<TeacherSchedule />} />
         <Route path='/teacher/Courses' element={<TeacherCourses />} />
         <Route path='/student/my_details' element={<StudentProfile />} />
-        <Route path='/student/schedule' element={<WeeklySchedule />} />
+        <Route path='/student/schedule_student' element={<ScheduleStudent />} />
+        <Route path='/student/chat' element={<AppChat />} />
+
       </Routes>
       <Footer />
     </BrowserRouter>

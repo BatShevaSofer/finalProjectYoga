@@ -106,6 +106,9 @@ router.post('/sendMail', (req, res) => {
     }
   });
 });
+
+
+
 function updateArray(updatedArray) {
   // הצהרה חוזרת על המערך המעודכן
   mailPassword = [...updatedArray];

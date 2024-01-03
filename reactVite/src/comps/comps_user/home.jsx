@@ -87,7 +87,7 @@ const Home = () => {
         <div className="row mt-4">
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              <Link to="/programs">
+              <Link to='/program/kids_program'>
                 <img
                   src="kids.jpg"
                   className="card-img-top rounded-circle larger-circle "
@@ -98,14 +98,14 @@ const Home = () => {
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>KIDS</strong></h2>
                 <div className="card-body">
-                  <button className='btn btn-secondary' onClick={() => { nav('/programs') }}>for details..</button>
+                  <button className='btn btn-secondary' onClick={() => { nav('/program/kids_program') }}>for details..</button>
                 </div>
               </div>
             </div>
           </div>
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              <Link to="/programs">
+              <Link to='/program/teens_program'>
                 <img
                   src="teens (2).jpg"
                   className="card-img-top rounded-circle larger-circle"
@@ -116,14 +116,14 @@ const Home = () => {
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>TEENS</strong></h2>
                 <div className="card-body">
-                  <button className='btn btn-secondary' onClick={() => { nav('/programs') }}>for details..</button>
+                  <button className='btn btn-secondary' onClick={() => { nav('/program/teens_program') }}>for details..</button>
                 </div>
               </div>
             </div>
           </div>
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              <Link to="/programs">
+              <Link to='/program/adult_program'>
                 <img
                   src="adult.jpg"
                   className="card-img-top rounded-circle larger-circle"
@@ -134,7 +134,7 @@ const Home = () => {
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>ADULT</strong></h2>
                 <div className="card-body">
-                  <button className='btn btn-secondary' onClick={() => { nav('/programs') }}>for details..</button>
+                  <button className='btn btn-secondary' onClick={() => { nav('/program/adult_program') }}>for details..</button>
                 </div>
               </div>
             </div>

@@ -49,4 +49,22 @@ router.get("/", authStudent, async (req, res) => {
       res.status(500).json({ msg: "err", err });
     }
   });
+  // router.get('/checkUser/:username', async (req, res) => {
+  //   const username = req.params.username;
+  
+  //   try {
+  //     const user = await User.findOne({ username });
+  
+  //     if (user) {
+  //       // המשתמש קיים
+  //       res.json({ exists: true, user });
+  //     } else {
+  //       // המשתמש לא קיים
+  //       res.json({ exists: false });
+  //     }
+  //   } catch (error) {
+  //     console.error('Error checking user:', error);
+  //     res.status(500).json({ error: 'Internal Server Error' });
+  //   }
+  // });
 module.exports = router;
