@@ -22,7 +22,7 @@ import Programs from "./comps/comps_user/programs"
 import OurTeachers from "./comps/comps_user/our_teachers"
 import Teachers from "./comps/comps_admin/teachers/teachers"
 import WeeklySchedule from './comps/comps_student/schedule'
-import TeacherSchedule from './comps/comps_teacher/report'
+import TeacherSchedule from './comps/comps_teacher/schedule_teacher'
 import Schedule from './comps/comps_admin/schedule'
 import PaypalPaymentButton from './comps/paypal'
 
@@ -53,7 +53,7 @@ function App() {
         <Route path='/student/pay' element={<PaypalPaymentButton/>} />
 
         <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
-        <Route path='/teacher/report' element={<TeacherSchedule />} />
+        <Route path='/teacher/schedule_teacher' element={<TeacherSchedule />} />
         <Route path='/teacher/Courses' element={<TeacherCourses />} />
         <Route path='/student/my_details' element={<StudentProfile />} />
         <Route path='/student/schedule' element={<WeeklySchedule />} />

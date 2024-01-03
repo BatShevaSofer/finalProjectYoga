@@ -16,8 +16,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 // import  {TeacherProfile} from '../comps_teacher/teacher'
 
-const pages = ['My Details', 'Courses', 'Report', 'MailBox'];
-const links = ['my_detailes', 'Courses', 'report', 'mailBox'];
+const pages = ['My Details', 'Courses', 'schedule', 'MailBox'];
+const links = ['my_detailes', 'Courses', 'schedule_teacher', 'mailBox'];
 const settings = ['Profile', 'Logout'];
 
 function HeaderTeacher() {
