@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 router.get("/courses", authAdmin, async (req, res) => {
   try {
     let data = await CourseModel.find({})
-      .limit(10)
+      // .limit(10)
       .populate({
         path: 'teacherId',
         populate: {

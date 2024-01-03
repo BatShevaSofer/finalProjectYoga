@@ -1,8 +1,8 @@
 // TeacherSchedule.js
 import React, { useState, useEffect } from 'react';
 import { useTeacher } from "../../services/teacherService";
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+// import Calendar from 'react-calendar';
+// import 'react-calendar/dist/Calendar.css';
 
 const TeacherSchedule = () => {
     const { getCoursesTeacher } = (useTeacher);

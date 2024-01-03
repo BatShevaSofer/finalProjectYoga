@@ -10,7 +10,7 @@ const Schedule = () => {
     const fetchCourses = async () => {
       try {
         const data = await getCorses();
-        setCourses(data);
+        setCourses(data.data);
     } catch (error) {
         console.error("Error fetching teachers:", error);
       }
@@ -20,7 +20,7 @@ const Schedule = () => {
   }, []);
 
   return (
-    <div>
+    <div className='container mt-4'>
       <h2>Weekly Schedule</h2>
       <DisplaySchedule courses={courses} />
     </div>
