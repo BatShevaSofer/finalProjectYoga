@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useMain } from '../services/mainService';
 // import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // import { doc, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
@@ -256,6 +257,12 @@ const Signup = () => {
                 <Typography component="h1" variant="h5" style={{ color: '#ff4081' }}>
                     Sign Up
                 </Typography>
+                <Typography variant="body2" color="textSecondary" align="center">
+                    Already have an account?{' '}
+                    <Link to="/login" style={{ color: '#ff4081' }}>
+                        Login
+                    </Link>
+                </Typography>
                 <form
                     style={{ width: '70%', marginTop: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
                     onSubmit={handleSubmit}
@@ -492,6 +499,7 @@ const Signup = () => {
                         Sign Up
                     </Button>
                 </form>
+             
             </Paper>
         </Container>
     );

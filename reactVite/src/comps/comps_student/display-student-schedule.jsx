@@ -27,21 +27,24 @@ const DisplayStudentSchedule = ({ courses }) => {
   return (
     <div className='container'>
       <WeeklyScheduleWrapper>
-        {daysOfWeek.map((day, index) => (
-          <div key={index}>
-            <DayHeader>{day}</DayHeader>
-            {courses
-              .filter(course => course.dateTime.day.toLowerCase() === day.toLowerCase())
-              .map(course => (
-                <CourseCard key={course._id}>
-                  <p>Course: {levels[course.level - 1]}-{course.ageGroup}</p>
-                  <p>Time: {course.dateTime.hour}:00</p>
-                  <p>Gender: {course.gender ? 'Male' : 'Female'}</p>
-                  {/* <p>Teacher: {course.teacherId.user_id.name.firstName}</p> */}
-                </CourseCard>
-              ))}
-          </div>
+      {courses &&
+  daysOfWeek.map((day, index) => (
+    <div key={index}>
+      <DayHeader>{day}</DayHeader>
+      {courses
+        .filter(course => course.dateTime.day.toLowerCase() === day.toLowerCase())
+        .map(course => (
+          course && ( 
+            <CourseCard key={course._id}>
+              <p>Course: {levels[course.level - 1]}-{course.ageGroup}</p>
+              <p>Time: {course.dateTime.hour}:00</p>
+              <p>Gender: {course.gender ? 'Male' : 'Female'}</p>
+              {/* <p>Teacher: {course.teacherId.user_id.name.firstName}</p> */}
+            </CourseCard>
+          )
         ))}
+    </div>
+  ))}
       </WeeklyScheduleWrapper>
     </div>
   );
