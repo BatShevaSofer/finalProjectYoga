@@ -1,54 +1,23 @@
-import React, { Component } from 'react';
-import CreateMessage from './components/createMessage';
-import Messages from './components/messages';
+// import { BrowserRouter} from 'react-router-dom';
+// import Home from './comps/comps_chat/home';
 
-import socketIOClient from 'socket.io-client';
+import ChatPage from './comps/comps_chat/ChatPage';
+import socketIO from 'socket.io-client';
 
-var socket = null;
-
-class AppChat extends Component {
-  
-  constructor() {
-    super();
-
-    this.state = {
-      username: '',
-      messages: []
-    }
-
-    if(socket === null) {
-      socket = socketIOClient('http://localhost:5173');
-    }
-
-    socket.on('SET_USERNAME', (username) => {
-      this.setState({
-        username
-      });
-    });
-
-    socket.on('CREATE_MESSAGE', (messageObject) => {
-      this.setState({
-        messages: [...this.state.messages, messageObject]
-      });
-      this.myRef.current.scrollTop = this.myRef.current.clientHeight;
-    });
-
-    this.myRef = React.createRef();
-  }
-  render() {
-    return (
-      <div className="chat">
-        <Messages refProp={this.myRef} messages={this.state.messages} username={this.state.username} />
-        <CreateMessage handlerCreateMessage={this.handlerCreateMessage} />
+const socket = socketIO.connect('http://localhost:3001');
+function App() {
+  return (
+    // <BrowserRouter>
+      <div>
+        {/* <Routes>
+          <Route path="/" element={<Home socket={socket} />}></Route>
+          <Route path="/chat" element={<ChatPage socket={socket} />}></Route>
+        </Routes> */}
+        {/* <Home socket={socket} /> */}
+        <ChatPage socket={socket} />
       </div>
-    );
-  }
-
-  handlerCreateMessage = (message) => {
-    message.user = this.state.username;
-    socket.emit('SEND_MESSAGE', message);
-  }
-  
+    // </BrowserRouter>
+  );
 }
 
-export default AppChat;
+export default App;

@@ -1,3 +1,4 @@
+// import React from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,7 +7,7 @@ const NotEnrolledMessage = () => {
         <div>
             <p>You are not enrolled in any courses yet.</p>
             <p>Please join a course:</p>
-            <Link to="/courses">Join Courses</Link>
+            <Link to="/student/coursesPage">Join Courses</Link>
         </div>
     );
 };

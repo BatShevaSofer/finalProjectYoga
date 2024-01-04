@@ -44,8 +44,11 @@ export const useStudent = () => {
   
   const updateDetiles = async (_update, _to) => {
     try {
+      console.log('_update:', _update);
+      console.log('_to:', _to);
       const token = Cookies.get('token');
-  
+      console.log(token);
+
       let resp = await axios.patch(
         `${API_URL}/student/updateDetiles`,
         {
@@ -59,10 +62,10 @@ export const useStudent = () => {
         }
       );
   
-      console.log(resp);
+      console.log('Response from updateDetiles:', resp);
       return resp;
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error('Error in updateDetiles:', error);
     }
   };
 

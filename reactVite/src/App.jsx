@@ -29,6 +29,7 @@ import KidsProgram from './comps/comps_user/program/kids_program'
 import TeensProgram from './comps/comps_user/program/teens_program'
 import AdultProgram from './comps/comps_user/program/adult_program'
 import AppChat from './AppChat'
+import CoursesPage from './comps/comps_student/courses_page'
 
 function App() {
 
@@ -57,13 +58,15 @@ function App() {
         <Route path='/admin/students' element={<Students />} />
         <Route path='/admin/teachers' element={<Teachers />} />
         <Route path='/admin/schedule' element={<Schedule/>} />
-        <Route path='/pay' element={<PaypalPaymentButton/>} />
+        <Route path='/student/pay/:courseId' element={<PaypalPaymentButton/>} />
 
         <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
         <Route path='/teacher/schedule_teacher' element={<TeacherSchedule />} />
         <Route path='/teacher/Courses' element={<TeacherCourses />} />
         <Route path='/student/my_details' element={<StudentProfile />} />
         <Route path='/student/schedule' element={<ScheduleStudent />} />
+        {/* <Route path='/student/' element={<ScheduleStudent />} /> */}
+        <Route path='/student/coursesPage' element={<CoursesPage />} />
         <Route path='/student/chat' element={<AppChat />} />
 
       </Routes>
