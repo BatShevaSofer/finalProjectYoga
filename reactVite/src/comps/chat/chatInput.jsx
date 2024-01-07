@@ -15,16 +15,16 @@ const ChatInput = ({ onSendMessage }) => {
     <div className={`container   ${isFocused ? 'focused' : ''}  border-0 d-flex m-0`} style={{ borderRadius: '30px 30px 30px 30px'}}>
       <div className="row  d-danger p-1 d-flex "  >
         
-        <div className="col-11  d-flex justify-content-start  p-0 pe-5 py-2">
+        <div className="col-11 d-flex justify-content-start  p-0 py-2">
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            className="form-control    border-0 shadow-none example "
+            className="form-control border-0 shadow-none example"
             style={{
               borderRadius:"30px",
-              width: '550px',
+              width: '460px',
               color:'black',
               minHeight:'20px',
               maxHeight: '100px', // Set the maximum height for the input

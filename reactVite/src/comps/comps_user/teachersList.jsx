@@ -4,28 +4,37 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import calculateAge from './helpers'
 
 const TeacherModalContent = ({ teacher, handleClose }) => {
     const nav = useNavigate();
-    
+
     return (
         <>
             <Modal.Header closeButton>
                 <Modal.Title>{teacher.user_id.name.firstName} {teacher.user_id.name.lastName}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                <img src={teacher.user_id.image_url} alt={teacher.user_id.name} style={{ width: '100%' }} />
-                <h4>description:</h4>
-                <p>{teacher.description}</p>
+            <Modal.Body style={{ display: 'flex', flexDirection: 'row' }}>
+                <div style={{ flex: '1', order: '2', paddingLeft: '20px', textAlign: 'left' }}>
+                    <h5>{`Age: ${calculateAge(teacher.user_id.birthDate)}`}</h5>
+                    <h5>Description:</h5>
+                    <p>{teacher.description}</p>
+                  
+                </div>
+                <div style={{ flex: '1', order: '1', paddingRight: '20px', textAlign: 'right' }}>
+                    <img src={teacher.user_id.image_url} alt={teacher.user_id.name} style={{ width: '100%' , height:'80%'}} />
+                  
+                </div>
             </Modal.Body>
+
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                {/* ניתוב לדף המורה */}
-                <Button variant="primary" onClick={() =>nav('/our_teachers')}>
+                
+                <button className="btn btn-outline-secondary" onClick={() => nav('/our_teachers')}>
                     all Teachers
-                </Button>
+                </button>
+                <button className="btn btn-outline-secondary" onClick={handleClose}>
+                    Close
+                </button>
             </Modal.Footer>
         </>
     );
@@ -56,7 +65,7 @@ const TeachersList = ({ teachers }) => (
 
     <div className="row">
         {teachers?.map((teacher) => (
-            <div key={teacher._id} className="col-md-2 col-sm-3">
+            <div key={teacher._id} className="col-md-2 col-sm-4">
                 <TeacherModal teacher={teacher} />
             </div>
         ))}

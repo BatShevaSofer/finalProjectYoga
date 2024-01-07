@@ -17,7 +17,7 @@ import Cookies from 'js-cookie';
 
 const pages = ['My Details', 'My Program', 'Chat' ];
 const links = ['my_details', 'schedule', 'chat'];
-const settings = ['Profile', 'Logout'];
+const settings = [ 'Logout'];
 
 function HeaderStudent() {
     const [anchorElNav, setAnchorElNav] = React.useState(0);

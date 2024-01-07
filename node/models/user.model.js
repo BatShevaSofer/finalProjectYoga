@@ -43,7 +43,7 @@ let userSchema = new mongoose.Schema({
     HMO: {
         type: String,
         enum: {
-            values: ["macabi", "clalit", "leumit", "meuchedet"],
+            values: ["maccabi", "clalit", "leumit", "meuhedet"],
             message: "HMO is required",
         },
     },

@@ -1,0 +1,29 @@
+/* YourListStyles.css */
+.student_title{
+  color: hotpink;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: -10px;
+}
+
+.image-item {
+  width: 50%; /* קח 50% מהרוחב של ההורה */
+  box-sizing: border-box; /* תתחשב ב- padding ו- border בתוך הרוחב שלך */
+  padding: 10px;
+}
+
+.image-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-item img:hover {
+  transform: scale(1.1);
+}

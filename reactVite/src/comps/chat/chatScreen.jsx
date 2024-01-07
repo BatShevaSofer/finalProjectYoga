@@ -1,62 +1,74 @@
 import ChatInput from './chatInput';
 // import MyMessage from './myMessage';
 // import Message from './message';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { API_URL } from '../../services/mainService'
 import ChatBody from './chatBody'
 import Cookies from 'js-cookie';
-const ChatScreen = ({ eventId, userId, socket }) => {
-
+import axios from 'axios';
+import { AppContext } from '../../contexts/context';
+const ChatScreen = ({ socket }) => {
+    const { setRead } = useContext(AppContext);
     const [messages, setMessages] = useState([])
-
-    const doApiMessages = async () => {
-        let url = API_URL + `/messages/byEventId/${eventId}`;
-        try {
-            // let resp = await doApiGet(url);
-            // console.log("🔥",resp.data.messages)
-            // setMessages(resp.data.messages)
-            
-        }
-
-        catch (err) {
-            console.log(err);
-        }
+    const doApiGetRoom = async () => {
+        let url = API_URL + `/chat/room/` + JSON.parse(Cookies.get('user'))._id;
+        let data = await axios.get(url);
+        console.log(data);
+        // JSON.stringify(Cookies.set('room', data))
     }
+    const doApiGetMessages = async () => {
+        let url = API_URL + `/chat/room/` + JSON.parse(Cookies.get('user'))._id;
+        let data = await axios.get(url);
+        console.log("data.messages", data.messages);
+        setMessages(data.data[0].messages.reverse());
+    }
+    useEffect(() => {
+        doApiGetMessages();
+        // doApiGetRoom();
+    }, [])
+
 
 
     const onSendMessage = async (text) => {
         const message = {
-            user_id: JSON.parse(Cookies.get('user'))._id,
-            text: text,
-            time_stamp: Date()
+            _id: JSON.parse(Cookies.get('user'))._id,
+            msg: text
         }
-        let temp = [...messages, message]
-        setMessages(temp);
+        // let temp = [...messages, message]
+        // setMessages(temp);
         socket.emit("new-message", message)
+        doApiGetMessages();
     }
 
     // 1 get all the mesagges to the event , connect to socket 
     useEffect(() => {
-        socket.emit("join-room", JSON.parse(Cookies.get('user'))._id)
+        let room = {
+            user_id: JSON.parse(Cookies.get('user'))._id,
+            teacher_id: JSON.parse(Cookies.get('user')).course_id.teacherId._id,
+            role: 'student'
+        }
+        socket.emit("join-room", room)
+
         console.log("⚡:")
-        
-        doApiMessages()
+        setRead(0);
+
+        doApiGetRoom()
     }, []);
 
 
     return (
         <div
-            className='flex-column p-3 m-3'
+            className='flex-column p-2 m-0 rounded border border-black'
             style={{
                 boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                width: '905px',
+                width: '500px',
                 height: '650px',
                 display: 'flex',
                 flexDirection: 'column',
                 backgroundImage: `url('https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/Resources/art/bg_initial.jpg')`,
                 backgroundSize: 'cover', // Adjust to your needs
                 backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
+                backgroundPosition: 'center'
             }}
         >
             <div
@@ -78,10 +90,10 @@ const ChatScreen = ({ eventId, userId, socket }) => {
 
             </div>
             <div>
-                <ChatBody socket={socket}  oldMessages={messages}  />
+                <ChatBody socket={socket} oldMessages={messages} />
             </div>
 
-            <div className='mt-auto'>
+            <div style={{ width: '100px' }}>
                 <ChatInput onSendMessage={onSendMessage} />
             </div>
         </div>

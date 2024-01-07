@@ -17,7 +17,7 @@ import Cookies from 'js-cookie';
 
 const pages = ['Courses', 'Students', 'Teachers','Schedule'];
 const links = ['courses', 'students', 'teachers','schedule'];
-const settings = ['Profile', 'Logout'];
+const settings = [ 'Logout'];
 
 function HeaderAdmin() {
     const [anchorElNav, setAnchorElNav] = React.useState(0);

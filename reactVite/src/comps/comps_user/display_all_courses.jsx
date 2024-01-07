@@ -25,20 +25,20 @@ const DisplayAllCourses = ({ courses }) => {
 
   return (
     <div className='container'>
-      <div className='row'>
-        <h2>KIDS</h2>
+      <div className='row text-center my-4'>
+        <h2 className='display-3'>KIDS</h2>
         {groupByAge['child'] && groupByAge['child'].map(course => (
           <CourseCard key={`${course.level}-${course.ageGroup}`} data={course} />
         ))}
       </div>
-      <div className='row'>
-        <h2>TEENS</h2>
+      <div className='row text-center my-4'>
+        <h2 className='display-3'>TEENS</h2>
         {groupByAge['teen'] && groupByAge['teen'].map(course => (
           <CourseCard key={`${course.level}-${course.ageGroup}`} data={course} />
         ))}
       </div>
-      <div className='row'>
-        <h2>ADULTS</h2>
+      <div className='row text-center my-4' >
+        <h2 className='display-3'>ADULTS</h2>
         {groupByAge['adult'] && groupByAge['adult'].map(course => (
           <CourseCard key={`${course.level}-${course.ageGroup}`} data={course} />
         ))}

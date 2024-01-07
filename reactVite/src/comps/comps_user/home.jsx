@@ -166,13 +166,6 @@ const Home = () => {
           <h2 className="display-5 my-4">Meet our teachers</h2>
           <div className="row">
             <TeachersList teachers={teachers} />
-
-            {/* {teachers?.map((teacher) => (
-          <div key={teacher._id} className="col-md-2 col-sm-3 box">
-            <img src={teacher.user_id.image_url} alt={teacher.user_id.name} />
-            <h3> {teacher.user_id.name.firstName} {teacher.user_id.name.lastName}</h3>
-          </div>
-        ))} */}
           </div>
 
         </div>
