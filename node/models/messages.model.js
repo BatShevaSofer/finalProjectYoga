@@ -10,7 +10,9 @@ let messagesSchema = new mongoose.Schema({
     messages: [Object],
     date_created: {
         type: Date, default: Date.now()
-    }
+    },
+    teacherRead: Number,
+    studentRead: Number
 })
 
 exports.validMessages = (_reqBody) => {

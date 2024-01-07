@@ -70,7 +70,11 @@ router.post("/login", async (req, res) => {
       .populate({
         path: 'course_id',
         populate:{
-          path: 'teacherId'
+          path: 'teacherId',
+          populate:{
+            path: 'user_id',
+            select: 'name image_url'
+          }
         }
       })
     if (!user) {

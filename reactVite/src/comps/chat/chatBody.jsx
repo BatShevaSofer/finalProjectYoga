@@ -22,10 +22,10 @@ const ChatBody = ({ socket, oldMessages }) => {
         height: '500px',
         display: 'flex',
         flexDirection: 'column',
-        backgroundImage: `url('https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/Resources/art/bg_initial.jpg')`,
-        backgroundSize: 'cover', // Adjust to your needs
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
+        // backgroundImage: `url('https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/Telegram/Resources/art/bg_initial.jpg')`,
+        // backgroundSize: 'cover', // Adjust to your needs
+        // backgroundRepeat: 'no-repeat',
+        // backgroundPosition: 'center',
       }}
     >
       <div

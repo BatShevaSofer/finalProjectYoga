@@ -17,7 +17,9 @@ const initSocket = (io) => {
           teacherId: roomId.teacher_id,
           student_id: roomId.user_id,
           room_id: socket.id,
-          messages: []
+          messages: [],
+          teacherRead: 0,
+          studentRead: 0
         }
         let validBody = validMessages(room);
         if (validBody.error) {
@@ -32,6 +34,25 @@ const initSocket = (io) => {
           console.log(); ({ err: err.message });
         }
       }
+      else {
+        if (roomId.role == 'student') {
+          await MassagesModel.updateOne({
+            teacherId: roomId.teacher_id,
+            student_id: roomId.user_id
+          }, {
+            studentRead: 0,
+          })
+        }
+        else{
+          await MassagesModel.updateOne({
+            teacherId: roomId.teacher_id,
+            student_id: roomId.user_id
+          }, {
+            teacherRead: 0,
+          })
+        }
+
+      }
       socket.join(roomId);
       console.log(`⚡: User ${roomId.user_id} joined room ${socket.id}`);
 
@@ -39,16 +60,22 @@ const initSocket = (io) => {
 
     socket.on("new-message", async (messageData) => {
       console.log(messageData)
-
+      socket.join(messageData._id);
 
       try {
-        const room = await MassagesModel.findOne({ student_id: messageData._id });
-        room.messages.push({id: messageData._id, message: messageData.msg});
+        let room = await MassagesModel.findOne({ student_id: messageData._id });
+
+
+        room.messages.push({ id: messageData._id, message: messageData.msg });
+        if (messageData._id == room.student_id) {
+          room.teacherRead = room.teacherRead + 1;
+        }
+        else {
+          room.studentRead = room.studentRead + 1;
+        }
         await room.save();
 
-
-        io.to().emit('new-message', messageData.msg);
-
+        io.to(messageData._id).emit('new-message', messageData);
 
         console.log(`🚀: new message ${messageData.msg}`);
       } catch (err) {
@@ -56,6 +83,7 @@ const initSocket = (io) => {
         socket.emit('error', { type: 'ServerError', msg: 'Internal server error' });
       }
     });
+
 
     // socket.on("disconnect", () => {
     //   console.log(`Room ${socket.id} disconnected`);
