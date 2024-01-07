@@ -1,8 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-
 
 import './App.css'
 import Home from './comps/comps_user/home'
@@ -27,19 +24,13 @@ import ScheduleStudent from './comps/comps_student/schedule_student'
 import TeacherSchedule from './comps/comps_teacher/schedule_teacher'
 import Schedule from './comps/comps_admin/schedule'
 import PaypalPaymentButton from './comps/paypal'
-// import KidsProgram from './comps/comps_user/program/kids_program'
-// import TeensProgram from './comps/comps_user/program/teens_program'
-// import AdultProgram from './comps/comps_user/program/adult_program'
-// import AppChat from './AppChat'
-import KidsProgram from './comps/comps_user/program/kids_program'
-import TeensProgram from './comps/comps_user/program/teens_program'
-import AdultProgram from './comps/comps_user/program/adult_program'
-// import AppChat from './AppChat'
+import HomeStudent from './comps/comps_student/homeStudent'
 import CoursesPage from './comps/comps_student/courses_page'
 import OurProgram from "./comps/comps_user/our_program"
 import HomeChat from "./comps/chat/homeChat"
 import { API_URL } from './services/mainService'
 import socketIO from 'socket.io-client'
+import MyPredict from './comps/predict'
 // import socketIO from 'socket.io-client'
 const socket = socketIO.connect(API_URL);
 
@@ -81,10 +72,12 @@ function App() {
         <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
         <Route path='/teacher/schedule_teacher' element={<TeacherSchedule />} />
         <Route path='/teacher/Courses' element={<TeacherCourses />} />
+        <Route path='/student' element={<HomeStudent/>} />
         <Route path='/student/my_details' element={<StudentProfile />} />
         <Route path='/student/schedule' element={<ScheduleStudent />} />
         {/* <Route path='/student/' element={<ScheduleStudent />} /> */}
         <Route path='/student/coursesPage' element={<CoursesPage />} />
+        <Route path='/student/predict' element={<MyPredict />} />
         <Route path='/student/chat' element={<HomeChat socket={socket} />} />
 
       </Routes>

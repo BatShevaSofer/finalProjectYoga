@@ -1,64 +1,65 @@
-// const { MessageModel } = require("../models/messageModel");
-// const { EventModel } = require("../models/eventModel");
-// const { messageValid } = require("../validations/messageValidation");
-// const { UserModel } = require("../models/userModel");
 
+const { MassagesModel, validMessages } = require("../models/messages.model");
 const initSocket = (io) => {
   io.on("connection", (socket) => {
     console.log("🔥: A user connected");
 
-    socket.on("join-room", (roomId) => {
+    socket.on("join-room", async (roomId) => {
+      console.log("roomId: " + JSON.stringify(roomId));
+      let data = await MassagesModel.find({
+        teacherId: roomId.teacher_id,
+        student_id: roomId.user_id,
+      })
+      console.log("data", data);
+      if (data.length == 0) {
+        console.log(data);
+        let room = {
+          teacherId: roomId.teacher_id,
+          student_id: roomId.user_id,
+          room_id: socket.id,
+          messages: []
+        }
+        let validBody = validMessages(room);
+        if (validBody.error) {
+          console.log(validBody.error.details);
+        }
+        try {
+          let message = new MassagesModel(room);
+          await message.save();
+          console.log(message);
+        }
+        catch (err) {
+          console.log(); ({ err: err.message });
+        }
+      }
       socket.join(roomId);
-      console.log(`⚡: User ${socket.id} joined room ${roomId}`);
+      console.log(`⚡: User ${roomId.user_id} joined room ${socket.id}`);
+
     });
 
     socket.on("new-message", async (messageData) => {
       console.log(messageData)
-      // const validBody = messageValid(messageData);
-      // const eventId = messageData.event_id;
-      // const userId = messageData.user_id;
-      // const text = messageData.text;
 
-      // if (validBody.error) {
-      //   console.log(`🚀: ${validBody.error.details}`)
-      //   socket.emit('error', { type: 'InvalidMessage', details: validBody.error.details });
-      //   return;
-      // }
-
-      // socket.join(eventId);
 
       try {
-        // const event = await EventModel.findOne({
-        //   _id: eventId,
-        //   'participants.user_id': userId
-        // });
-
-        // if (!event) {
-        //   socket.emit('error', { type: 'EventNotFound', msg: 'Event not found or user not a participant' });
-        //   return;
-        // }
-        // const { nick_name, profile_image } = await UserModel.findById(messageData.user_id)
-        // const newMessage = await MessageModel.create(messageData);
-        // const _id = newMessage.user_id
-        // const message = {... newMessage._doc, user_id:{
-        //   _id,
-        //   profile_image,
-        //   nick_name
-        // }}
-       
-        // io.to(eventId).emit('new-message', message);
+        const room = await MassagesModel.findOne({ student_id: messageData._id });
+        room.messages.push({id: messageData._id, message: messageData.msg});
+        await room.save();
 
 
-        console.log(`🚀: new message hello to everyone!!!`);
+        io.to().emit('new-message', messageData.msg);
+
+
+        console.log(`🚀: new message ${messageData.msg}`);
       } catch (err) {
         console.error(err);
         socket.emit('error', { type: 'ServerError', msg: 'Internal server error' });
       }
     });
 
-    socket.on("disconnect", () => {
-      console.log(`User ${socket.id} disconnected`);
-    });
+    // socket.on("disconnect", () => {
+    //   console.log(`Room ${socket.id} disconnected`);
+    // });
   });
 };
 

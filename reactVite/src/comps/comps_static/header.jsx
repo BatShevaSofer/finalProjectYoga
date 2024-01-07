@@ -17,7 +17,7 @@ import { Stack } from '@mui/material';
 
 const pages = ['Home','About', 'training programs', 'our teacher'];
 const links = ['home','about', 'programs', 'our_teachers'];
-const settings = ['Profile', 'Account', 'Logout'];
+const settings = [ 'Account', 'Logout'];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(0);

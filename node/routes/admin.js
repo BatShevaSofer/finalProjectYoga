@@ -102,7 +102,7 @@ router.get("/teachers/:id", authAdmin, async (req, res) => {
 router.get("/students", authAdmin, async (req, res) => {
   try {
     let data = await UserModel.find({ role: "student" })
-      .limit(10)
+      // .limit(10)
       .populate({
         path: 'course_id',
         select: 'level teacherId',

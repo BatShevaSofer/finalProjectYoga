@@ -13,6 +13,7 @@ const app = express();
 
 app.use(cors());
 
+
 // app.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', '*');
 //     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -20,7 +21,7 @@ app.use(cors());
 //     res.header('Access-Control-Allow-Credentials', 'true');
 //     next();
 // });
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -28,10 +29,12 @@ routesInit(app);
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-        origin: 'http://localhost:3000',
-        methods: ['GET', 'POST', 'P'],
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true
     }
+    
+    
 });
 
 
