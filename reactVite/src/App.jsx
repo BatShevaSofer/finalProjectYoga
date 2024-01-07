@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
+
+
 import './App.css'
 import Home from './comps/comps_user/home'
 import HeaderAdmin from "./comps/comps_static/header_admin"
@@ -28,8 +30,14 @@ import PaypalPaymentButton from './comps/paypal'
 import KidsProgram from './comps/comps_user/program/kids_program'
 import TeensProgram from './comps/comps_user/program/teens_program'
 import AdultProgram from './comps/comps_user/program/adult_program'
-import AppChat from './AppChat'
+// import AppChat from './AppChat'
 import CoursesPage from './comps/comps_student/courses_page'
+import HomeChat from "./comps/chat/homeChat"
+import { API_URL } from './services/mainService'
+import socketIO from 'socket.io-client'
+// import socketIO from 'socket.io-client'
+const socket = socketIO.connect(API_URL);
+
 
 function App() {
 
@@ -57,8 +65,8 @@ function App() {
         <Route path='/admin/courses' element={<Courses />} />
         <Route path='/admin/students' element={<Students />} />
         <Route path='/admin/teachers' element={<Teachers />} />
-        <Route path='/admin/schedule' element={<Schedule/>} />
-        <Route path='/student/pay/:courseId' element={<PaypalPaymentButton/>} />
+        <Route path='/admin/schedule' element={<Schedule />} />
+        <Route path='/student/pay/:courseId' element={<PaypalPaymentButton />} />
 
         <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
         <Route path='/teacher/schedule_teacher' element={<TeacherSchedule />} />
@@ -67,7 +75,7 @@ function App() {
         <Route path='/student/schedule' element={<ScheduleStudent />} />
         {/* <Route path='/student/' element={<ScheduleStudent />} /> */}
         <Route path='/student/coursesPage' element={<CoursesPage />} />
-        <Route path='/student/chat' element={<AppChat />} />
+        <Route path='/student/chat' element={<HomeChat socket={socket} />} />
 
       </Routes>
       <Footer />

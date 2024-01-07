@@ -4,7 +4,6 @@
   "description": "",
   "scripts": {
     "start": "nodemon app"
-   
   },
   "keywords": [],
   "author": "",
@@ -22,6 +21,7 @@
     "mongoose": "^6.5.4",
     "nodemailer": "^6.9.7",
     "nodemon": "^3.0.2",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.7.3",
+    "web-vitals": "^3.5.1"
   }
 }

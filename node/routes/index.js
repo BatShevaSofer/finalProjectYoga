@@ -8,7 +8,7 @@ const { CourseModel } = require("../models/course.model");
 const { validLogin, UserModel, validUser } = require('../models/user.model');
 const { createToken } = require('../middlewares/auth')
 const { transporter, generatePassword } = require('../helpers/mail');
-const {authTeacher } = require('../middlewares/auth');
+const { authTeacher } = require('../middlewares/auth');
 let mailPassword = [];
 router.get("/", (req, res) => {
   res.json({ msg: "courses api work !" })
@@ -65,7 +65,14 @@ router.post("/login", async (req, res) => {
   }
   try {
     let email1 = req.body.email.toLowerCase();
-    let user = await UserModel.findOne({ email: email1 })
+    let user = await UserModel
+      .findOne({ email: email1 })
+      .populate({
+        path: 'course_id',
+        populate:{
+          path: 'teacherId'
+        }
+      })
     if (!user) {
       return res.status(401).json({ msg: "email is worng" })
     }
