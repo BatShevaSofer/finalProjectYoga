@@ -6,11 +6,13 @@ const courseSchema = new mongoose.Schema({
     level: String,
     gender: Boolean,
     ageGroup: String,
-    students: { 
-        type: [mongoose.ObjectId], 
-        ref: 'users',
-        default: [],
-     }, // Define students as an array of strings
+    students:[{ type: mongoose.ObjectId, ref: 'users' }],
+
+    // students: { 
+    //     type: [mongoose.ObjectId], 
+    //     ref: 'users',
+    //     default: [],
+    //  }, // Define students as an array of strings
     dateTime: {
         day: String,
         hour: Number
@@ -45,3 +47,18 @@ exports.validateCourse = (_reqBody) => {
 
     return joiSchema.validate(_reqBody)
 };
+
+// students: { 
+//     type: [mongoose.ObjectId], 
+//     ref: 'users',
+//     default: [],
+//  }, // Define students as an array of strings
+
+// students: { 
+//     type: [{
+//       user_id: { type: mongoose.ObjectId, ref: 'users'},
+//       // כל השדות הנוספים של תלמיד
+//       // ...
+//     }],
+//     default: [],
+// },

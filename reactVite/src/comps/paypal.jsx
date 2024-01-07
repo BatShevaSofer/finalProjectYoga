@@ -2,13 +2,13 @@ import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { useNavigate,useParams  } from 'react-router-dom';
 import { useStudent } from '../services/studentService';
-// import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 
 const PaypalPaymentButton = () => {
   const { courseId } = useParams(); 
   const nav = useNavigate();
-  const { updateDetiles } = useStudent();
+  const { addStudentToCourse} = useStudent();
 
   console.log("Rendering PaypalPaymentButton");
   console.log("Rendering 111");
@@ -17,21 +17,16 @@ const PaypalPaymentButton = () => {
   
       try {
         console.log(courseId);
-        // console.log(JSON.parse(Cookies.get('user')))
+        const studentId=(JSON.parse(Cookies.get('user')))._id;
+        console.log(studentId);
       // שליחת בקשת PATCH לעדכון המשתמש
-      const response = await updateDetiles(
-        "course_id",
-        courseId
-      );
+       await addStudentToCourse(courseId,studentId);
   
 
-      if (response) {
-        // אם העדכון התבצע בהצלחה, אז נבצע את הניווט
         alert("Welcome, you have successfully joined");
         nav('/student/schedule');
-      } else {
-        alert('Failed to join the course. Please try again.');
-      }
+     
+      
     } catch (error) {
       console.error('Error joining the course:', error);
       alert('An error occurred. Please try again.');

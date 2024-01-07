@@ -27,11 +27,16 @@ import ScheduleStudent from './comps/comps_student/schedule_student'
 import TeacherSchedule from './comps/comps_teacher/schedule_teacher'
 import Schedule from './comps/comps_admin/schedule'
 import PaypalPaymentButton from './comps/paypal'
+// import KidsProgram from './comps/comps_user/program/kids_program'
+// import TeensProgram from './comps/comps_user/program/teens_program'
+// import AdultProgram from './comps/comps_user/program/adult_program'
+// import AppChat from './AppChat'
 import KidsProgram from './comps/comps_user/program/kids_program'
 import TeensProgram from './comps/comps_user/program/teens_program'
 import AdultProgram from './comps/comps_user/program/adult_program'
 // import AppChat from './AppChat'
 import CoursesPage from './comps/comps_student/courses_page'
+import OurProgram from "./comps/comps_user/our_program"
 import HomeChat from "./comps/chat/homeChat"
 import { API_URL } from './services/mainService'
 import socketIO from 'socket.io-client'
@@ -59,12 +64,17 @@ function App() {
         <Route path="/programs" element={<Programs />} />
         <Route path="/our_teachers" element={<OurTeachers />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/program/kids_program' element={<KidsProgram />} />
-        <Route path='/program/teens_program' element={<TeensProgram />} />
-        <Route path='/program/adult_program' element={<AdultProgram />} />
+        <Route path="/kids" element={<OurProgram title="Kids" />} />
+        <Route path="/teens" element={<OurProgram title="Teens" />} />
+        <Route path="/adult" element={<OurProgram title="Adult" />} />
+        {/* <Route path='/program/kids_program' element={<KidsProgram />} /> */}
+        {/* <Route path='/program/teens_program' element={<TeensProgram />} /> */}
+        {/* <Route path='/program/adult_program' element={<AdultProgram />} /> */}
         <Route path='/admin/courses' element={<Courses />} />
         <Route path='/admin/students' element={<Students />} />
         <Route path='/admin/teachers' element={<Teachers />} />
+        <Route path='/admin/schedule' element={<Schedule />} />
+        <Route path='/student/pay/:courseId' element={<PaypalPaymentButton />} />
         <Route path='/admin/schedule' element={<Schedule />} />
         <Route path='/student/pay/:courseId' element={<PaypalPaymentButton />} />
 

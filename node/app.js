@@ -6,6 +6,7 @@ const socketIo = require('socket.io');
 const { routesInit } = require("./routes/config_routes");
 require("./db/mongoconnect");
 const { initSocket } = require('./utility/socket')
+// const socketIo = require('socket.io')
 const app = express();
 
 
@@ -19,7 +20,7 @@ app.use(cors());
 //     res.header('Access-Control-Allow-Credentials', 'true');
 //     next();
 // });
-// app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -28,11 +29,9 @@ const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
         origin: 'http://localhost:3000',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        transports: ['websocket', 'polling'],
+        methods: ['GET', 'POST', 'P'],
         credentials: true
-    },
-    allowEIO3: true
+    }
 });
 
 
