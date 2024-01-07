@@ -1,5 +1,7 @@
 const express= require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
+
 const {authStudent} =require('../middlewares/auth');
 const { CourseModel } = require("../models/course.model");
 const { UserModel } = require("../models/user.model");
@@ -49,6 +51,35 @@ router.get("/", authStudent, async (req, res) => {
       res.status(500).json({ msg: "err", err });
     }
   });
+  
+  router.patch("/course/:idCourse/student/:idStudent", authStudent, async (req, res) => {
+    try {
+      const idCourse = req.params.idCourse;
+      const idStudent = req.params.idStudent;
+  
+      // עדכון המשתמש
+      let userData = await UserModel.updateOne({ _id: idStudent }, { $set: { course_id: idCourse } });
+  
+      // קבלת הקורס
+      let course = await CourseModel.findById(idCourse);
+  
+      // בדיקה אם המערך קיים, ואם לא - יצירתו
+      if (!course.students) {
+        course.students = [];
+      }
+  
+      // הוספת התלמיד למערך
+      course.students.push(idStudent);
+      await course.save();
+  
+      res.json({ data: userData });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ msg: "שגיאה פנימית בשרת", error: err.message });
+    }
+  });
+  
+  
   // router.get('/checkUser/:username', async (req, res) => {
   //   const username = req.params.username;
   

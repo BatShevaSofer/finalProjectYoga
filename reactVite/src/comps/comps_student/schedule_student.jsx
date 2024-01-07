@@ -12,13 +12,11 @@ const ScheduleStudent = () => {
         const fetchSchedule = async () => {
             try {
                 const response = await getCourse();
-                console.log('Response from getCoursesTeacher:', response);
-
                 const data = response.data;
-                setCourse(data.courses);
 
+                setCourse(data.course_id);
                 // בדיקה אם המשתמש לא רשום לקורס
-                if (!data.courses || data.courses.length === 0) {
+                if (course==null ) {
                     setIsEnrolled(false);
                 }
 
@@ -37,7 +35,7 @@ const ScheduleStudent = () => {
             ) : (
                 <>
                     <h2>Student Weekly Schedule</h2>
-                    <DisplayStudentSchedule courses={course} />
+                    <DisplayStudentSchedule course={course} />
                 </>
             )}
         </div>

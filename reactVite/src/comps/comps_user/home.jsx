@@ -8,8 +8,13 @@ import { Carousel } from 'react-bootstrap';
 const Home = () => {
   const { getTeacherD } = useMain();
   const [teachers, setTeachers] = useState([]);
+  const address = "128 Yigal Alon St, Tel Aviv";
 
   const nav = useNavigate();
+
+  const handleButtonClick = (page) => {
+    nav(`/${page}`);
+  };
 
   useEffect(() => {
     const fetchTeachers = async () => {
@@ -68,9 +73,9 @@ const Home = () => {
         </div>
       </div>
       <div className="container-fluid my-4">
-        <div className="container py-4">
-          <div className="col-md-9 text-center mx-auto welcome_text" >
-            <h1 className="display-4">Welcome to Yoga Courses Hub</h1>
+        <div className="container py-4" >
+          <div className="col-md-9 text-center mx-auto welcome_text"  >
+            <h1 className="display-4" >Welcome to Yoga Courses Hub</h1>
             <p className="lead">
               Discover personalized yoga courses for all ages and skill levels. Our expert instructors blend traditional wisdom with modern approaches, fostering growth in a supportive community.
               <br />
@@ -83,58 +88,58 @@ const Home = () => {
         </div>
       </div>
       <div className="age_group container-fluid mt-5">
-        <h2 className=' p-4 display-3'>for evreyone......</h2>
+        <h2 className=' p-4 display-3' >for evreyone......</h2>
         <div className="row mt-4">
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              <Link to='/program/kids_program'>
+              {/* <Link to='/program/kids_program'> */}
                 <img
                   src="kids.jpg"
                   className="card-img-top rounded-circle larger-circle "
                   alt="Kids"
                 />
-              </Link>
+              {/* </Link> */}
 
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>KIDS</strong></h2>
                 <div className="card-body">
-                  <button className='btn btn-secondary' onClick={() => { nav('/program/kids_program') }}>for details..</button>
+                  <button className='btn btn-secondary' onClick={() => handleButtonClick('kids')}>for details..</button>
                 </div>
               </div>
             </div>
           </div>
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              <Link to='/program/teens_program'>
+              {/* <Link to='/program/teens_program'> */}
                 <img
                   src="teens (2).jpg"
                   className="card-img-top rounded-circle larger-circle"
                   alt="Teen"
                 />
-              </Link>
+              {/* </Link> */}
 
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>TEENS</strong></h2>
                 <div className="card-body">
-                  <button className='btn btn-secondary' onClick={() => { nav('/program/teens_program') }}>for details..</button>
+                  <button className='btn btn-secondary' onClick={() => handleButtonClick('teens')}>for details..</button>
                 </div>
               </div>
             </div>
           </div>
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              <Link to='/program/adult_program'>
+              {/* <Link to='/program/adult_program'> */}
                 <img
                   src="adult.jpg"
                   className="card-img-top rounded-circle larger-circle"
                   alt="Adult"
                 />
-              </Link>
+              {/* </Link> */}
 
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>ADULT</strong></h2>
                 <div className="card-body">
-                  <button className='btn btn-secondary' onClick={() => { nav('/program/adult_program') }}>for details..</button>
+                  <button className='btn btn-secondary' onClick={() => handleButtonClick('adult')}>for details..</button>
                 </div>
               </div>
             </div>
@@ -155,22 +160,44 @@ const Home = () => {
           <a href='/signUp' className='joinus_href text-center'>to enjoy, please join ⟩⟩⟩ </a>
         </div>
       </div>
+ 
       <div className="team container-fluid m-0">
         <div className=" py-4 text-center ">
           <h2 className="display-5 my-4">Meet our teachers</h2>
           <div className="row">
-          <TeachersList teachers={teachers} />
+            <TeachersList teachers={teachers} />
 
-        {/* {teachers?.map((teacher) => (
+            {/* {teachers?.map((teacher) => (
           <div key={teacher._id} className="col-md-2 col-sm-3 box">
             <img src={teacher.user_id.image_url} alt={teacher.user_id.name} />
             <h3> {teacher.user_id.name.firstName} {teacher.user_id.name.lastName}</h3>
           </div>
         ))} */}
-      </div>
+          </div>
 
         </div>
 
+      </div>
+      <div className='container-fluid my-4'>
+        <div className='container text-center my-4'>
+          <div className='row'>
+            <div className='col-md-6 mt-4'>
+              <h2 className='display-5'>Our Location</h2>
+              <p className='display-1'>{address}</p>
+            </div>
+            <div className='col-md-6'>
+              <iframe
+                title="Google Map"
+                width="600"
+                height="450"
+                frameBorder="0"
+                style={{ border: 0 }}
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.799361639956!2d34.7984235249077!3d32.074675019548174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4b987755e617%3A0xb52d651b7217d7b0!2z15nXkteQ15wg15DXnNeV158gMTI4LCDXqtecINeQ15HXmdeRLdeZ16TXlQ!5e0!3m2!1siw!2sil!4v1704566731218!5m2!1siw!2sil"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
       </div>
       <div className=' container-fluid txt_customers m-0 p-0'>
         <div className="container">
@@ -204,6 +231,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      
       <footer className="container-fluid">
         <div className=" text-center">
           <p>© Bat-Sheva Sofer & Efrat Gavriel & Aviya Ben-Tzur | developer | 2023 </p>
@@ -215,4 +243,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

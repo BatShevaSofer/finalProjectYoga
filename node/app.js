@@ -39,22 +39,22 @@ const bodyParser = require('body-parser');
 const fileUpload = require("express-fileupload");
 const { routesInit } = require("./routes/config_routes");
 require("./db/mongoconnect");
-const socketIo = require('socket.io')
+// const socketIo = require('socket.io')
 const app = express();
 const http = require('http').createServer(app);
 
-const io = socketIo(http, {
-    cors: {
-        // origin: 'http://localhost:3000',
-        // methods: ["GET", "POST"],
-        // credentials: true
-        origin:'*'
-    }
-});
+// const io = socketIo(http, {
+//     cors: {
+//         // origin: 'http://localhost:3000',
+//         // methods: ["GET", "POST"],
+//         // credentials: true
+//         origin:'*'
+//     }
+// });
 
 app.use(cors({
     origin: '*',
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST","PATCH"],
     credentials: true
 }));
 
@@ -76,27 +76,27 @@ routesInit(app);
 
 // let users = [];
 
-io.on('connection', (socket) => {
-    console.log(`⚡: ${socket.id} user just connected!`);
+// io.on('connection', (socket) => {
+//     console.log(`⚡: ${socket.id} user just connected!`);
 
-    socket.on('message', (data) => {
-        io.emit('messageResponse', data);
-    });
+//     socket.on('message', (data) => {
+//         io.emit('messageResponse', data);
+//     });
 
-    socket.on('typing', (data) => socket.broadcast.emit('typingResponse', data));
+//     socket.on('typing', (data) => socket.broadcast.emit('typingResponse', data));
 
-    socket.on('newUser', (data) => {
-        users.push(data);
-        io.emit('newUserResponse', users);
-    });
+//     socket.on('newUser', (data) => {
+//         users.push(data);
+//         io.emit('newUserResponse', users);
+//     });
 
-    socket.on('disconnect', () => {
-        console.log('🔥: A user disconnected');
-        // users = users.filter((user) => user.socketID !== socket.id);
-        // io.emit('newUserResponse', users);
-        socket.disconnect();
-    });
-});
+//     socket.on('disconnect', () => {
+//         console.log('🔥: A user disconnected');
+//         // users = users.filter((user) => user.socketID !== socket.id);
+//         // io.emit('newUserResponse', users);
+//         socket.disconnect();
+//     });
+// });
 
 const PORT = process.env.PORT || 3003;
 

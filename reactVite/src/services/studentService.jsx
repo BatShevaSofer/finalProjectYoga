@@ -78,7 +78,6 @@ export const useStudent = () => {
           "x-api-key": token
         }
       })
-      console.log(resp);
       return resp;
     }
     catch (err) {
@@ -88,9 +87,24 @@ export const useStudent = () => {
 
   }
 
-  
+  const addStudentToCourse = async (idCourse, idStudent) => {
+    try {
+        let resp = await axios.patch(`${API_URL}/student/course/${idCourse}/student/${idStudent}`, null, {
+            headers: {
+                "x-api-key": Cookies.get('token')
+            }
+        })
+        console.log(resp);
+        window.location.reload()
+        return resp;
+    }
+    catch (err) {
+        console.log(err);
+        return err.message;
+    }
+}
 
-    return { getStudentProfile,updateDetiles,getCourse}
+    return { getStudentProfile,updateDetiles,getCourse,addStudentToCourse}
 
   
 }
