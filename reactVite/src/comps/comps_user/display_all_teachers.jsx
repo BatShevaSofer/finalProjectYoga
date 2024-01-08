@@ -19,10 +19,8 @@ const DisplayAllTeachers = ({ teacher }) => {
 
   return (
     <>
-      <div className='container-fluid'>
-        <div className='container '>
-          <div className='row'>
-          <div className='col-md-4 mt-3 text-center'>
+      
+          
 
             <Card
               className='shadow px-4 pt-4'
@@ -38,8 +36,8 @@ const DisplayAllTeachers = ({ teacher }) => {
                   }}>
                     {teacher.user_id.image_url ? (
                       <div style={{
-                        width: '150px',  // עדכון: הגדלת רוחב התמונה
-                        height: '150px',  // עדכון: הגדלת גובה התמונה
+                        width: '150px', 
+                        height: '150px',
                         borderRadius: '50%',
                         overflow: 'hidden',
                         margin: '0 auto',
@@ -52,8 +50,8 @@ const DisplayAllTeachers = ({ teacher }) => {
                     ) : (
                       <div style={{
                         backgroundColor: '#a16e77',
-                        width: '150px',  // עדכון: הגדלת רוחב התמונה
-                        height: '150px',  // עדכון: הגדלת גובה התמונה
+                        width: '150px',
+                        height: '150px', 
                         borderRadius: '50%',
                         overflow: 'hidden',
                         margin: '0 auto',
@@ -81,8 +79,7 @@ const DisplayAllTeachers = ({ teacher }) => {
               }
             >
             </Card>
-          </div>
-          </div>
+       
 
           <Modal
             visible={visible}
@@ -119,8 +116,7 @@ const DisplayAllTeachers = ({ teacher }) => {
               </div>
             </div>
           </Modal>
-          </div>
-      </div>
+      
     </>
   );
 };

@@ -1,0 +1,16 @@
+.custom-card {
+    border: 2px solid pink;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .large-font {
+    font-size: 1.2rem;
+  }
+  
+  .pink-text {
+    color: #e83e8c;
+  }
+  .title_program{
+    text-shadow:4px 2px 10px #888872;
+color: #e83e8c;
+  }
