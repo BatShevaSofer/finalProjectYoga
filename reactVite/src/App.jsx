@@ -34,6 +34,7 @@ import React, { useState } from "react"
 import HomeTeacher from "./comps/comps_teacher/home_teacher"
 // import TeacherChats from "./comps/comps_teacher/teacherChats"
 import Chats from "./comps/comps_teacher/chat/Chats"
+import HomeAdmin from "./comps/comps_admin/home_admin"
 // import socketIO from 'socket.io-client'
 
 
@@ -73,11 +74,12 @@ function App() {
             {/* <Route path='/program/kids_program' element={<KidsProgram />} /> */}
             {/* <Route path='/program/teens_program' element={<TeensProgram />} /> */}
             {/* <Route path='/program/adult_program' element={<AdultProgram />} /> */}
+            <Route path='/admin' element={<HomeAdmin />} />
             <Route path='/admin/courses' element={<Courses />} />
             <Route path='/admin/students' element={<Students />} />
             <Route path='/admin/teachers' element={<Teachers />} />
             <Route path='/admin/schedule' element={<Schedule />} />
-            <Route path='/admin/schedule' element={<Schedule />} />
+            {/* <Route path='/admin/schedule' element={<Schedule />} /> */}
             
             <Route path='/teacher' element={<HomeTeacher />} />
             <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
