@@ -11,7 +11,7 @@ const CoursesPageWrapper = styled.div`
 `;
 
 const PaymentButton = styled.button`
-  background-color: #4caf50;
+  background-color: darksalmon;
   color: white;
   padding: 10px;
   border: none;
@@ -64,21 +64,23 @@ const CoursesPage = () => {
   }, []);
 
   return (
-    <div className='row'>
+    <div className='container'>
+    <div className='row mt-4'>
       <h2 >Available Courses</h2>
       {levels.map(level => (
-        <div className='col-md-4' key={level}>
+        <div className='col-md-4 mt-4' key={level}>
           <LevelsHeader>{level} Level</LevelsHeader>
           <CoursesPageWrapper>
             {courses
               .filter(course => course.level == levels.indexOf(level) + 1)
               .map(course => (
                 <CourseCard key={course._id} data={course}>
-                  <h3>Course Details</h3>
+                  {/* <h3>Course Details</h3> */}
                   <CourseDetails>
-                    <p>Age Group: {course?.ageGroup}</p>
-                    <p>Gender: {course?.gender ? 'Male' : 'Female'}</p>
-                    <p>Level: {level}</p>
+                    {/* <p>Age Group: {course?.ageGroup}</p> */}
+                    {/* <p>Gender: {course?.gender ? 'Male' : 'Female'}</p> */}
+                    {/* <p>Level: {level}</p> */}
+                    <p>day: {course?.dateTime.day}</p>
                   </CourseDetails>
                   <Link to={`/student/pay/${course._id}`}
                     state={{ courseDetails: course }}>
@@ -89,6 +91,7 @@ const CoursesPage = () => {
           </CoursesPageWrapper>
         </div>
       ))}
+    </div>
     </div>
   );
 };

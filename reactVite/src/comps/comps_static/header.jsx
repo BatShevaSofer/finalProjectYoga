@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
 
-const pages = ['Home','About', 'training programs', 'our teacher'];
+const pages = ['Home','About', 'Our-programs', 'our-teachers'];
 const links = ['home','about', 'programs', 'our_teachers'];
 const settings = [ 'Account', 'Logout'];
 
@@ -57,6 +57,8 @@ function Header() {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              fontSize: '1.8rem', 
+
             }}
           >
             LOGO
@@ -112,6 +114,8 @@ function Header() {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              fontSize: '2rem',  // גודל הכתב
+
             }}
           >
             LOGO
@@ -121,7 +125,8 @@ function Header() {
               <Button
                 key={links[index]}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block'
+              }}
               >
                 <Link style={{ color: 'white', textDecoration: 'none' }} to={`/${links[index]}`}>{page}</Link>
               </Button>

@@ -43,6 +43,7 @@ const PaypalPaymentButton = () => {
         marginTop: '100px'
       }}
     >
+      <div style={{ margin: 'auto', width: '50%' }}> 
       <PayPalButton
         currency="ILS"
         amount="1"
@@ -57,19 +58,24 @@ const PaypalPaymentButton = () => {
           console.log(err);
           alert("The payment process has been canceled, try again");
         }}
+        style={{ width: '100%' }}  
+
       />
+    </div>
 
       {/* כפתור "Join" */}
       <button
         style={{
+          margin: 'auto',
           backgroundColor: '#FFB6C1', 
           color: 'white',              
-          padding: '15px 30px',         
+          padding: '20px 30px',         
           borderRadius: '10px',         
           fontSize: '1.5em',            
           cursor: 'pointer'             
         }}
         onClick={handleJoinButtonClick}
+        className='mt-4'
       >
         Joining the course
       </button>

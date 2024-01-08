@@ -31,6 +31,7 @@ import OurProgram from "./comps/comps_user/our_program"
 import { AppContext } from './contexts/context'
 import MyPredict from './comps/predict'
 import React, { useState } from "react"
+import HomeTeacher from "./comps/comps_teacher/home_teacher"
 // import socketIO from 'socket.io-client'
 
 
@@ -75,7 +76,8 @@ function App() {
             <Route path='/student/pay/:courseId' element={<PaypalPaymentButton />} />
             <Route path='/admin/schedule' element={<Schedule />} />
             <Route path='/student/pay/:courseId' element={<PaypalPaymentButton />} />
-
+            
+            <Route path='/teacher' element={<HomeTeacher />} />
             <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
             <Route path='/teacher/schedule_teacher' element={<TeacherSchedule />} />
             <Route path='/teacher/Courses' element={<TeacherCourses />} />

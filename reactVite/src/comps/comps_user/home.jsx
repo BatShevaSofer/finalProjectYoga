@@ -42,24 +42,19 @@ const Home = () => {
           <div className="carousel-inner">
             <div className="carousel-item active" >
               <img src="main.jpg" className="d-block w-100" alt="..." style={{ height: '90vh' }} />
-              <div className="carousel-caption d-none d-md-block">
-                <h5>First slide label</h5>
-                <p>Some representative placeholder content for the first slide.</p>
+              <div className="carousel-caption d-none d-md-block ">
+                {/* <h2 ><em>WELCOME</em></h2> */}
+                <h4 className='display-2'><em>Yoga is a way of life</em>  </h4>
+
               </div>
             </div>
             <div className="carousel-item">
               <img src="main3.jpg" className="d-block w-100" alt="..." style={{ height: '90vh' }} />
-              <div className="carousel-caption d-none d-md-block">
-                <h5>Second slide label</h5>
-                <p>Some representative placeholder content for the second slide.</p>
-              </div>
+             
             </div>
             <div className="carousel-item">
               <img src="yoga (3).jpg" className="d-block w-100" alt="..." style={{ height: '90vh' }} />
-              <div className="carousel-caption d-none d-md-block">
-                <h5>Third slide label</h5>
-                <p>Some representative placeholder content for the third slide.</p>
-              </div>
+            
             </div>
           </div>
           <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" >
@@ -75,13 +70,13 @@ const Home = () => {
       <div className="container-fluid my-4">
         <div className="container py-4" >
           <div className="col-md-9 text-center mx-auto welcome_text"  >
-            <h1 className="display-4" >Welcome to Yoga Courses Hub</h1>
+            <h1 className="display-4"  >Welcome to Yoga Courses Hub</h1>
             <p className="lead">
               Discover personalized yoga courses for all ages and skill levels. Our expert instructors blend traditional wisdom with modern approaches, fostering growth in a supportive community.
               <br />
               Our site integrates seamlessly with home training through an intuitive app. Stay connected, track progress, and experience a virtual extension of our studio.
             </p>
-            <p className="lead">
+            <p className="lead" >
               Commit to your well-being. Elevate your practice, enrich your life. Embrace harmony with us. Namaste.
             </p>
           </div>
@@ -92,13 +87,11 @@ const Home = () => {
         <div className="row mt-4">
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              {/* <Link to='/program/kids_program'> */}
                 <img
                   src="kids.jpg"
                   className="card-img-top rounded-circle larger-circle "
                   alt="Kids"
                 />
-              {/* </Link> */}
 
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>KIDS</strong></h2>
@@ -110,13 +103,11 @@ const Home = () => {
           </div>
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              {/* <Link to='/program/teens_program'> */}
                 <img
                   src="teens (2).jpg"
                   className="card-img-top rounded-circle larger-circle"
                   alt="Teen"
                 />
-              {/* </Link> */}
 
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>TEENS</strong></h2>
@@ -128,13 +119,11 @@ const Home = () => {
           </div>
           <div className="col-md-4">
             <div className=" text-center position-relative">
-              {/* <Link to='/program/adult_program'> */}
                 <img
                   src="adult.jpg"
                   className="card-img-top rounded-circle larger-circle"
                   alt="Adult"
                 />
-              {/* </Link> */}
 
               <div className="card-title-overlay">
                 <h2 className="card-title display-2"><strong>ADULT</strong></h2>
