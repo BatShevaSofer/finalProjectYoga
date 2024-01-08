@@ -4,6 +4,7 @@ const { authTeacher } = require("../middlewares/auth");
 const { UserModel, validUser } = require("../models/user.model");
 const { TeacherModel } = require("../models/teacher.model");
 const mongoose = require("mongoose");
+const { MassagesModel } = require("../models/messages.model");
 
 // router.get("/" , (req,res)=> {
 //   res.json({msg:"teachers api work !"})
@@ -20,6 +21,19 @@ router.get("/", authTeacher, async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
+
+router.get("/teacherbyid/:id", authTeacher, async (req, res) => {
+  let id = req.params.id
+  try {
+    let userInfo = await TeacherModel.findOne({ _id: id });
+    res.json(userInfo);
+  }
+  catch (err) {
+    console.log(err)
+    res.status(500).json({ msg: "err", err })
+  }
+})
+
 
 router.get("/courses", authTeacher, async (req, res) => {
   try {
@@ -74,6 +88,26 @@ router.get("/courses/:courseId", authTeacher, async (req, res) => {
 });
 
 
+router.get('/chats', authTeacher, async (req, res) => {
+  const userId = req.tokenData._id;
+  try {
+    let teacher = await TeacherModel.findOne({ user_id: userId });
+    console.log(teacher);
+    console.log(teacher._id);
+    let chats = await MassagesModel.find({ teacherId: teacher._id })
+      .populate({
+        path: 'student_id',
+        select: 'name image_url'
+      })
+    console.log(chats);
+    res.status(200).json(chats);
+  }
+  catch (err) {
+    res.json({ error: err.message });
+  }
+
+})
+
 // // מעדכן פרטי משתמש
 
 
@@ -99,14 +133,14 @@ router.get("/courses/:courseId", authTeacher, async (req, res) => {
 
 router.patch("/updateDetiles", authTeacher, async (req, res) => {
   let validBody = validUser(req.body);
-  
+
   try {
     const userID = req.tokenData._id;
-    const update=req.body.update;
-    const to=req.body.to;
+    const update = req.body.update;
+    const to = req.body.to;
 
     // מעדכן משתמש
-   
+
     const data = await UserModel.updateOne({ _id: userID }, { [update]: to });
 
 

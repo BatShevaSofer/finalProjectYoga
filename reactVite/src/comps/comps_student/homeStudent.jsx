@@ -65,7 +65,7 @@ const HomeStudent = () => {
           </div>
         </div>
       </div>
-      <FloatingCircle dataRead={read}/>
+      <FloatingCircle role={'student'}/>
     </>
   )
 }

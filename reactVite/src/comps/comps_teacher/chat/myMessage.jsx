@@ -4,7 +4,7 @@
 import Cookies from "js-cookie";
 
 const MyMessage = ({ message }) => {
-  console.log(message,"last");
+  console.log(message, "last");
   let id = JSON.parse(Cookies.get('user'))._id;
   return (
     <>

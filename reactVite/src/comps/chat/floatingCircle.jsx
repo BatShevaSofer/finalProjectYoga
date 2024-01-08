@@ -1,18 +1,17 @@
 import { useContext, useState } from 'react';
 import { Button } from 'antd';
 import Cookies from 'js-cookie';
-import ChatScreen from './chatScreen';
+import ChatScreen from './chatScreenSt';
 import { API_URL } from '../../services/adminService'
 import socketIO from 'socket.io-client'
 import { AppContext } from '../../contexts/context';
 const socket = socketIO.connect(API_URL);
 const FloatingCircle = () => {
     const [isVisible, setIsVisible] = useState(true);
-    const { read } = useContext(AppContext);
+    const { readS } = useContext(AppContext);
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
     };
-
 
     const circleStyle = {
         position: 'fixed',
@@ -34,11 +33,11 @@ const FloatingCircle = () => {
 
     return (
         <>
-            {(read != 0) ? (
+            {(readS != 0) ? (
                 <Button
                     type="pink"
                     shape="circle"
-                    icon={read}
+                    icon={readS}
                     size="large"
                     style={{ ...circleStyle, color: 'red', fontWeight: 'bold', fontSize: '2rem', textShadow: '10px rgba(255, 255, 255, 1)' }}
                     onClick={toggleVisibility}

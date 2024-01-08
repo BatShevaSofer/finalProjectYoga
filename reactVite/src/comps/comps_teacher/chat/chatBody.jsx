@@ -16,7 +16,7 @@ const ChatBody = ({  oldMessages }) => {
     <div
       className='p-2 flex-column m-0'
       style={{
-        width: '850px',
+        width: '100%',
         height: '500px',
         display: 'flex',
         flexDirection: 'column',

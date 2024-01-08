@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { AppContext } from '../../contexts/context';
 const ChatScreen = ({ socket }) => {
-    const { setRead } = useContext(AppContext);
+    const { setReadS } = useContext(AppContext);
     const [messages, setMessages] = useState([])
     const doApiGetRoom = async () => {
         let url = API_URL + `/chat/room/` + JSON.parse(Cookies.get('user'))._id;
@@ -31,8 +31,11 @@ const ChatScreen = ({ socket }) => {
 
     const onSendMessage = async (text) => {
         const message = {
-            _id: JSON.parse(Cookies.get('user'))._id,
-            msg: text
+            student_id: JSON.parse(Cookies.get('user'))._id,
+            teacher_id: JSON.parse(Cookies.get('user')).course_id.teacherId._id,
+            msg: text,
+            role: 'student'
+            
         }
         // let temp = [...messages, message]
         // setMessages(temp);
@@ -50,7 +53,7 @@ const ChatScreen = ({ socket }) => {
         socket.emit("join-room", room)
 
         console.log("⚡:")
-        setRead(0);
+        setReadS(0);
 
         doApiGetRoom()
     }, []);
@@ -75,18 +78,6 @@ const ChatScreen = ({ socket }) => {
                 className='d-flex flex-column-reverse'
                 style={{ flex: 1, overflowY: 'auto' }}
             >
-
-                {/* {messages.map((message, index) => (
-                    message.user_id._id === userId ?
-                        <MyMessage message={message} last={true} alignLeft={false} key={index} /> : <Message message={message} last={true} alignLeft={true} key={index} />
-                ))} */}
-                {/* {messages.length > 0 && messages.map((message, index) => {
-                    // message.user_id === userId ?
-                    <Message message={message} last={true} alignLeft={true} key={index} />
-                    //     <MyMessage message={message} last={true} alignLeft={false} key={index} /> :
-                    //     <Message message={message} last={true} alignLeft={true} key={index} />
-
-                })} */}
 
             </div>
             <div>

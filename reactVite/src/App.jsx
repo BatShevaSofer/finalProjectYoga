@@ -31,17 +31,21 @@ import OurProgram from "./comps/comps_user/our_program"
 import { AppContext } from './contexts/context'
 import MyPredict from './comps/predict'
 import React, { useState } from "react"
+// import TeacherChats from "./comps/comps_teacher/teacherChats"
+import Chats from "./comps/comps_teacher/chat/Chats"
 // import socketIO from 'socket.io-client'
 
 
 
 function App() {
-  const [read, setRead] = useState();
+  const [readS, setReadS] = useState();
+  const [readT, setReadT] = useState();
   return (
     <React.Fragment>
       <AppContext.Provider value={
         {
-          read, setRead
+          readS, setReadS,
+          readT, setReadT
         }
       }
       >
@@ -72,13 +76,18 @@ function App() {
             <Route path='/admin/students' element={<Students />} />
             <Route path='/admin/teachers' element={<Teachers />} />
             <Route path='/admin/schedule' element={<Schedule />} />
-            <Route path='/student/pay/:courseId' element={<PaypalPaymentButton />} />
             <Route path='/admin/schedule' element={<Schedule />} />
-            <Route path='/student/pay/:courseId' element={<PaypalPaymentButton />} />
+
+
 
             <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
             <Route path='/teacher/schedule_teacher' element={<TeacherSchedule />} />
             <Route path='/teacher/Courses' element={<TeacherCourses />} />
+            <Route path='/teacher/chats' element={<Chats />} />
+
+
+
+            <Route path='/student/pay/:courseId' element={<PaypalPaymentButton />} />
             <Route path='/student' element={<HomeStudent />} />
             <Route path='/student/my_details' element={<StudentProfile />} />
             <Route path='/student/schedule' element={<ScheduleStudent />} />
