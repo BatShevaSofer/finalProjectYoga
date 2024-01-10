@@ -42,7 +42,7 @@ const HomeStudent = () => {
             <div className=" mt-4">
               <h1 className="display-4">Hi {fname}</h1>
               <p className="lead">Ready to start practicing?</p>
-              <Link to="/student/myProgram" className="btn btn-outline-secondary">
+              <Link to="/student/predict" className="btn btn-outline-secondary">
                 Let's Practice!
               </Link>
             </div>

@@ -53,19 +53,20 @@ const initSocket = (io) => {
         }
 
       }
-      socket.join(roomId.user_id);
+      socket.join(socket.id);
       console.log(`⚡: User ${roomId.user_id} joined room ${socket.id}`);
 
     });
 
     socket.on("new-message", async (messageData) => {
       console.log(messageData)
-      socket.join(messageData.teacherId_id);
+      // socket.join(messageData.student_id);
 
       try {
         let room = await MassagesModel.findOne({ student_id: messageData.student_id });
 
-        room.messages.push({ id: messageData.teacher_id, message: messageData.msg , role: messageData.role });
+
+        room.messages.push({ id: messageData.teacher_id, message: messageData.msg });
         if (messageData.role == 'student') {
           room.teacherRead = room.teacherRead + 1;
         }
@@ -74,7 +75,7 @@ const initSocket = (io) => {
         }
         await room.save();
 
-        io.to(messageData.student_id).emit('new-message', messageData);
+        io.to(room.room_id).emit('new-message', { messageData });
 
         console.log(`🚀: new message ${messageData.msg}`);
       } catch (err) {

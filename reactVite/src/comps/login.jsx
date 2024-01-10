@@ -16,7 +16,9 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [data, setData] = useState('');
+    const [error, setError] = useState(null); // New state for error handling
     const { login } = useMain();
+
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };
@@ -31,11 +33,15 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setData(await login(email, password));
-        // console.log(data);
-        console.log('Email:', email);
-        console.log('Password:', password);
-        // You can send a request to your backend for authentication
+        try {
+            const response = await login(email, password);
+            setData(response);
+            if (response.response.status !== 200)
+                setError(error.response.data.msg);
+
+        } catch (error) {
+            console.log('Login Error:', error);
+        }
     };
 
     return (
@@ -81,9 +87,13 @@ const Login = () => {
                         onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#ff6e98'}
                         onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#ff4081'}
                     >
-
                         Login
                     </Button>
+                    {error && (
+                        <Typography variant="body2" color="error" style={{ textAlign: 'center' }}>
+                            {error}
+                        </Typography>
+                    )}
                     {/* component={RouterLink} */}
                     <Stack direction="row" spacing={1}>
                         <Link style={{ textDecoration: 'none', color: 'black' }} to="/forgot-password" variant="body2">
