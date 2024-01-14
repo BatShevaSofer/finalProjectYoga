@@ -24,13 +24,13 @@ export const useMain = () => {
     }
     catch (error) {
       console.log(error);
+      return error;
+
     }
   }
 
   const signUp = async (_idNumber, _firstName, _lastName, _email, _password, _phone, _hmo, _birthdate, _city, _street, _home, _gender, _imageUrl) => {
     try {
-      // console.log(_idNumber, _firstName, _lastName, _email, _password, _phone, _hmo, _birthdate, _city, _street, _home,_gender);
-
       let resp = await axios.post(`${API_URL}/signup`, {
         "id_number": _idNumber,
         "name": {
@@ -51,10 +51,7 @@ export const useMain = () => {
         "image_url": _imageUrl
 
       });
-      // console.log('resp', resp);
-      // Cookies.set('token', resp.data.token);
       Cookies.set('user', JSON.stringify(resp.data.user));
-      // console.log(JSON.parse(Cookies.get('user')));
       nav(`/login`)
       return resp;
     }

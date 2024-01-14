@@ -25,7 +25,7 @@ const TeacherSchedule = () => {
     }, []);
 
     return (
-        <div className='container mt-4'>
+        <div className='container mt-4' >
           <h2>Teacher Weekly Schedule</h2>
           <DisplayTeacherSchedule courses={courses} />
         </div>

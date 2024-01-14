@@ -54,6 +54,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/*' element={<Header />} />
+            <Route path='/*' element={<Footer />} />
             <Route path='/admin/*' element={<HeaderAdmin />} />
             <Route path='/teacher/*' element={<HeaderTeacher />} />
             <Route path='/student/*' element={<HeaderStudent />} />
@@ -71,16 +72,13 @@ function App() {
             <Route path="/kids" element={<OurProgram title="Kids" />} />
             <Route path="/teens" element={<OurProgram title="Teens" />} />
             <Route path="/adult" element={<OurProgram title="Adult" />} />
-            {/* <Route path='/program/kids_program' element={<KidsProgram />} /> */}
-            {/* <Route path='/program/teens_program' element={<TeensProgram />} /> */}
-            {/* <Route path='/program/adult_program' element={<AdultProgram />} /> */}
+
             <Route path='/admin' element={<HomeAdmin />} />
             <Route path='/admin/courses' element={<Courses />} />
             <Route path='/admin/students' element={<Students />} />
             <Route path='/admin/teachers' element={<Teachers />} />
             <Route path='/admin/schedule' element={<Schedule />} />
-            {/* <Route path='/admin/schedule' element={<Schedule />} /> */}
-            
+
             <Route path='/teacher' element={<HomeTeacher />} />
             <Route path='/teacher/my_detailes' element={<TeacherProfile />} />
             <Route path='/teacher/schedule_teacher' element={<TeacherSchedule />} />
@@ -89,11 +87,10 @@ function App() {
 
 
 
-            <Route path='/student/pay/:courseId' element={<PaypalPaymentButton />} />
             <Route path='/student' element={<HomeStudent />} />
+            <Route path='/student/pay/:courseId' element={<PaypalPaymentButton />} />
             <Route path='/student/my_details' element={<StudentProfile />} />
             <Route path='/student/schedule' element={<ScheduleStudent />} />
-            {/* <Route path='/student/' element={<ScheduleStudent />} /> */}
             <Route path='/student/coursesPage' element={<CoursesPage />} />
             <Route path='/student/predict' element={<MyPredict />} />
             {/* <Route path='/student/chat' element={<HomeChat  />} /> */}

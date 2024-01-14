@@ -53,7 +53,6 @@ const App = () => {
           </div>
           <div className="col-md-12">
             <div className="image-list">
-              {/* Add code to display images here */}
               <img className="col-md-2" src="/home/program (1).jpg" alt="" width={250} />
               <img className="col-md-2" src="/home/program (2).jpg" alt="" width={250} />
               <img className="col-md-2" src="/home/program (3).jpg" alt="" width={250} />

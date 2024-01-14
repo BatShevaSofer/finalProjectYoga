@@ -1,0 +1,30 @@
+
+  .footer {
+    background: linear-gradient(to right, #ff9a9e, #fecfef);
+    padding: 20px 0;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .footer-icons {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .footer-icons a {
+    margin-left: 15px;
+    color:black;
+    font-size: 20px;
+  }
+
+  .copyright {
+    text-align: left;
+  }
+
+  .link_footer_home{
+    color: black;
+  }
+  .link_footer_login{
+    color: black;
+float: right;
+  }

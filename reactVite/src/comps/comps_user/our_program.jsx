@@ -34,7 +34,7 @@ const OurProgram = ({ title }) => {
                 </div>
               </Collapse>
             <div className="d-flex justify-content-around">
-                <div className="mt-4 col-md-3">
+                <div className="mt-4 col-md-3 col-sm-4 ">
                     <Card className="custom-card">
                         <Card.Body>
                             <Card.Title><h2 className="pink-text">Beginners</h2></Card.Title>
@@ -45,7 +45,7 @@ const OurProgram = ({ title }) => {
                         </Card.Body>
                     </Card>
                 </div>
-                <div className="mt-4 col-md-3">
+                <div className="mt-4 col-md-3 col-sm-4">
                     <Card className="custom-card">
                         <Card.Body>
                             <Card.Title><h2 className="pink-text">Advanced</h2></Card.Title>
@@ -55,7 +55,7 @@ const OurProgram = ({ title }) => {
                         </Card.Body>
                     </Card>
                 </div>
-                <div className="mt-4 col-md-3">
+                <div className="mt-4 col-md-3 col-sm-4">
                     <Card className="custom-card">
                         <Card.Body>
                             <Card.Title><h2 className="pink-text">Experts</h2></Card.Title>

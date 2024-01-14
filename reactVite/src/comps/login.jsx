@@ -37,7 +37,7 @@ const Login = () => {
             const response = await login(email, password);
             setData(response);
             if (response.response.status !== 200)
-                setError(error.response.data.msg);
+                setError(response.response.data.msg);
 
         } catch (error) {
             console.log('Login Error:', error);
@@ -78,6 +78,12 @@ const Login = () => {
                         value={password}
                         onChange={handlePasswordChange}
                     />
+                        {error && (
+                            // <Typography variant="body2" color="error" style={{ textAlign: 'center' }}>
+                            <Typography variant="body2" color="error" >
+                                {error}
+                            </Typography>
+                        )}
                     <Button
                         type="submit"
                         fullWidth
@@ -89,11 +95,6 @@ const Login = () => {
                     >
                         Login
                     </Button>
-                    {error && (
-                        <Typography variant="body2" color="error" style={{ textAlign: 'center' }}>
-                            {error}
-                        </Typography>
-                    )}
                     {/* component={RouterLink} */}
                     <Stack direction="row" spacing={1}>
                         <Link style={{ textDecoration: 'none', color: 'black' }} to="/forgot-password" variant="body2">

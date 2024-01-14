@@ -16,14 +16,17 @@ const ScheduleCell = styled.td`
   border: 1px solid #ddd;
   padding: 10px;
 `;
-
+const Container = styled.div`
+  min-height: 100vh;
+`;
 const DisplayStudentSchedule = ({ course }) => {
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
   const levels = ['Beginners', 'Advanced', 'Experts'];
   const hours = Array.from({ length: 7 }, (_, i) => i + 16);
 
   return (
-    <div className='container'>
+    // <div className='' style={}>
+    <Container>
       <WeeklyScheduleTable>
         <thead>
           <HeaderRow>
@@ -53,7 +56,8 @@ const DisplayStudentSchedule = ({ course }) => {
           ))}
         </tbody>
       </WeeklyScheduleTable>
-    </div>
+      </Container>
+    // </div>
   );
 };
 

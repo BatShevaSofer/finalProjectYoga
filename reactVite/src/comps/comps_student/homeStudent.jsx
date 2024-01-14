@@ -6,20 +6,20 @@ import FloatingCircle from '../chat/floatingCircle';
 import axios from 'axios';
 import { API_URL } from '../../services/mainService';
 import { AppContext } from '../../contexts/context';
+import styled from 'styled-components';
 
 
+const Container = styled.div`
+  min-height: 100vh;
+`;
 const HomeStudent = () => {
-  const {read, setRead} = useContext(AppContext);
+  const { read, setRead } = useContext(AppContext);
   const doApiGetRoom = async () => {
     let url = API_URL + `/chat/room/` + JSON.parse(Cookies.get('user'))._id;
     let data = await axios.get(url);
     console.log(data);
     setRead(data.data[0].studentRead);
-    // if(data.length > 0) {
-
-
-    // }
-    // JSON.stringify(Cookies.set('room', data))
+   
   }
   const images = [
     'student/image2.jpg',
@@ -30,12 +30,12 @@ const HomeStudent = () => {
     'student/image7.jpg',
 
   ];
-  useEffect(() =>{
+  useEffect(() => {
     doApiGetRoom();
-  },[])
+  }, [])
   const fname = (JSON.parse(Cookies.get('user'))).name.firstName
   return (
-    <>
+    <Container>
       <div className="container">
         <div className="row">
           <div className='col-md-6'>
@@ -65,8 +65,8 @@ const HomeStudent = () => {
           </div>
         </div>
       </div>
-      <FloatingCircle role={'student'}/>
-    </>
+      <FloatingCircle role={'student'} />
+    </Container>
   )
 }
 

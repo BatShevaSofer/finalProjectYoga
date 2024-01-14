@@ -1,6 +1,7 @@
 .custom-card {
     border: 2px solid pink;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 500px;
   }
   
   .large-font {

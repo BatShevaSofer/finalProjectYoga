@@ -69,7 +69,7 @@ const Home = () => {
       </div>
       <div className="container-fluid my-4">
         <div className="container py-4" >
-          <div className="col-md-9 text-center mx-auto welcome_text"  >
+          <div className="col-md-9 text-center mx-auto welcome_text" >
             <h1 className="display-4"  >Welcome to Yoga Courses Hub</h1>
             <p className="lead">
               Discover personalized yoga courses for all ages and skill levels. Our expert instructors blend traditional wisdom with modern approaches, fostering growth in a supportive community.
@@ -138,15 +138,16 @@ const Home = () => {
       </div>
       <div className=" what_yoga container-fluid my-4 ">
         <div className="container center my-4">
-          <div className="box  mx-auto">
+          <div className='row'>
+          <div className="box  mx-auto my-4">
             <h2 className='my-4'>
               <strong> What is yoga?</strong>
             </h2>
             <p className="col-md-9 mx-auto text-center mt-4">
               Yoga is a physical and spiritual practice that integrates body, mind, and spirit. Through the practice of movement, postures, and breath control, yoga promotes flexibility, strength, stability, and internal focus. Beyond the physical benefits, it serves as a tool for calming the mind, reducing stress, and enhancing self-awareness. With its versatility, yoga is suitable for all ages and fitness levels, providing care for both the body and the spirit. It creates unique experiences of mindfulness and connection.</p>
-            {/* <button class="btn btn-warning  px-5 text-white center">Join us</button> */}
           </div>
-          <a href='/signUp' className='joinus_href text-center'>to enjoy, please join ⟩⟩⟩ </a>
+          <a href='/signUp' className='joinus_href text-center mb-4'>to enjoy, please join ⟩⟩⟩ </a>
+        </div>
         </div>
       </div>
  
@@ -181,7 +182,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className=' container-fluid txt_customers m-0 p-0'>
+      <div className=' container-fluid txt_customers m-0 '>
         <div className="container">
           <h2 className='p-3'>What our customers say about us:</h2>
           <div className="row justify-content-center">
@@ -214,13 +215,7 @@ const Home = () => {
         </div>
       </div>
       
-      <footer className="container-fluid">
-        <div className=" text-center">
-          <p>© Bat-Sheva Sofer & Efrat Gavriel & Aviya Ben-Tzur | developer | 2023 </p>
-
-        </div>
-
-      </footer>
+      
     </div>
   )
 }

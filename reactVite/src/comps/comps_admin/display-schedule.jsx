@@ -19,13 +19,16 @@ const CourseCard = styled.div`
   padding: 10px;
   margin-bottom: 10px;
 `;
+const Container = styled.div`
+  min-height: 100vh;
+`;
 
 const DisplaySchedule = ({ courses }) => {
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
   const levels = ['Beginners', 'Advanced', 'Experts'];
 
   return (
-    <div className='container'>
+    <Container>
       <WeeklyScheduleWrapper>
         {daysOfWeek.map((day, index) => (
           <div key={index}>
@@ -43,7 +46,7 @@ const DisplaySchedule = ({ courses }) => {
           </div>
         ))}
       </WeeklyScheduleWrapper>
-    </div>
+      </Container>
   );
 };
 

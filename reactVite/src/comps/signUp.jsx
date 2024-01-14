@@ -2,10 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useMain } from '../services/mainService';
-// import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
-// import { doc, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../firebase/config';
 import { v4 } from 'uuid'
@@ -25,7 +22,6 @@ import {
 } from '@mui/material';
 
 const Signup = () => {
-    // const { level } = useParams();
 
     const imageRef = useRef(null);
     const [idNumber, setIdNumber] = useState('');
@@ -47,7 +43,6 @@ const Signup = () => {
     const [streets, setStreets] = useState([]);
     const [selectedCity, setSelectedCity] = useState('');
     const { signUp } = useMain();
-    //   console.log('Level:', level);
 
     const handleIdNumberChange = (event) => {
         setIdNumber(event.target.value);
@@ -72,13 +67,7 @@ const Signup = () => {
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
-    // const onEditDoc = async (imageUrl) => {
-    //     const ref = doc(analytics, "users", idUser)
-    //     await updateDoc(ref, {
-    //         image_url: imageUrl
-    //     });
-    // }
-    // useEffect(() => { console.log(image); }, [image])
+
     const uploadImage = async () => {
         try {
             if (imageUpload == null) return;
@@ -94,7 +83,6 @@ const Signup = () => {
     };
 
 
-
     const handleImageChange = async (e,) => {
         const file = e.target.files[0];
 
@@ -104,9 +92,6 @@ const Signup = () => {
         }
     };
 
-    // if (imageRef.current) {
-    //     ref.current.style.backgroundImage = `url(${url})`;
-    // }
 
     const handleHmoChange = (event) => {
         setHmo(event.target.value);
@@ -119,7 +104,6 @@ const Signup = () => {
         const currentDate = new Date();
         const age = currentDate.getFullYear() - birthdateObj.getFullYear();
 
-
         if (age < 3) {
             alert("Age is too young! Please enter a valid birthdate.");
 
@@ -131,27 +115,20 @@ const Signup = () => {
         setStreet(event.target.value);
     };
 
-
     const handleCityChange = (event) => {
         setCity(event.target.value);
     };
-
 
     const handleGenderChange = (event) => {
         setGender(event.target.value);
     };
 
-
     const handleHomeChange = (event) => {
         setHome(event.target.value);
     };
-
-
     useEffect(() => {
         console.log(dataS);
-
     }, [dataS])
-
 
     useEffect(() => {
         console.log(selectedCity);
@@ -161,7 +138,6 @@ const Signup = () => {
         console.log(image);
     }, [image]);
 
-    // Fetch cities
     useEffect(() => {
         axios
             .get('https://data.gov.il/api/3/action/datastore_search', {
@@ -181,7 +157,6 @@ const Signup = () => {
             });
     }, []);
 
-    // Fetch streets when the selected city changes
     useEffect(() => {
         if (selectedCity) {
             axios
@@ -242,8 +217,8 @@ const Signup = () => {
             <Paper
                 elevation={3}
                 style={{
-                    width: '50%',
-                    margin: '8px',
+                    width: '60%',
+                    margin: '10px',
                     padding: '8px',
                     display: 'flex',
                     flexDirection: 'column',
@@ -254,10 +229,10 @@ const Signup = () => {
                     background: 'white',
                 }}
             >
-                <Typography component="h1" variant="h5" style={{ color: '#ff4081' }}>
+                <Typography component="h1" className='mt-3' variant="h5" style={{ color: '#ff4081' }}>
                     Sign Up
                 </Typography>
-                <Typography variant="body2" color="textSecondary" align="center">
+                <Typography variant="body2" color="textSecondary" align="center" className='mt-2'>
                     Already have an account?{' '}
                     <Link to="/login" style={{ color: '#ff4081' }}>
                         Login
@@ -345,6 +320,7 @@ const Signup = () => {
                     />
                     <label htmlFor="image-upload">
                         <Button
+                            className='mt-4'
                             variant="outlined"
                             component="span"
                             fullWidth
@@ -392,48 +368,7 @@ const Signup = () => {
 
 
 
-                    {/* <FormControl variant="outlined" fullWidth margin="normal" required>
-                        <div className="form-field" id="city-selection" style={{ marginBottom: '16px' }}>
-                            <label htmlFor="city-choice">בחר עיר:</label>
-                            <input
-                                list="cities-data"
-                                id="city-choice"
-                                name="city-choice"
-                                value={selectedCity}
-                                onChange={(e) => {
-                                    setSelectedCity(e.target.value);
-                                    handleCityChange(e);
-                                }}
-                                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-                            />
-                            <datalist id="cities-data">
-                                <option value="">טוען רשימת ערים...</option>
-                                {cities.map((city, index) => (
-                                    <option key={index} value={city}>
-                                        {city}
-                                    </option>
-                                ))}
-                            </datalist>
-                        </div>
 
-                        <div className="form-field" id="street-selection" style={{ marginBottom: '16px' }}>
-                            <label htmlFor="street-choice">בחר רחוב:</label>
-                            <input
-                                list="streets-data"
-                                id="street-choice"
-                                name="street-choice"
-                                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-                                onChange={handleStreetChange}
-                            />
-                            <datalist id="streets-data">
-                                {streets.map((street, index) => (
-                                    <option key={index} value={street}>
-                                        {street}
-                                    </option>
-                                ))}
-                            </datalist>
-                        </div>
-                    </FormControl> */}
 
 
                     <FormControl variant="outlined" fullWidth margin="normal" required>
@@ -499,7 +434,7 @@ const Signup = () => {
                         Sign Up
                     </Button>
                 </form>
-             
+
             </Paper>
         </Container>
     );

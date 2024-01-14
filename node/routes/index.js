@@ -78,11 +78,11 @@ router.post("/login", async (req, res) => {
         }
       })
     if (!user) {
-      return res.status(401).json({ msg: "email is worng" })
+      return res.status(401).json({ msg: "The email does not exist" })
     }
     let authPassword = await bcrypt.compare(req.body.password, user.password);
     if (!authPassword) {
-      return res.status(401).json({ msg: "Password is worng" });
+      return res.status(401).json({ msg: "The password is incorrect" });
     }
     let token = createToken(user._id, user.role);
     res.json({ token, user });
