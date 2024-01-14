@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useStudent } from "../../services/studentService";
-import DisplayStudentSchedule from './display-student-schedule'; 
+import DisplayStudentSchedule from './display-student-schedule';
 import NotEnrolledMessage from './student_massage';
+import LinearProgress from '@mui/material/LinearProgress';
 
+import styled from 'styled-components';
+
+const Container = styled.div`
+  min-height: 100vh;
+`;
 const ScheduleStudent = () => {
     const { getCourse } = useStudent();
     const [course, setCourse] = useState([]);
     const [isEnrolled, setIsEnrolled] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchSchedule = async () => {
@@ -16,12 +23,15 @@ const ScheduleStudent = () => {
 
                 setCourse(data.course_id);
                 // בדיקה אם המשתמש לא רשום לקורס
-                if (course==null ) {
+                if (data.course_id  == null) {
                     setIsEnrolled(false);
                 }
 
             } catch (error) {
                 console.error('Error fetching teacher schedule:', error.message);
+            }finally {
+                // סיום פעולת הטעינה בכל מקרה (בצורת success או error)
+                setIsLoading(false);
             }
         };
 
@@ -29,16 +39,21 @@ const ScheduleStudent = () => {
     }, [getCourse, setCourse, setIsEnrolled]);
 
     return (
-        <div className='container mt-4'>
-            {!isEnrolled ? (
-                <NotEnrolledMessage />
-            ) : (
-                <>
-                    <h2>Student Weekly Schedule</h2>
-                    <DisplayStudentSchedule course={course} />
-                </>
-            )}
-        </div>
+        <Container>
+            <div className='container mt-4'>
+            {isLoading ? (
+                    <LinearProgress /> // זמן טעינה
+                ) : !isEnrolled ? (
+                    <NotEnrolledMessage />
+                ) : (
+                    <>
+                        <h2>Student Weekly Schedule</h2>
+                        <DisplayStudentSchedule course={course} />
+                    </>
+                )}
+            </div>
+        </Container>
+
     );
 };
 

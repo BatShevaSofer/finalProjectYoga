@@ -3,6 +3,11 @@ import { PayPalButton } from 'react-paypal-button-v2';
 import { useNavigate,useParams  } from 'react-router-dom';
 import { useStudent } from '../services/studentService';
 import Cookies from 'js-cookie';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  min-height: 100vh;
+`;
 
 
 const PaypalPaymentButton = () => {
@@ -34,6 +39,8 @@ const PaypalPaymentButton = () => {
   };
 
   return (
+    <Container>
+
     <div  
       style={{
         display: 'flex',
@@ -80,6 +87,8 @@ const PaypalPaymentButton = () => {
         Joining the course
       </button>
     </div>
+    </Container>
+
   );
 };
 
@@ -87,32 +96,3 @@ export default PaypalPaymentButton;
 
 
 
-
-// import React from 'react';
-// import { PayPalButton } from 'react-paypal-button-v2';
-
-// const PaypalPaymentButton = () => {
-//   console.log("Rendering PaypalPaymentButton");
-//   console.log("Rendering 111");
-//   return (
-    
-//     <PayPalButton
-//       currency="ILS"
-//       amount="1"
-//       options={{
-//         clientId: "AV3iTBSDgQD2TCLN2yd8hvE5nkigqS8h6TYcsV6IkIGjkosfo9mGF5v1rWoL6W1N1QPfF-erY15Rujch"
-//       }}
-//       onSuccess={(details, data) => {
-//         // המידע החשוב של העסקה נמצא ב- data כמו token ו-orderId
-//         console.log("Transaction details:", details);
-//         console.log("Transaction data:", data);
-//       }}
-//       onCancel={(err) => {
-//         console.log(err);
-//         alert("The payment process has been canceled, try again");
-//       }}
-//     />
-//   );
-// };
-
-// export default PaypalPaymentButton;

@@ -4,6 +4,9 @@ import Cookies from 'js-cookie';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+const Container = styled.div`
+  min-height: 100vh;
+`;
 const CoursesPageWrapper = styled.div`
   display: flex;
   justify-content: space-around;
@@ -64,35 +67,34 @@ const CoursesPage = () => {
   }, []);
 
   return (
-    <div className='container'>
-    <div className='row mt-4'>
-      <h2 >Available Courses</h2>
-      {levels.map(level => (
-        <div className='col-md-4 mt-4' key={level}>
-          <LevelsHeader>{level} Level</LevelsHeader>
-          <CoursesPageWrapper>
-            {courses
-              .filter(course => course.level == levels.indexOf(level) + 1)
-              .map(course => (
-                <CourseCard key={course._id} data={course}>
-                  {/* <h3>Course Details</h3> */}
-                  <CourseDetails>
-                    {/* <p>Age Group: {course?.ageGroup}</p> */}
-                    {/* <p>Gender: {course?.gender ? 'Male' : 'Female'}</p> */}
-                    {/* <p>Level: {level}</p> */}
-                    <p>day: {course?.dateTime.day}</p>
-                  </CourseDetails>
-                  <Link to={`/student/pay/${course._id}`}
-                    state={{ courseDetails: course }}>
-                    <PaymentButton>Pay Now</PaymentButton>
-                  </Link>
-                </CourseCard>
-              ))}
-          </CoursesPageWrapper>
+    <Container>
+      <div className='container'>
+        <div className='row mt-4'>
+          <h2 >Available Courses</h2>
+          {levels.map(level => (
+            <div className='col-md-4 mt-4' key={level}>
+              <LevelsHeader>{level} Level</LevelsHeader>
+              <CoursesPageWrapper>
+                {courses
+                  .filter(course => course.level == levels.indexOf(level) + 1)
+                  .map(course => (
+                    <CourseCard key={course._id} data={course}>
+                      <CourseDetails>
+                        <p>day: {course?.dateTime.day}</p>
+                      </CourseDetails>
+                      <Link to={`/student/pay/${course._id}`}
+                        state={{ courseDetails: course }}>
+                        <PaymentButton>Pay Now</PaymentButton>
+                      </Link>
+                    </CourseCard>
+                  ))}
+              </CoursesPageWrapper>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
-    </div>
+      </div>
+    </Container>
+
   );
 };
 

@@ -1,31 +1,34 @@
 import React, { useEffect } from 'react'
 import Cookies from 'js-cookie';
-// import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
+const Container = styled.div`
+  min-height: 100vh;
+`;
 
 
 const HomeTeacher = () => {
 
-  
+
   const images = [
     'teacher/img (1).png',
     'teacher/img (2).png',
     'teacher/img (4).png',
     'teacher/img (3).png',
-    
-   
+
+
 
   ];
 
   const fname = (JSON.parse(Cookies.get('user'))).name.firstName
   return (
-    <>
+    <Container>
       <div className="container">
         <div className="row">
           <div className='col-md-6'>
             <div className=" mt-4">
               <h1 className="display-4">Hi {fname}</h1>
-             
+
             </div>
             <div className="jumbotron jumbotron-fluid mt-4">
 
@@ -46,7 +49,7 @@ const HomeTeacher = () => {
           </div>
         </div>
       </div>
-    </>
+    </Container>
   )
 }
 
