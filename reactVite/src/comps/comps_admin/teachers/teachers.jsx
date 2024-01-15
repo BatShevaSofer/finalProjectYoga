@@ -3,6 +3,11 @@ import { useAdmin } from "../../../services/adminService";
 import DisplayData from "./displayData";
 import { LinearProgress } from "@mui/material";
 import { Row } from 'antd';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  min-height: 100vh;
+`;
 
 const Teachers = () => {
     const { getTeachers } = useAdmin();
@@ -22,6 +27,8 @@ const Teachers = () => {
     }, []);
 
     return (
+        <Container>
+
         <div>
             <Row gutter={16} className='d-flex justify-content-center mt-4'>
                 {teachers ? (teachers.map((teacher) => (
@@ -33,6 +40,8 @@ const Teachers = () => {
                 )}
             </Row>
         </div>
+            </Container>
+
     );
 };
 

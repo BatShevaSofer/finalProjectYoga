@@ -89,20 +89,20 @@ export const useStudent = () => {
 
   const addStudentToCourse = async (idCourse, idStudent) => {
     try {
-        let resp = await axios.patch(`${API_URL}/student/course/${idCourse}/student/${idStudent}`, null, {
-            headers: {
-                "x-api-key": Cookies.get('token')
-            }
-        })
-        console.log(resp);
-        window.location.reload()
-        return resp;
+      await axios.patch(`${API_URL}/student/course/${idCourse}/student/${idStudent}`, null, {
+        headers: {
+          "x-api-key": Cookies.get('token')
+        }
+      });
+  
+      return true;  // הוספת הסטודנט לקורס הצליחה
+    } catch (err) {
+      console.error(err);
+      return false; // הוספת הסטודנט לקורס נכשלה
     }
-    catch (err) {
-        console.log(err);
-        return err.message;
-    }
-}
+  };
+  
+
 
     return { getStudentProfile,updateDetiles,getCourse,addStudentToCourse}
 

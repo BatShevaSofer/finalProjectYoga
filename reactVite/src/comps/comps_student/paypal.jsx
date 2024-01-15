@@ -1,7 +1,7 @@
 import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { useNavigate,useParams  } from 'react-router-dom';
-import { useStudent } from '../services/studentService';
+import { useStudent } from '../../services/studentService';
 import Cookies from 'js-cookie';
 import styled from 'styled-components';
 
@@ -16,27 +16,28 @@ const PaypalPaymentButton = () => {
   const { addStudentToCourse} = useStudent();
 
   console.log("Rendering PaypalPaymentButton");
-  console.log("Rendering 111");
-
   const handleJoinButtonClick = async () => {
+    try {
+      console.log(courseId);
+      const studentId = (JSON.parse(Cookies.get('user')))._id;
+      console.log(studentId);
+      
+      const success = await addStudentToCourse(courseId, studentId);
   
-      try {
-        console.log(courseId);
-        const studentId=(JSON.parse(Cookies.get('user')))._id;
-        console.log(studentId);
-      // שליחת בקשת PATCH לעדכון המשתמש
-       await addStudentToCourse(courseId,studentId);
-  
-
+      if (success) {
+        // אם הוספת הסטודנט לקורס הצליחה, נפעיל את ה-alert
         alert("Welcome, you have successfully joined");
         nav('/student/schedule');
-     
-      
+      } else {
+        // אם הוספת הסטודנט לקורס נכשלה
+        alert('An error occurred. Please try again.');
+      }
     } catch (error) {
       console.error('Error joining the course:', error);
       alert('An error occurred. Please try again.');
     }
   };
+  
 
   return (
     <Container>
@@ -50,7 +51,7 @@ const PaypalPaymentButton = () => {
         marginTop: '100px'
       }}
     >
-      <div style={{ margin: 'auto', width: '50%' }}> 
+      <div style={{ margin: 'auto', width: '40%' }}> 
       <PayPalButton
         currency="ILS"
         amount="1"
@@ -70,7 +71,6 @@ const PaypalPaymentButton = () => {
       />
     </div>
 
-      {/* כפתור "Join" */}
       <button
         style={{
           margin: 'auto',

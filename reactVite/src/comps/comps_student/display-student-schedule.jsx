@@ -25,12 +25,11 @@ const DisplayStudentSchedule = ({ course }) => {
   const hours = Array.from({ length: 7 }, (_, i) => i + 16);
 
   return (
-    // <div className='' style={}>
     <Container>
       <WeeklyScheduleTable>
         <thead>
           <HeaderRow>
-            <td></td> {/* משמש כתא ריק לשעות */}
+            <td></td> 
             {daysOfWeek.map((day, index) => (
               <ScheduleCell key={index}>{day}</ScheduleCell>
             ))}
@@ -44,9 +43,8 @@ const DisplayStudentSchedule = ({ course }) => {
                 <ScheduleCell key={index}>
                   {course && course.dateTime && course.dateTime.day.toLowerCase() === day.toLowerCase() && course.dateTime.hour === hour && (
                     <div>
-                      <p>Course: {levels[course.level - 1]}-{course.ageGroup}</p>
+                      <p>Course: {levels[course.level - 1]} ({course.gender ? 'Male' : 'Female'}-{course.ageGroup})</p>
                       <p>Time: {course.dateTime.hour}:00</p>
-                      <p>Gender: {course.gender ? 'Male' : 'Female'}</p>
                       {/* <p>Teacher: {course.teacherId.user_id.name.firstName}</p> */}
                     </div>
                   )}

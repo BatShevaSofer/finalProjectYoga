@@ -161,6 +161,16 @@ router.get("/teacherDetails", async (req, res) => {
 router.get("/coursesDetails", async (req, res) => {
   try {
     let data = await CourseModel.find()
+    .populate({
+      
+        path: 'teacherId',
+        select: 'user_id',
+        populate:{
+          path: 'user_id',
+          select: 'name'
+        }
+      }
+    );
     res.json(data)
   }
   catch (err) {

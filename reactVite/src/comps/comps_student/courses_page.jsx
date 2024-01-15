@@ -20,11 +20,12 @@ const PaymentButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top:40px ;
 `;
 const CourseCard = styled.div`
-border: 1px solid #ddd;
+border: 2px solid rgba(213, 156, 166, 0.871);
 padding: 20px;
+min-height:300px;
 margin-bottom: 20px;
 width: 250px;
 display: flex;
@@ -32,7 +33,7 @@ flex-direction: column;
 align-items: center;
 `;
 
-const LevelsHeader = styled.h2`
+const LevelsHeader = styled.h3`
   text-align: center;
 `;
 
@@ -73,14 +74,16 @@ const CoursesPage = () => {
           <h2 >Available Courses</h2>
           {levels.map(level => (
             <div className='col-md-4 mt-4' key={level}>
-              <LevelsHeader>{level} Level</LevelsHeader>
               <CoursesPageWrapper>
                 {courses
                   .filter(course => course.level == levels.indexOf(level) + 1)
                   .map(course => (
                     <CourseCard key={course._id} data={course}>
+                      <LevelsHeader>{level} Level</LevelsHeader>
                       <CourseDetails>
-                        <p>day: {course?.dateTime.day}</p>
+                        <p><strong>day: </strong> {course?.dateTime.day}</p>
+                        <p><strong>teacher: </strong>{  (course?.teacherId) ? `${course?.teacherId.user_id.name.firstName} ${course?.teacherId.user_id.name.lastName}` : ('no teacher yet')}</p>
+                      
                       </CourseDetails>
                       <Link to={`/student/pay/${course._id}`}
                         state={{ courseDetails: course }}>
@@ -91,6 +94,13 @@ const CoursesPage = () => {
               </CoursesPageWrapper>
             </div>
           ))}
+          <div className='row mt-4'>
+            <div className="text-center border shadow m-4 py-4">
+              <h3>payment</h3>
+              <h5>Monthly payment is collected via direct debit/credit, $200 per month.</h5>
+
+            </div>
+          </div>
         </div>
       </div>
     </Container>

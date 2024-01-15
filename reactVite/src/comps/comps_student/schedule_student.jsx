@@ -47,7 +47,7 @@ const ScheduleStudent = () => {
                     <NotEnrolledMessage />
                 ) : (
                     <>
-                        <h2>Student Weekly Schedule</h2>
+                        <h2 className='my-4'>Student Weekly Schedule</h2>
                         <DisplayStudentSchedule course={course} />
                     </>
                 )}

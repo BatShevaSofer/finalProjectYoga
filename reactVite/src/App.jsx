@@ -23,7 +23,7 @@ import Teachers from "./comps/comps_admin/teachers/teachers"
 import ScheduleStudent from './comps/comps_student/schedule_student'
 import TeacherSchedule from './comps/comps_teacher/schedule_teacher'
 import Schedule from './comps/comps_admin/schedule'
-import PaypalPaymentButton from './comps/paypal'
+import PaypalPaymentButton from './comps/comps_student/paypal'
 import HomeStudent from './comps/comps_student/homeStudent'
 import CoursesPage from './comps/comps_student/courses_page'
 import OurProgram from "./comps/comps_user/our_program"
