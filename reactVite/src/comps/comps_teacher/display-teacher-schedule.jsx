@@ -62,9 +62,8 @@ const displayTeacherSchedule = ({ courses }) => {
                       <CourseCell>
                         {coursesAtThisTimeAndDay.map((course, courseIndex) => (
                           <div key={courseIndex} style={{ marginBottom: '10px' }}>
-                            <p>Course: {levels[course.level - 1]}-{course.ageGroup}</p>
+                            <p>Course: {levels[course.level - 1]} ({course.ageGroup}- {course.gender ? 'Male' : 'Female'})</p>
                             <p>Time: {course.dateTime.hour}:00</p>
-                            <p>Gender: {course.gender ? 'Male' : 'Female'}</p>
                           </div>
                         ))}
                       </CourseCell>

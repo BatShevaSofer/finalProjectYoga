@@ -43,7 +43,6 @@ const Home = () => {
             <div className="carousel-item active" >
               <img src="main.jpg" className="d-block w-100" alt="..." style={{ height: '90vh' }} />
               <div className="carousel-caption d-none d-md-block ">
-                {/* <h2 ><em>WELCOME</em></h2> */}
                 <h4 className='display-2'><em>Yoga is a way of life</em>  </h4>
 
               </div>
