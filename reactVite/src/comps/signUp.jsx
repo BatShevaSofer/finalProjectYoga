@@ -352,7 +352,7 @@ const Signup = () => {
                         <InputLabel id="city_label">City</InputLabel>
                         <Select labelId="city_label" id="city" label="City" name="city" value={city} onChange={(e) => { setSelectedCity(e.target.value); handleCityChange(e); }}>
                             {cities && cities.map((city) => (
-                                <MenuItem key={city} value={city}>{city}</MenuItem>
+                                <MenuItem key={city} value={city} className='text-center'>{city}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>

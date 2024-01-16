@@ -8,8 +8,9 @@ import tensorflow_hub as hub
 from keras.models import load_model
 
 model = load_model(
-    rf'C:\Users\efrat gavriel\Downloads\new_try\Yoga-Posture-Detection-BiT.h5',
-    custom_objects={'KerasLayer': hub.KerasLayer}
+    rf'C:\Users\Bat_Sheva\מסמכים\programming\BlackOps\final\python\new_try\Yoga-Posture-Detection-BiT.h5',
+    custom_objects={'KerasLayer': hub.KerasLayer},
+    
 )
 
 
