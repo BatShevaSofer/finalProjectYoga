@@ -1,5 +1,5 @@
 import React from 'react';
-import { PayPalButton } from 'react-paypal-button-v2';
+// import { PayPalButton } from 'react-paypal-button-v2';
 import { useNavigate,useParams  } from 'react-router-dom';
 import { useStudent } from '../../services/studentService';
 import Cookies from 'js-cookie';
@@ -52,7 +52,7 @@ const PaypalPaymentButton = () => {
       }}
     >
       <div style={{ margin: 'auto', width: '40%' }}> 
-      <PayPalButton
+      {/* <PayPalButton
         currency="ILS"
         amount="1"
         options={{
@@ -68,7 +68,7 @@ const PaypalPaymentButton = () => {
         }}
         style={{ width: '100%' }}  
 
-      />
+      /> */}
     </div>
 
       <button
