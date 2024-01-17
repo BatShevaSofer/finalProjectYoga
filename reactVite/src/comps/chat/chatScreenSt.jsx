@@ -24,6 +24,11 @@ const ChatScreen = ({ socket }) => {
     }
     useEffect(() => {
         doApiGetMessages();
+        socket.on('message', (data)=>{
+            console.log(data);
+            let tmpM = [...messages, data];
+            setMessages(tmpM);
+        })
         // doApiGetRoom();
     }, [])
 

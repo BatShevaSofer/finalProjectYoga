@@ -44,6 +44,6 @@ initSocket(io);
 
 let port = process.env.PORT || 3003
 server.listen(port);
-server.on("listening", () => {
-    console.log(`Listening on port:: http://localhost:${port}/`)
-});
+// server.on("listening", () => {
+//     // console.log(`Listening on port:: http://localhost:${port}/`)
+// });
