@@ -64,7 +64,7 @@ function HeaderTeacher() {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="#app-bar-with-responsive-menu"
+                        href="/teacher"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },

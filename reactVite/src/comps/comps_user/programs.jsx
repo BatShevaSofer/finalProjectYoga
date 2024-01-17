@@ -39,8 +39,9 @@ const App = () => {
                 to experts who have been in the field for years. Our instructors are graduates of
                 our programs, equipped with professional certifications. Feel free to learn more
                 about us in the comments, discover the courses available, and sign in
-                <button className='btn btn-outline-secondary' onClick={() => nav('/signUp')}>Join us</button>
               </p>
+              <button className='btn btn-outline-secondary' onClick={() => nav('/signUp')}>Join us</button>
+
             </div>
             <div className="jumbotron jumbotron-fluid mt-5 text-center">
               <Container>
@@ -65,7 +66,6 @@ const App = () => {
           <div className="text-center border shadow m-4 py-4">
             <h3>payment</h3>
             <h5>Monthly payment is collected via direct debit/credit, $200 per month.</h5>
-            <Link to="/more-info">More Info</Link>
 
           </div>
         </div>

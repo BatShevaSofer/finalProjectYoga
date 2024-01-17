@@ -11,8 +11,8 @@
 }
 
 .image-item {
-  width: 50%; /* קח 50% מהרוחב של ההורה */
-  box-sizing: border-box; /* תתחשב ב- padding ו- border בתוך הרוחב שלך */
+  width: 50%;
+  box-sizing: border-box; 
   padding: 10px;
 }
 

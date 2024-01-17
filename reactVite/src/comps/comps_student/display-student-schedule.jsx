@@ -45,7 +45,6 @@ const DisplayStudentSchedule = ({ course }) => {
                     <div>
                       <p>Course: {levels[course.level - 1]} ({course.gender ? 'Male' : 'Female'}-{course.ageGroup})</p>
                       <p>Time: {course.dateTime.hour}:00</p>
-                      {/* <p>Teacher: {course.teacherId.user_id.name.firstName}</p> */}
                     </div>
                   )}
                 </ScheduleCell>

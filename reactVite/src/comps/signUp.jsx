@@ -42,11 +42,38 @@ const Signup = () => {
     const [cities, setCities] = useState([]);
     const [streets, setStreets] = useState([]);
     const [selectedCity, setSelectedCity] = useState('');
+    const [errorText, setErrorText] = useState('');
     const { signUp } = useMain();
 
-    const handleIdNumberChange = (event) => {
-        setIdNumber(event.target.value);
+
+    const is_israeli_id_number = (id) => {
+        id = String(id).trim();
+        if (id.length > 9 || isNaN(id)) return false;
+        id = id.length < 9 ? ("00000000" + id).slice(-9) : id;
+        return Array.from(id, Number).reduce((counter, digit, i) => {
+            const step = digit * ((i % 2) + 1);
+            return counter + (step > 9 ? step - 9 : step);
+        }) % 10 === 0;
+    }
+   const handleIdNumberChange = (event) => {
+    
+        const newIdNumber = event.target.value;
+        
+     setIdNumber(newIdNumber);
+      
     };
+
+
+    // const handleIdNumberChange = (event) => {
+    //     const newIdNumber = event.target.value;
+    //     if (is_israeli_id_number(newIdNumber)) {
+    //         setIdNumber(newIdNumber);
+    //         setErrorText('');
+    //     }
+    //     else {
+    //         setErrorText('Invalid ID number');
+    //     }
+    // };
 
     const handleFirstNameChange = (event) => {
         setFirstName(event.target.value);
@@ -252,7 +279,10 @@ const Signup = () => {
                         name="idNumber"
                         value={idNumber}
                         onChange={handleIdNumberChange}
+                        error={Boolean(errorText)}
+                        helperText={errorText}
                     />
+
                     <TextField
                         variant="outlined"
                         margin="normal"
